@@ -689,6 +689,123 @@
       padding: 4px 8px;
     }
 
+  
+    /* Mobile-first & Responsive Overrides */
+    .mobile-view-tabs {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        height: 100vh;
+        overflow: hidden;
+      }
+      .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 6px 12px;
+        gap: 6px;
+      }
+      .main-header-right {
+        width: 100%;
+      }
+      .header-text h1 {
+        font-size: 0.95rem;
+      }
+      .header-text p {
+        font-size: 0.65rem;
+      }
+      .main-header-left {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 2px;
+      }
+      .top-sub-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 6px 10px;
+        overflow-x: hidden;
+      }
+      .basemap-group, .tools-group {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 3px;
+      }
+      .coord-display {
+        display: none; /* Hide coords on mobile to save space */
+      }
+      
+      /* Mobile Tabs to switch between Map & Monument List */
+      .mobile-view-tabs {
+        display: flex;
+        width: 100%;
+        background: #0f172a;
+        border-top: 1px solid #334155;
+        z-index: 1050;
+      }
+      .m-tab {
+        flex: 1;
+        padding: 9px;
+        background: transparent;
+        color: #94a3b8;
+        border: none;
+        border-bottom: 3px solid transparent;
+        font-family: 'Cairo', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: 0.2s;
+      }
+      .m-tab.active {
+        color: #fbbf24;
+        border-bottom-color: #fbbf24;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .workspace {
+        flex-direction: column;
+        position: relative;
+        height: 100%;
+      }
+      #sidebar {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1020;
+        display: none; /* Hidden by default on mobile unless list tab is active */
+      }
+      #map-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      #routes-legend {
+        max-width: 220px;
+        font-size: 0.68rem;
+        bottom: 12px;
+        left: 8px;
+        padding: 8px;
+      }
+      .modal-box {
+        max-width: 95vw;
+        max-height: 90vh;
+      }
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1032,6 +1149,9 @@
         `;
 
         card.onclick = () => {
+          if (window.innerWidth <= 768) {
+            switchMobileView('map');
+          }
           map.flyTo(item.coords, 14, { duration: 1.2 });
           marker.openPopup();
           selectCard(item.id);
@@ -1532,8 +1652,33 @@
     }
 
 
+    
+    // Mobile View Switcher (Map vs List)
+    function switchMobileView(view) {
+      const sidebar = document.getElementById('sidebar');
+      const tabMap = document.getElementById('tabMapBtn');
+      const tabList = document.getElementById('tabListBtn');
+      if (window.innerWidth > 768) return; // Desktop unaffected
+
+      if (view === 'map') {
+        sidebar.style.display = 'none';
+        tabMap.classList.add('active');
+        tabList.classList.remove('active');
+        setTimeout(() => map.invalidateSize(), 200);
+      } else {
+        sidebar.style.display = 'flex';
+        tabList.classList.add('active');
+        tabMap.classList.remove('active');
+      }
+    }
+
     // Initial load
     renderInterface(monumentsData);
   </script>
+  <!-- Mobile View Tabs -->
+  <div class="mobile-view-tabs">
+    <button id="tabMapBtn" class="m-tab active" onclick="switchMobileView('map')"><i class="fa-solid fa-map"></i> الخريطة</button>
+    <button id="tabListBtn" class="m-tab" onclick="switchMobileView('list')"><i class="fa-solid fa-list-ul"></i> قائمة الآثار (14)</button>
+  </div>
 </body>
 </html>
