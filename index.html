@@ -1662,13 +1662,7 @@
     }
 
 
-    
-     else {
-        sidebar.style.display = 'flex';
-        tabList.classList.add('active');
-        tabMap.classList.remove('active');
-      }
-    }
+
 
     
     // ==========================================
@@ -1691,6 +1685,13 @@
 
     // Initial load
     renderInterface(monumentsData);
+    // Ensure map tiles calculate full mobile viewport immediately on load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 250);
+    });
+
   </script>
   <!-- Mobile View Tabs -->
   
