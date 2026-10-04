@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أطلس فجر الأهرامات: المستكشف الجغرافي لمعالم الأسرة الثالثة</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Google Fonts: Cairo & Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js for Visual Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --top-header-bg: #0f172a;
+      --sub-header-bg: #1e293b;
+      --accent-color: #d97706;
+      --primary: #1f3a52;
+      --border-color: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --btn-active: #0d9488;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    /* 1. Main Header */
+    .main-header {
+      background: var(--top-header-bg);
+      color: #ffffff;
+      padding: 8px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 1002;
+    }
+    .main-header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .main-header-right i.app-icon {
+      font-size: 1.7rem;
+      color: #fbbf24;
+    }
+    .header-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: -0.3px;
+    }
+    .header-text p {
+      font-size: 0.73rem;
+      color: #94a3b8;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .main-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+    }
+    .nav-btn {
+      background: rgba(255,255,255,0.08);
+      color: #f1f5f9;
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 5px 11px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      font-family: 'Cairo', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: #d97706;
+      border-color: #d97706;
+    }
+    .nav-btn.special {
+      background: #d97706;
+      border-color: #f59e0b;
+    }
+    .nav-btn.special:hover {
+      background: #b45309;
+    }
+
+    /* 2. Top Sub-Bar (Basemaps & Analysis Controls) */
+    .top-sub-bar {
+      background: var(--sub-header-bg);
+      color: #ffffff;
+      padding: 5px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(0,0,0,0.25);
+      z-index: 1001;
+      font-size: 0.78rem;
+    }
+
+    .basemap-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .basemap-tab {
+      background: transparent;
+      color: #cbd5e1;
+      border: 1px solid transparent;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .basemap-tab:hover { background: rgba(255,255,255,0.08); color: #ffffff; }
+    .basemap-tab.active {
+      background: #334155;
+      color: #38bdf8;
+      border: 1px solid #475569;
+      font-weight: 700;
+    }
+
+    .tools-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .coord-display {
+      font-family: 'Consolas', monospace;
+      font-size: 0.76rem;
+      color: #94a3b8;
+      background: rgba(0,0,0,0.3);
+      padding: 3px 8px;
+      border-radius: 4px;
+      direction: ltr;
+    }
+    .action-btn {
+      background: var(--btn-active);
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      font-family: 'Cairo', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.2s;
+    }
+    .action-btn:hover { background: #0f766e; }
+    .action-btn.active-tool { background: #e11d48; }
+
+    /* Timeline Bar (الملوك الخمسة) */
+    .timeline-bar {
+      background: #0f172a;
+      border-bottom: 1px solid #334155;
+      padding: 4px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+    }
+    .timeline-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .kings-track {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      flex: 1;
+    }
+    .king-btn {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #475569;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .king-btn:hover, .king-btn.active {
+      background: #d97706;
+      color: white;
+      border-color: #f59e0b;
+    }
+
+    /* 3. Main Workspace */
+    .workspace {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* RIGHT SIDEBAR */
+    #sidebar {
+      width: 400px;
+      background: #ffffff;
+      border-left: 2px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      box-shadow: -4px 0 16px rgba(0,0,0,0.06);
+    }
+
+    .kpi-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      padding: 8px 10px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 5px 2px;
+      text-align: center;
+    }
+    .kpi-val { font-size: 1.12rem; font-weight: 800; color: #b45309; }
+    .kpi-val.total { color: #1e40af; }
+    .kpi-val.quarries { color: #dc2626; }
+    .kpi-lbl { font-size: 0.63rem; color: var(--text-muted); font-weight: 600; line-height: 1.1; margin-top: 1px; }
+
+    .filter-section {
+      padding: 8px 12px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .badge-count {
+      font-size: 0.72rem;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .search-input-wrap input {
+      width: 100%;
+      padding: 6px 32px 6px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .search-input-wrap input:focus { border-color: var(--accent-color); }
+    .search-input-wrap i {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 3px;
+    }
+    .cat-tab {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .cat-tab.active, .cat-tab:hover {
+      background: #1f3a52;
+      color: #ffffff;
+      border-color: #1f3a52;
+    }
+
+    #cards-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .site-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      gap: 10px;
+    }
+    .site-card:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      transform: translateY(-1px);
+    }
+    .site-card.active-card {
+      background: #fffbeb;
+      border-color: #f59e0b;
+      border-right: 4px solid #d97706;
+    }
+
+    /* Thumbnail inside card */
+    
+    /* Visual badge when image is loading or fallback */
+    .card-thumb-box {
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.4rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .thumb-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
+    .thumb-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
+    .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
+    .thumb-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
+    .card-thumb-box span { font-size: 0.62rem; margin-top: 3px; font-weight: 700; }
+
+    .card-body-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .site-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .site-card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .site-card-badge {
+      font-size: 0.65rem;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-pyramid { background: #fef3c7; color: #b45309; }
+    .badge-quarry { background: #fee2e2; color: #991b1b; }
+    .badge-mastaba { background: #dbeafe; color: #1e40af; }
+    .badge-provincial { background: #d1fae5; color: #065f46; }
+
+    .site-card-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .site-card-coords {
+      font-family: monospace;
+      font-size: 0.68rem;
+      color: #475569;
+      direction: ltr;
+      text-align: left;
+    }
+
+    /* LEFT MAP CONTAINER */
+    #map-wrapper {
+      flex: 1;
+      height: 100%;
+      position: relative;
+    }
+    #map { width: 100%; height: 100%; }
+
+    /* Floating Legend */
+    #routes-legend {
+      position: absolute;
+      bottom: 24px;
+      left: 14px;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(4px);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      font-size: 0.74rem;
+      max-width: 290px;
+      display: none;
+    }
+    #routes-legend h4 {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+    .legend-line {
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Modals (Logistics & Analytics) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    .modal-box {
+      background: #ffffff;
+      width: 100%;
+      max-width: 820px;
+      max-height: 88vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+    .modal-header {
+      background: #111a24;
+      color: white;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #d97706;
+    }
+    .modal-header h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    .modal-close:hover { color: #f87171; }
+    
+    .modal-content {
+      padding: 18px;
+      overflow-y: auto;
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+    .material-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      text-align: right;
+    }
+    .material-table th {
+      background: #f1f5f9;
+      color: #1e293b;
+      padding: 8px 10px;
+      font-weight: 700;
+      border: 1px solid #e2e8f0;
+      font-size: 0.8rem;
+    }
+    .material-table td {
+      padding: 8px 10px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+      font-size: 0.78rem;
+    }
+    .material-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    /* Analytics Charts inside Modal */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .chart-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .chart-card h4 {
+      font-size: 0.85rem;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    /* Popup Styling with Image */
+    .leaflet-popup-content-wrapper { 
+      border-radius: 10px; 
+      font-family: 'Cairo', sans-serif; 
+      padding: 0; 
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+    .leaflet-popup-content {
+      margin: 0 !important;
+      line-height: 1.5;
+      min-width: 280px;
+      max-width: 320px;
+    }
+    .pop-img-container {
+      width: 100%;
+      height: 160px;
+      position: relative;
+      background: #f1f5f9;
+      overflow: hidden;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .pop-img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .pop-img:hover {
+      transform: scale(1.05);
+    }
+    .pop-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(4px);
+      color: #fbbf24;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(251, 191, 36, 0.4);
+    }
+    .pop-content-body {
+      padding: 12px 14px 14px 14px;
+    }
+    .pop-title { 
+      font-size: 1.05rem; 
+      font-weight: 800; 
+      color: #1e3a52; 
+      border-bottom: 2px solid #f59e0b; 
+      padding-bottom: 4px; 
+      margin-bottom: 6px; 
+    }
+    .pop-body { 
+      font-size: 0.82rem; 
+      line-height: 1.55; 
+      color: #334155; 
+    }
+    .pop-meta { 
+      background: #f8fafc; 
+      border: 1px solid #e2e8f0;
+      padding: 6px 10px; 
+      border-radius: 6px; 
+      margin-top: 8px; 
+      font-size: 0.75rem; 
+      color: #475569; 
+    }
+  
+    .pop-gmaps-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #1e3a52;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .pop-gmaps-btn:hover {
+      background: #d97706;
+      color: #ffffff !important;
+    }
+    .nome-tooltip {
+      background: rgba(15, 23, 42, 0.9);
+      color: #fbbf24;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid #d97706;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 1. Top Header Bar -->
+  <header class="main-header">
+    <div class="main-header-right">
+      <i class="fa-solid fa-monument app-icon"></i>
+      <div class="header-text">
+        <h1>أطلس فجر الأهرامات | معالم وشبكات إمداد الأسرة الثالثة</h1>
+        <p>التوزيع المكاني، شبكات النقل اللوجستية، ومجرى فرع الأهرامات المندثر (2686 – 2613 ق.م)</p>
+      </div>
+    </div>
+    <div class="main-header-left">
+      <button class="nav-btn special" onclick="toggleMaterialModal()"><i class="fa-solid fa-truck-ramp-box"></i> دليل اللوجستيات</button>
+      <button class="nav-btn" onclick="toggleAnalyticsModal()"><i class="fa-solid fa-chart-pie"></i> لوحة الإحصائيات</button>
+      <button class="nav-btn" onclick="exportDataGeoJSON()"><i class="fa-solid fa-download"></i> تصدير GeoJSON</button>
+      <button class="nav-btn" onclick="exportDataCSV()"><i class="fa-solid fa-file-csv"></i> تصدير CSV</button>
+    </div>
+  </header>
+
+  <!-- 2. Second Bar: Basemaps & Map Tools -->
+  <div class="top-sub-bar">
+    <div class="basemap-group">
+      <button class="basemap-tab active" onclick="switchBasemap('streets', this)">خريطة الشوارع</button>
+      <button class="basemap-tab" onclick="switchBasemap('satellite', this)">صور الأقمار الصناعية</button>
+      <button class="basemap-tab" onclick="switchBasemap('topo', this)">خريطة التضاريس الطبوغرافية</button>
+      <button class="basemap-tab" onclick="switchBasemap('carto', this)">الخريطة الكارتوغرافية البسيطة</button>
+    </div>
+
+        <div class="tools-group">
+      <div class="coord-display" id="coordIndicator">خط الطول: 31.2164°E  |  خط العرض: 29.8713°N</div>
+      <button class="action-btn" id="btnTour" onclick="toggleTour()"><i class="fa-solid fa-play"></i> الجولة الافتراضية</button>
+      <button class="action-btn" id="btnBuffers" onclick="toggleBuffers()"><i class="fa-solid fa-bullseye"></i> نطاقات التأثير (10 كم)</button>
+      <button class="action-btn" id="btnNomes" onclick="toggleNomes()"><i class="fa-solid fa-map-location-dot"></i> حدود وخريطة مصر القديمة</button>
+      <button class="action-btn" id="btnAhramat" onclick="toggleAhramatBranch()"><i class="fa-solid fa-water"></i> فرع الأهرامات</button>
+      <button class="action-btn" id="btnToggleRoutes" onclick="toggleRoutes()"><i class="fa-solid fa-route"></i> طرق النقل</button>
+      <button class="action-btn" id="btnMeasure" onclick="toggleMeasure()"><i class="fa-solid fa-ruler-combined"></i> قياس المسافة</button>
+      <button class="action-btn" id="btnClearMeasure" onclick="clearMeasurement()" style="background:#b91c1c;"><i class="fa-solid fa-trash-can"></i> مسح</button>
+      <button class="action-btn" onclick="fitAllPoints()"><i class="fa-solid fa-expand"></i> نطاق مصر</button>
+    </div>
+  </div>
+
+  <!-- 3. Chronological Kings Timeline Bar -->
+  <div class="timeline-bar">
+    <div class="timeline-title"><i class="fa-solid fa-hourglass-half"></i> ملوك الأسرة الثالثة:</div>
+    <div class="kings-track">
+      <button class="king-btn active" onclick="filterKing('all', this)">كل الملوك</button>
+      <button class="king-btn" onclick="filterKing('سانخت', this)">1. سانخت (نبكا)</button>
+      <button class="king-btn" onclick="filterKing('زوسر', this)">2. زوسر (نيت جِري خت)</button>
+      <button class="king-btn" onclick="filterKing('سخم خت', this)">3. سخم خت</button>
+      <button class="king-btn" onclick="filterKing('خابا', this)">4. خابا</button>
+      <button class="king-btn" onclick="filterKing('حوني', this)">5. حوني</button>
+    </div>
+  </div>
+
+  <!-- 4. Workspace: Sidebar (Right) + Map (Left) -->
+  <div class="workspace">
+    
+    <!-- RIGHT SIDEBAR -->
+    <aside id="sidebar">
+      
+      <!-- Top KPI Summary Cards -->
+      <div class="kpi-container">
+        <div class="kpi-card">
+          <div class="kpi-val total" id="valTotal">14</div>
+          <div class="kpi-lbl">إجمالي المعالم</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="valPyramids">8</div>
+          <div class="kpi-lbl">الأهرامات</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val quarries" id="valQuarries">4</div>
+          <div class="kpi-lbl">المحاجر</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="valRoutes">4</div>
+          <div class="kpi-lbl">مسارات الإمداد</div>
+        </div>
+      </div>
+
+      <!-- Search and Filter Header -->
+      <div class="filter-section">
+        <div class="section-head">
+          <span>المواقع الأثرية ومصادر المواد</span>
+          <span class="badge-count" id="countBadge">14 موقع</span>
+        </div>
+        <div class="search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="siteSearch" placeholder="ابحث عن أثر، محجر، ملك، أو مادة خام..." onkeyup="handleFilter()">
+        </div>
+        <div class="category-tabs">
+          <span class="cat-tab active" onclick="filterCategory('all', this)">الكل (14)</span>
+          <span class="cat-tab" onclick="filterCategory('هرم مدرج', this)">الأهرامات الملكية</span>
+          <span class="cat-tab" onclick="filterCategory('محاجر', this)">المحاجر والمواد</span>
+          <span class="cat-tab" onclick="filterCategory('أهرامات أقاليم', this)">الأقاليم</span>
+          <span class="cat-tab" onclick="filterCategory('مصاطب', this)">المصاطب</span>
+        </div>
+      </div>
+
+      <!-- Cards Container -->
+      <div id="cards-list"></div>
+
+    </aside>
+
+    <!-- LEFT MAP AREA -->
+    <main id="map-wrapper">
+      
+      <!-- Floating Legend for Routes & Ahramat -->
+      <div id="routes-legend">
+        <h4><i class="fa-solid fa-layer-group"></i> الطبقات الهيدرولوجية واللوجستية:</h4>
+        <div class="legend-item" id="leg-ahramat" style="display:none;">
+          <div class="legend-line" style="background: #0ea5e9; height: 5px;"></div>
+          <span><b>فرع الأهرامات المندثر:</b> المجرى القديم المحاذي للأهرامات</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line" style="background: #e11d48;"></div>
+          <span><b>الجرانيت الوردي:</b> أسوان ➔ النيل ➔ سقارة (850 كم)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line" style="background: #0284c7;"></div>
+          <span><b>الحجر الجيري الأبيض:</b> طرة ➔ عبر النيل ➔ سقارة</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line" style="background: #1e293b;"></div>
+          <span><b>البازلت الأسود:</b> جبل القطراني ➔ بحيرة قارون ➔ سقارة</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line" style="background: #7c3aed;"></div>
+          <span><b>الفيروز والنحاس:</b> وادي مغارة ➔ خليج السويس ➔ منف</span>
+        </div>
+      </div>
+
+      <div id="map"></div>
+    </main>
+
+  </div>
+
+  <!-- MODAL 1: Logistics Table -->
+  <div class="modal-overlay" id="materialModal" onclick="if(event.target===this) toggleMaterialModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-dolly"></i> لوجستيات وطرق نقل مواد البناء في عصر الأسرة الثالثة</h3>
+        <button class="modal-close" onclick="toggleMaterialModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-content">
+        <p style="margin-bottom: 12px; color: #475569;">
+          كان تشييد مجمع هرم زوسر المدرج بمثابة أول ثورة لوجستية وهندسية في التاريخ؛ حيث اعتمد المهندس <b>إمحوتب</b> على جلب خامات متخصصة من محاجر تبعد مئات الكيلومترات عبر مجرى النيل وفرع الأهرامات:
+        </p>
+        <table class="material-table">
+          <thead>
+            <tr>
+              <th>المادة الخام</th>
+              <th>المصدر (المحجر)</th>
+              <th>وجهة الوصول</th>
+              <th>طريقة ووسيلة النقل</th>
+              <th>أين استُخدمت بالهرم والمجمع؟</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="material-badge" style="background:#fee2e2; color:#991b1b;">الجرانيت الوردي</span></td>
+              <td>محاجر أسوان (الشلال الأول)</td>
+              <td>سقارة (قاع بئر الهرم)</td>
+              <td>مراكب نيلية شحن ثقيل بمجرى النيل (~850 كم شمالاً) مع تيار النهر، ثم زحافات خشبية من المرفأ.</td>
+              <td>تبطين حجرة الدفن الملكية لزوسر على عمق 28 متراً وسدادة الغرفة.</td>
+            </tr>
+            <tr>
+              <td><span class="material-badge" style="background:#e0f2fe; color:#0369a1;">الحجر الجيري الأبيض</span></td>
+              <td>محاجر طرة والمعصرة (شرق النيل)</td>
+              <td>سقارة (الهرم والسور)</td>
+              <td>معديات وصنادل عبور نهرية عبر مجرى النيل القديم وفروعه الغربية، ثم قنوات مائية.</td>
+              <td>الكسوة الخارجية للهرم المدرج والجدار الدفاعي الضخم المحيط بالمجمع.</td>
+            </tr>
+            <tr>
+              <td><span class="material-badge" style="background:#f1f5f9; color:#0f172a; border: 1px solid #cbd5e1;">البازلت الأسود</span></td>
+              <td>محاجر جبل القطراني (الفيوم)</td>
+              <td>سقارة (المعابد الجنائزية)</td>
+              <td>طريق ممهد (طريق ودان الفرس - أقدم طريق مرصوف بالعالم) حتى بحيرة قارون ثم النيل.</td>
+              <td>رصف أرضيات المقاصير والمعابد الجنائزية المحيطة بالفناء الكبير.</td>
+            </tr>
+            <tr>
+              <td><span class="material-badge" style="background:#f3e8ff; color:#6b21a8;">الفيروز والنحاس</span></td>
+              <td>مناجم وادي مغارة (سيناء)</td>
+              <td>العاصمة منف / سقارة</td>
+              <td>قوافل برية عبر دروب سيناء ثم سفن ساحلية بخليج السويس ثم دروب صحراوية لمنف.</td>
+              <td>صناعة أزاميل الحفر، أدوات البنائين النحاسية، وحلي التمائم والزينة الملكية.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Analytics & Charts -->
+  <div class="modal-overlay" id="analyticsModal" onclick="if(event.target===this) toggleAnalyticsModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-chart-pie"></i> لوحة التحليل الإحصائي والمكاني لمعالم الأسرة الثالثة</h3>
+        <button class="modal-close" onclick="toggleAnalyticsModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-content">
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h4>التوزيع حسب النمط المعماري والوظيفي</h4>
+            <canvas id="typeChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h4>التوزيع الجغرافي للمواقع حسب الأقاليم</h4>
+            <canvas id="regionChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+        // 1. Comprehensive Archaeological Dataset (14 Monuments)
+    const monumentsData = [
+      { id: 1, name: "هرم زوسر المدرج", king: "زوسر", site: "سقارة (الجيزة)", category: "هرم مدرج", coords: [29.8713, 31.2164], img: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmx1knXrg2_N-KezxYt_Nmq8VDdgQ5a3J8wKSZK7k5l-fpYy5gs5Y9C1owRddpwgf0Tj9Pdl5T9Z5b03JGc6X_Za5X5g98E1bcZN_OKPlT0Lx097BXhu4KxYUa4zvKPJDp1wAoYdQ=s680-w680-h510-rw", info: "أول بناء حجري ضخم في التاريخ؛ نقطة التقاء مسارات حجر طرة وجرانيت أسوان وبازلت الفيوم عبر فرع الأهرامات." },
+      { id: 2, name: "هرم سخم خت (المدفون)", king: "سخم خت", site: "سقارة (الجيزة)", category: "هرم مدرج", coords: [29.8664, 31.2128], img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Sekhemkhet_pyramid_at_Saqqara.jpg?utm_source=ar.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled", info: "هرم مدرج لم يكتمل، يتميز بممرات منحوتة في الصخر وتابوت ألباستر سليم وحلي ذهبية رفيعة." },
+      { id: 3, name: "مقبرة حسي رع (مصطبة 2405)", king: "زوسر", site: "شمال سقارة", category: "مصاطب", coords: [29.8778, 31.2185], img: "https://img.youm7.com/ArticleImgs/2021/1/29/54192-%D8%A5%D8%AD%D8%AF%D9%89-%D9%84%D9%88%D8%AD%D8%A7%D8%AA-%D8%AD%D8%B3%D9%89-%D8%B1%D8%B9.jfif", info: "مقبرة كبير الأطباء والكتبة في عهد زوسر؛ تميزت بألواح خشب الأرز النادرة المنحوتة بإتقان." },
+      { id: 4, name: "الهرم الطبقي (خابا)", king: "خابا", site: "زاوية العريان (الجيزة)", category: "هرم مدرج", coords: [29.9300, 31.1500], img: "https://thebrainchamber.com/wp-content/uploads/2024/04/Khaba%20Pyramid%201.webp", info: "هرم مدرج غير مكتمل شيد بنظام الطبقات والشرائح الحجرية المائلة بالصحراء الغربية." },
+      { id: 5, name: "مصاطب بيت خلاف (K1 & K2)", king: "سانخت", site: "جرجا (سوهاج)", category: "مصاطب", coords: [26.3167, 31.7833], img: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Beit_Khallaf_Mastaba_K1.jpg", info: "مصاطب طوب لبن هائلة شكلت مقر إدارة وسيطرة ملوك الأسرة الثالثة في صعيد مصر." },
+      { id: 6, name: "محاجر طرة والمعصرة", king: "زوسر", site: "طرة (شرق النيل)", category: "محاجر", coords: [29.9500, 31.3000], img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2YlZ7CyobTC7Q-T_B3pnnb9DvdysOGbfvpM4tOURNsgOUjJPvKNV9aK8&s=10", info: "مصدر الحجر الجيري الأبيض الناعم عالي النقاوة لكسوة الهرم المدرج وجدار المجمع الأبيض." },
+      { id: 7, name: "محاجر جرانيت أسوان", king: "زوسر", site: "الشلال الأول (أسوان)", category: "محاجر", coords: [24.0750, 32.8850], img: "https://img.youm7.com/ArticleImgs/2020/1/5/115456-%D9%85%D8%AD%D8%A7%D8%AC%D8%B1-%D8%A3%D8%B3%D9%88%D8%A7%D9%86-(1).jpg", info: "مصدر كتل الجرانيت الوردي الضخمة لتبطين حجرة دفن الملك زوسر على عمق 28 متراً." },
+      { id: 8, name: "محاجر بازلت جبل القطراني", king: "زوسر", site: "شمال الفيوم", category: "محاجر", coords: [29.6600, 30.6500], img: "https://img.youm7.com/ArticleImgs/2024/12/14/77443-%D8%AC%D8%A8%D9%84-%D9%82%D8%B7%D8%B1%D8%A7%D9%86%D9%89-(1).jpg", info: "مصدر كتل البازلت الأسود لرصف معابد زوسر؛ نُقلت عبر أقدم طريق مرصوف في التاريخ (طريق ودان الفرس)." },
+      { id: 9, name: "مناجم ونقوش وادي مغارة", king: "سانخت", site: "جنوب سيناء", category: "محاجر", coords: [28.8973, 33.3726], img: "https://upload.wikimedia.org/wikipedia/commons/1/12/Wadi_Maghara_Sanakht_relief.jpg", info: "مصدر الفيروز والنحاس الضروري لأزاميل البنائين وحلي الدولة؛ خلّد سانخت وزوسر حملاتهما هناك بنقوش صخرية." },
+      { id: 10, name: "هرم سيلا المدرج", king: "حوني", site: "جبل الروس (الفيوم)", category: "أهرامات أقاليم", coords: [29.3828, 31.0544], img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0gLA3pL_Nv_rvkhByc4yuhm6KDppMf5_LP8-S6r_71-YWHaPWiaq4Sho6&s=10", info: "هرم إقليمي حجرى مدرج شيده حوني عند مدخل الفيوم لإحكام السيطرة الزراعية." },
+      { id: 11, name: "هرم زاوية الميتين", king: "حوني", site: "زاوية سلطان (المنيا)", category: "أهرامات أقاليم", coords: [28.0500, 30.8170], img: "https://upload.wikimedia.org/wikipedia/commons/3/38/ZaiyatMaiyitinPyramid.jpg?utm_source=ar.wikipedia.org&utm_campaign=index&utm_content=original", info: "الهرم الإقليمي الوحيد الواقع شرق نهر النيل كرمز لسلطة التاج المركزية." },
+      { id: 12, name: "هرم سينكي (أبيدوس)", king: "حوني", site: "البلينا (سوهاج)", category: "أهرامات أقاليم", coords: [26.1917, 31.8683], img: "https://img.youm7.com/ArticleImgs/2023/11/9/66381-%D9%87%D8%B1%D9%85-%D8%A7%D9%84%D8%B3%D9%8A%D9%86%D9%83%D9%89.jpg", info: "هرم إقليمي تميز ببقاء بقايا منحدرات البناء الترابية القديمة حوله." },
+      { id: 13, name: "هرم نقادة (طوخ)", king: "حوني", site: "طوخ (قنا)", category: "أهرامات أقاليم", coords: [25.9667, 32.7333], img: "https://img.youm7.com/ArticleImgs/2022/8/15/56183-%D8%A8%D9%82%D8%A7%D9%8A%D8%A7-%D9%87%D8%B1%D9%85-%D9%86%D9%88%D8%A8%D8%AA.jpg", info: "هرم مصمت من الحجر الجيري المحلي يمثل أحد رموز الحكم السبعة لحوني." },
+      { id: 14, name: "هرم الكولا (نخن)", king: "حوني", site: "الكوم الأحمر (إدفو)", category: "أهرامات أقاليم", coords: [25.1300, 32.7300], img: "https://i0.wp.com/ligahispanoarabe.com/wp-content/uploads/2023/05/IMG-20230530-WA0021.jpg?resize=526%2C394&ssl=1", info: "هرم مدرج يشرف على وادي النيل عند العاصمة الدينية التاريخية نخن." }
+    ];
+
+    // 2. Map and Basemaps
+    const map = L.map('map', { zoomControl: false }).setView([27.5, 31.8], 7);
+    L.control.zoom({ position: 'bottomleft' }).addTo(map);
+
+    const basemapLayers = {
+      streets: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri Streets' }),
+      satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri Satellite' }),
+      topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri Topo' }),
+      carto: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16, attribution: 'Esri Gray Canvas' })
+    };
+    let currentBasemap = basemapLayers.streets;
+    currentBasemap.addTo(map);
+
+    function switchBasemap(type, btnElement) {
+      map.removeLayer(currentBasemap);
+      currentBasemap = basemapLayers[type];
+      currentBasemap.addTo(map);
+      document.querySelectorAll('.basemap-tab').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+    }
+
+    map.on('mousemove', function(e) {
+      document.getElementById('coordIndicator').innerText = `خط الطول: ${e.latlng.lng.toFixed(4)}°E  |  خط العرض: ${e.latlng.lat.toFixed(4)}°N`;
+    });
+
+    // 3. Markers and Dynamic Render
+    const markerGroup = L.featureGroup().addTo(map);
+    const markersMap = {};
+    let activeFilter = 'all';
+    let activeKing = 'all';
+
+    function getSiteBadge(cat) {
+      if (cat === 'هرم مدرج') return { class: 'badge-pyramid', color: '#d97706', text: 'هرم ملكي' };
+      if (cat === 'محاجر') return { class: 'badge-quarry', color: '#dc2626', text: 'محجر ومصدر' };
+      if (cat === 'مصاطب') return { class: 'badge-mastaba', color: '#2563eb', text: 'مصاطب كبرى' };
+      return { class: 'badge-provincial', color: '#059669', text: 'هرم إقليمي' };
+    }
+
+    function renderInterface(items) {
+      const cardsList = document.getElementById('cards-list');
+      cardsList.innerHTML = '';
+      markerGroup.clearLayers();
+
+      items.forEach(item => {
+        const badgeInfo = getSiteBadge(item.category);
+        
+        // Leaflet Marker
+        const marker = L.circleMarker(item.coords, {
+          radius: item.category === 'محاجر' ? 10 : 8,
+          fillColor: badgeInfo.color,
+          color: '#ffffff',
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.95
+        });
+
+        
+        const popupContent = `
+          <div class="pop-img-container">
+            <img src="${item.img}" class="pop-img" alt="${item.name}" loading="lazy">
+            <div class="pop-badge"><i class="fa-solid fa-landmark"></i> ${badgeInfo.text}</div>
+          </div>
+          <div class="pop-content-body">
+            <div class="pop-title">${item.name}</div>
+            <div class="pop-body">${item.info}</div>
+            <div class="pop-meta">
+              <span><b>الملك:</b> ${item.king}</span> | <span><b>الموقع:</b> ${item.site}</span>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=${item.coords[0]},${item.coords[1]}" target="_blank" class="pop-gmaps-btn">
+              <i class="fa-solid fa-earth-africa"></i> فتح الموقع في Google Maps 3D
+            </a>
+          </div>
+        `;
+        marker.bindPopup(popupContent);
+        marker.on('click', () => selectCard(item.id));
+        markerGroup.addLayer(marker);
+        markersMap[item.id] = marker;
+
+        // Card Element
+        const card = document.createElement('div');
+        card.className = 'site-card';
+        card.id = `card-${item.id}`;
+        function getThumbBox(cat) {
+          if (cat === 'هرم مدرج') return '<div class="card-thumb-box thumb-pyramid"><i class="fa-solid fa-monument"></i><span>هرم ملكي</span></div>';
+          if (cat === 'محاجر') return '<div class="card-thumb-box thumb-quarry"><i class="fa-solid fa-hammer"></i><span>محجر ومصدر</span></div>';
+          if (cat === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
+          return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>هرم إقليمي</span></div>';
+        }
+        card.innerHTML = `
+          ${getThumbBox(item.category)}
+          <div class="card-body-content">
+            <div class="site-card-header">
+              <span class="site-card-title">${item.name}</span>
+              <span class="site-card-badge ${badgeInfo.class}">${badgeInfo.text}</span>
+            </div>
+            <div class="site-card-details">
+              <span><i class="fa-solid fa-crown"></i> ${item.king}</span>
+              <span><i class="fa-solid fa-location-dot"></i> ${item.site.split(' ')[0]}</span>
+            </div>
+            <div class="site-card-coords">${item.coords[0].toFixed(4)}° N, ${item.coords[1].toFixed(4)}° E</div>
+          </div>
+        `;
+
+        card.onclick = () => {
+          map.flyTo(item.coords, 14, { duration: 1.2 });
+          marker.openPopup();
+          selectCard(item.id);
+        };
+
+        cardsList.appendChild(card);
+      });
+
+      document.getElementById('countBadge').innerText = `${items.length} موقع`;
+    }
+
+    function selectCard(id) {
+      document.querySelectorAll('.site-card').forEach(c => c.classList.remove('active-card'));
+      const activeCard = document.getElementById(`card-${id}`);
+      if (activeCard) {
+        activeCard.classList.add('active-card');
+        activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function fitAllPoints() {
+      map.fitBounds(markerGroup.getBounds(), { padding: [50, 50] });
+    }
+
+    function handleFilter() {
+      const query = document.getElementById('siteSearch').value.toLowerCase().trim();
+      const filtered = monumentsData.filter(item => {
+        const matchesCat = (activeFilter === 'all') || (item.category === activeFilter);
+        const matchesKing = (activeKing === 'all') || (item.king.includes(activeKing));
+        const matchesQuery = item.name.toLowerCase().includes(query) ||
+                             item.king.toLowerCase().includes(query) ||
+                             item.site.toLowerCase().includes(query) ||
+                             item.info.toLowerCase().includes(query);
+        return matchesCat && matchesKing && matchesQuery;
+      });
+      renderInterface(filtered);
+    }
+
+    function filterCategory(cat, element) {
+      activeFilter = cat;
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      handleFilter();
+    }
+
+    function filterKing(king, element) {
+      activeKing = king;
+      document.querySelectorAll('.king-btn').forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
+      handleFilter();
+    }
+
+    // 4. Logistics Routes Layer
+    const routesGroup = L.layerGroup();
+    let routesVisible = false;
+    const saqqaraPoint = [29.8713, 31.2164];
+
+    const aswanRoute = [[24.0750, 32.8850], [24.9317, 32.8683], [25.7000, 32.6500], [26.1917, 31.8683], [27.1800, 31.1800], [28.1000, 30.7500], [29.0700, 31.1000], saqqaraPoint];
+    const turaRoute = [[29.9500, 31.3000], [29.9100, 31.2700], [29.8800, 31.2300], saqqaraPoint];
+    const basaltRoute = [[29.6600, 30.6500], [29.4800, 30.7500], [29.3828, 31.0544], saqqaraPoint];
+    const sinaiRoute = [[28.8973, 33.3726], [29.0200, 33.1000], [29.6000, 32.3500], [29.8500, 31.3500], saqqaraPoint];
+
+    const polyAswan = L.polyline(aswanRoute, { color: '#e11d48', weight: 4, dashArray: '6, 8', opacity: 0.85 }).bindPopup("<b>مسار نقل الجرانيت الوردي (850 كم):</b> من محاجر أسوان لسقارة.");
+    const polyTura = L.polyline(turaRoute, { color: '#0284c7', weight: 5, opacity: 0.9 }).bindPopup("<b>مسار الحجر الجيري الأبيض (طرة):</b> كسوة هرم زوسر وسوره.");
+    const polyBasalt = L.polyline(basaltRoute, { color: '#1e293b', weight: 4, dashArray: '4, 6', opacity: 0.85 }).bindPopup("<b>مسار البازلت الأسود:</b> من جبل القطراني عبر طريق ودان الفرس.");
+    const polySinai = L.polyline(sinaiRoute, { color: '#7c3aed', weight: 4, dashArray: '5, 10', opacity: 0.85 }).bindPopup("<b>مسار مناجم سيناء:</b> الفيروز والنحاس لأدوات البنائين.");
+
+    routesGroup.addLayer(polyAswan).addLayer(polyTura).addLayer(polyBasalt).addLayer(polySinai);
+
+    function toggleRoutes() {
+      const btn = document.getElementById('btnToggleRoutes');
+      const legend = document.getElementById('routes-legend');
+      if (routesVisible) {
+        map.removeLayer(routesGroup);
+        btn.classList.remove('active-tool');
+        routesVisible = false;
+        checkLegendDisplay();
+      } else {
+        routesGroup.addTo(map);
+        btn.classList.add('active-tool');
+        legend.style.display = 'block';
+        routesVisible = true;
+        map.fitBounds(polyAswan.getBounds(), { padding: [40, 40] });
+      }
+    }
+
+    // 5. Ahramat Branch (فرع الأهرامات المندثر - د. إيمان غنيم)
+    // Coords representing the paleochannel running along the western desert plateau from Meidum/Lisht past Dahshur, Saqqara, Abusir, Giza to Abu Rawash
+    const ahramatCoords = [
+      [29.3500, 31.1800], // South of Meidum
+      [29.5800, 31.2200], // Near Lisht
+      [29.7500, 31.2100], // Mazghuna
+      [29.8000, 31.2050], // Dahshur
+      [29.8700, 31.2200], // Saqqara (Directly in front of Djoser Step Pyramid complex)
+      [29.9000, 31.2150], // Abusir
+      [29.9300, 31.1550], // Zawyet el-Aryan
+      [29.9750, 31.1350], // Giza Pyramids Plateau base
+      [30.0300, 31.0800]  // Abu Rawash terminus
+    ];
+
+    const ahramatPolyline = L.polyline(ahramatCoords, {
+      color: '#0ea5e9',
+      weight: 8,
+      opacity: 0.75
+    }).bindPopup("<b>فرع الأهرامات المندثر (Ahramat Branch):</b><br>المجرى المائي القديم لنهر النيل الذي كشفته دراسات الاستشعار عن بعد (د. إيمان غنيم). كان يتدفق مباشرة بمحاذاة هضبة سقارة مما سمح للسفن المحملة بالحجارة بالرسو عند معابد الوادي ومجمعات الأهرامات مباشرة.");
+
+    let ahramatVisible = false;
+    function toggleAhramatBranch() {
+      const btn = document.getElementById('btnAhramat');
+      const legItem = document.getElementById('leg-ahramat');
+      const legend = document.getElementById('routes-legend');
+      if (ahramatVisible) {
+        map.removeLayer(ahramatPolyline);
+        btn.classList.remove('active-tool');
+        legItem.style.display = 'none';
+        ahramatVisible = false;
+        checkLegendDisplay();
+      } else {
+        ahramatPolyline.addTo(map);
+        btn.classList.add('active-tool');
+        legend.style.display = 'block';
+        legItem.style.display = 'flex';
+        ahramatVisible = true;
+        map.flyTo([29.87, 31.2], 10, { duration: 1.5 });
+        ahramatPolyline.openPopup();
+      }
+    }
+
+    function checkLegendDisplay() {
+      const legend = document.getElementById('routes-legend');
+      if (!routesVisible && !ahramatVisible) {
+        legend.style.display = 'none';
+      }
+    }
+
+    // 6. Interactive Measurement Tool
+    let measureActive = false;
+    let measurePoints = [];
+    let measureLinesGroup = L.layerGroup().addTo(map);
+
+    function toggleMeasure() {
+      const btn = document.getElementById('btnMeasure');
+      measureActive = !measureActive;
+      if (measureActive) {
+        btn.classList.add('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> إنهاء القياس';
+        map.getContainer().style.cursor = 'crosshair';
+        measurePoints = [];
+        alert('أداة القياس مفعلة: اضغط على نقطتين على الخريطة لحساب المسافة المباشرة بالكيلومتر.');
+      } else {
+        btn.classList.remove('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-ruler-combined"></i> قياس المسافة';
+        map.getContainer().style.cursor = '';
+        measurePoints = [];
+      }
+    }
+
+    function clearMeasurement() {
+      measureLinesGroup.clearLayers();
+      measurePoints = [];
+      map.closePopup();
+    }
+
+    map.on('click', function(e) {
+      if (!measureActive) return;
+      measurePoints.push(e.latlng);
+
+      // Temporary marker for the first clicked point
+      const startMarker = L.circleMarker(e.latlng, { radius: 5, color: '#f59e0b', fillColor: '#f59e0b', fillOpacity: 1 });
+      measureLinesGroup.addLayer(startMarker);
+
+      if (measurePoints.length === 2) {
+        const dist = measurePoints[0].distanceTo(measurePoints[1]) / 1000;
+        const line = L.polyline(measurePoints, { color: '#d97706', weight: 4, dashArray: '6, 6' });
+        
+        // Popup with delete button right inside the popup too!
+        
+        const popupContent = `
+          <div class="pop-img-container">
+            <img src="${item.img}" class="pop-img" alt="${item.name}" loading="lazy">
+            <div class="pop-badge"><i class="fa-solid fa-landmark"></i> ${badgeInfo.text}</div>
+          </div>
+          <div class="pop-content-body">
+            <div class="pop-title">${item.name}</div>
+            <div class="pop-body">${item.info}</div>
+            <div class="pop-meta">
+              <span><b>الملك:</b> ${item.king}</span> | <span><b>الموقع:</b> ${item.site}</span>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=${item.coords[0]},${item.coords[1]}" target="_blank" class="pop-gmaps-btn">
+              <i class="fa-solid fa-earth-africa"></i> فتح الموقع في Google Maps 3D
+            </a>
+          </div>
+        `;
+        line.bindPopup(popupContent);
+        measureLinesGroup.addLayer(line);
+        line.openPopup();
+        measurePoints = [];
+      }
+    });
+
+    // 7. Modals (Logistics & Analytics)
+    function toggleMaterialModal() {
+      const m = document.getElementById('materialModal');
+      m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    let chartsInitialized = false;
+    function toggleAnalyticsModal() {
+      const m = document.getElementById('analyticsModal');
+      m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+      if (m.style.display === 'flex' && !chartsInitialized) {
+        initCharts();
+        chartsInitialized = true;
+      }
+    }
+
+    function initCharts() {
+      // Type Chart
+      new Chart(document.getElementById('typeChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['أهرامات أقاليم', 'أهرامات ملكية', 'محاجر ومناجم', 'مصاطب كبرى'],
+          datasets: [{
+            data: [5, 3, 4, 2],
+            backgroundColor: ['#059669', '#d97706', '#dc2626', '#2563eb']
+          }]
+        },
+        options: { plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // Region Chart
+      new Chart(document.getElementById('regionChart'), {
+        type: 'bar',
+        data: {
+          labels: ['الجيزة', 'أسوان', 'سوهاج', 'الفيوم', 'سيناء', 'المنيا', 'قنا'],
+          datasets: [{
+            label: 'عدد المعالم',
+            data: [5, 2, 2, 2, 1, 1, 1],
+            backgroundColor: '#1f3a52'
+          }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+      });
+    }
+
+    // 8. Export GeoJSON & CSV
+    function exportDataGeoJSON() {
+      const geojson = {
+        type: "FeatureCollection",
+        features: monumentsData.map(item => ({
+          type: "Feature",
+          geometry: { type: "Point", coordinates: [item.coords[1], item.coords[0]] },
+          properties: { id: item.id, name: item.name, king: item.king, site: item.site, category: item.category, info: item.info }
+        }))
+      };
+      downloadBlob(JSON.stringify(geojson, null, 2), "Dynasty3_Monuments.geojson", "application/json");
+    }
+
+    function exportDataCSV() {
+      let csv = "ID,Name,King,Site,Category,Longitude,Latitude,Info\n";
+      monumentsData.forEach(i => {
+        csv += `${i.id},"${i.name}","${i.king}","${i.site}","${i.category}",${i.coords[1]},${i.coords[0]},"${i.info.replace(/"/g, '""')}"\n`;
+      });
+      downloadBlob(csv, "Dynasty3_Monuments.csv", "text/csv;charset=utf-8;");
+    }
+
+    function downloadBlob(content, filename, contentType) {
+      const blob = new Blob(["\uFEFF" + content], { type: contentType });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+    }
+
+    
+    // ==========================================
+    // 7. Guided Virtual Tour (الجولة الافتراضية)
+    // ==========================================
+    let tourActive = false;
+    let tourIndex = 0;
+    let tourTimer = null;
+
+    function toggleTour() {
+      const btn = document.getElementById('btnTour');
+      tourActive = !tourActive;
+      if (tourActive) {
+        btn.classList.add('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i> إيقاف الجولة';
+        tourIndex = 0;
+        runTourStep();
+      } else {
+        stopTour();
+      }
+    }
+
+    function stopTour() {
+      const btn = document.getElementById('btnTour');
+      tourActive = false;
+      btn.classList.remove('active-tool');
+      btn.innerHTML = '<i class="fa-solid fa-play"></i> الجولة الافتراضية';
+      if (tourTimer) clearTimeout(tourTimer);
+    }
+
+    function runTourStep() {
+      if (!tourActive) return;
+      if (tourIndex >= monumentsData.length) {
+        tourIndex = 0; // Loop or end
+      }
+      const item = monumentsData[tourIndex];
+      map.flyTo(item.coords, 13, { duration: 1.8 });
+      setTimeout(() => {
+        if (!tourActive) return;
+        if (markersMap[item.id]) {
+          markersMap[item.id].openPopup();
+          selectCard(item.id);
+        }
+      }, 1900);
+
+      tourIndex++;
+      tourTimer = setTimeout(runTourStep, 6500); // Wait 6.5s per monument
+    }
+
+    // ==========================================
+    // 8. Buffer Zones Analysis (نطاقات التأثير المكاني 10 كم)
+    // ==========================================
+    const bufferGroup = L.layerGroup();
+    let buffersActive = false;
+
+    function toggleBuffers() {
+      const btn = document.getElementById('btnBuffers');
+      buffersActive = !buffersActive;
+      if (buffersActive) {
+        bufferGroup.clearLayers();
+        monumentsData.forEach(item => {
+          const badge = getSiteBadge(item.category);
+          const circle = L.circle(item.coords, {
+            radius: 10000, // 10 km
+            color: badge.color,
+            fillColor: badge.color,
+            fillOpacity: 0.12,
+            weight: 1.5,
+            dashArray: '4, 4'
+          });
+          circle.bindTooltip(`<b>نطاق تأثير 10 كم:</b> ${item.name}`, { sticky: true });
+          bufferGroup.addLayer(circle);
+        });
+        bufferGroup.addTo(map);
+        btn.classList.add('active-tool');
+      } else {
+        map.removeLayer(bufferGroup);
+        btn.classList.remove('active-tool');
+      }
+    }
+
+        // ==========================================
+    // 9. Territorial Boundaries & Ancient Nomes Layer
+    // حدود وخريطة مصر في عهد الأسرة الثالثة (2686 - 2613 ق.م)
+    // ==========================================
+    const territoryGroup = L.layerGroup();
+    let territoryActive = false;
+
+    // A. Historical Territorial Polygons (نطاقات الدولة المصرية الموحدة)
+    // 1. Upper Egypt (مصر العليا - تا شمعو): شريط الوادي من منف حتى الشلال الأول بأسوان
+    const upperEgyptCoords = [
+      [29.85, 31.00], [29.40, 30.50], [29.20, 30.60], [29.00, 30.80], 
+      [28.00, 30.50], [27.10, 30.90], [26.20, 31.50], [25.80, 32.30], 
+      [25.10, 32.60], [24.05, 32.75], [24.05, 33.05], [24.95, 33.00], 
+      [25.75, 32.85], [26.20, 32.10], [27.20, 31.40], [28.20, 31.05], 
+      [29.10, 31.35], [29.85, 31.35], [29.85, 31.00]
+    ];
+
+    // 2. Lower Egypt (مصر السفلى - تا محو): الدلتا ومصبات فروع النيل القديمة
+    const lowerEgyptCoords = [
+      [29.85, 31.00], [30.10, 30.80], [30.60, 30.00], [31.25, 30.00], 
+      [31.55, 31.10], [31.35, 32.30], [30.50, 32.00], [30.00, 31.50], 
+      [29.85, 31.35], [29.85, 31.00]
+    ];
+
+    // 3. Sinai Mining Enclave (إقليم التعدين بسيناء - وادي مغارة وخليج السويس)
+    const sinaiMiningCoords = [
+      [29.80, 32.55], [29.00, 33.10], [28.60, 33.60], [28.95, 33.55], 
+      [29.40, 33.20], [29.90, 32.60], [29.80, 32.55]
+    ];
+
+    // B. Historical Nomes Centers (المراكز الإدارية والأقاليم)
+    const ancientNomes = [
+      { id: 1, name: "إقليم تا-ستي (الإقليم 1 - أرض القوس)", capital: "أبو (إلفنتين / أسوان)", coords: [24.0850, 32.8900], radius: 24000, desc: "الحدود الجنوبية الرسمية لمصر في عصر الأسرة الثالثة؛ حراسة الملاحة والشلال الأول وتجارة النوبة ومحاجر الجرانيت الوردي." },
+      { id: 3, name: "إقليم نخن (الإقليم 3 - الصقر)", capital: "الكوم الأحمر وإدفو", coords: [25.1300, 32.7300], radius: 26000, desc: "العاصمة الدينية والتاريخية العريقة لمصر العليا، وموقع هرم الكولا المدرج للملك حوني." },
+      { id: 5, name: "إقليم نتروي (الإقليم 5 - الصقران)", capital: "نوبت / نقادة وطوخ", coords: [25.9667, 32.7333], radius: 25000, desc: "مقر عبادة المعبود ست؛ السيطرة على مدخل دروب قفط ومناجم الذهب بالصحراء الشرقية، وموقع هرم نقادة." },
+      { id: 8, name: "إقليم تا-ور (الإقليم 8 - الأرض العظيمة)", capital: "ثينيس وأبيدوس (سوهاج)", coords: [26.2500, 31.8500], radius: 32000, desc: "المهد الملكي الأول؛ مركز إدارة الصعيد، ومقر مصاطب بيت خلاف الهائلة وهرم سينكي المدرج." },
+      { id: 16, name: "إقليم الوعل (الإقليم 16 - ما-حدج)", capital: "حبنو وزاوية سلطان (المنيا)", coords: [28.0500, 30.8170], radius: 32000, desc: "الإقليم الإستراتيجي بوسط مصر لحماية وادي النيل، وموقع هرم زاوية الميتين الوحيد شرق النهر." },
+      { id: 21, name: "إقليم مر-ور (منخفض الفيوم وشدت)", capital: "شدت / واحة الفيوم", coords: [29.4500, 30.7500], radius: 28000, desc: "الرئة الزراعية ومصدر البازلت الأسود بجبل القطراني المنقول عبر بحيرة قارون، وموقع هرم سيلا." },
+      { id: 101, name: "إقليم إنب-حج (الإقليم 1 بمصر السفلى - الجدار الأبيض)", capital: "منف (سقارة)", coords: [29.8713, 31.2164], radius: 28000, desc: "عاصمة مصر الموحدة؛ مقر البلاط الملكي ومجمع هرم زوسر والهرم الطبقي والمقابر الملكية ومحاجر طرة." },
+      { id: 200, name: "المقاطعة التعدينية الملكية (سيناء)", capital: "وادي مغارة وسرابيط الخادم", coords: [28.8973, 33.3726], radius: 35000, desc: "الامتداد العسكري والاقتصادي؛ ثغور تعدين الفيروز والنحاس المؤمّنة بحملات زوسر وسانخت الرسمية." }
+    ];
+
+    // C. Boundary Landmark Markers (نقاط الثغور والحدود السياسية)
+    const frontierMarkers = [
+      { name: "الحدود الجنوبية الرسمية (الشلال الأول - أسوان)", coords: [24.0850, 32.8900], type: "حد جنوبي", desc: "أقصى نقطة سيادة جنوبية للدولة المصرية في عهد الأسرة الثالثة؛ وكانت تفصل بين مصر وبلاد النوبة (واوات)." },
+      { name: "العاصمة الملكية المركزية (منف - الجدار الأبيض)", coords: [29.8500, 31.2500], type: "عاصمة مركزية", desc: "نقطة التوازن الاستراتيجي التي تربط بين تا-شمعو (مصر العليا) وتا-محو (مصر السفلى)." },
+      { name: "الثغر التعديني الشرقي (وادي مغارة - سيناء)", coords: [28.8973, 33.3726], type: "ثغر اقتصادي", desc: "أقصى نفوذ إداري وعسكري في الشرق لتأمين استخراج الفيروز والنحاس لدعم عمارة الدولة." },
+      { name: "الحدود الشمالية (ساحل البحر الأبيض المتوسط)", coords: [31.5000, 31.1000], type: "حد شمالي", desc: "النطاق الساحلي الطبيعي ومصبات فروع النيل القديمة السبعة في الدلتا." }
+    ];
+
+    function toggleNomes() {
+      const btn = document.getElementById('btnNomes');
+      territoryActive = !territoryActive;
+      if (territoryActive) {
+        territoryGroup.clearLayers();
+
+        // 1. Draw Upper Egypt Polygon
+        const polyUpper = L.polygon(upperEgyptCoords, {
+          color: '#d97706',
+          weight: 3,
+          fillColor: '#fbbf24',
+          fillOpacity: 0.16,
+          dashArray: '6, 6'
+        }).bindPopup("<b>مصر العليا (تا-شمعو):</b><br>إقليم وادي النيل الممتد من العاصمة منف شمالاً حتى الشلال الأول (أسوان) جنوباً، محكوم بنظام الأقاليم السبعة وهرم إقليمي بكل مقاطعة.");
+        territoryGroup.addLayer(polyUpper);
+
+        // 2. Draw Lower Egypt Polygon (Delta)
+        const polyLower = L.polygon(lowerEgyptCoords, {
+          color: '#059669',
+          weight: 3,
+          fillColor: '#34d399',
+          fillOpacity: 0.16,
+          dashArray: '6, 6'
+        }).bindPopup("<b>مصر السفلى (تا-محو):</b><br>إقليم الدلتا الخصب وفروع النيل القديمة، وقاعدته الجنوبية العاصمة المركزية منف (سقارة).");
+        territoryGroup.addLayer(polyLower);
+
+        // 3. Draw Sinai Enclave Polygon
+        const polySinai = L.polygon(sinaiMiningCoords, {
+          color: '#7c3aed',
+          weight: 2.5,
+          fillColor: '#c084fc',
+          fillOpacity: 0.2,
+          dashArray: '4, 4'
+        }).bindPopup("<b>منطقة التعدين الملكية بسيناء:</b><br>النطاق الخاضع للسيادة والحملات العسكرية التعدينية لتأمين مناجم النحاس والفيروز بوادي مغارة.");
+        territoryGroup.addLayer(polySinai);
+
+        // 4. Draw Nomes Administrative Bubbles
+        ancientNomes.forEach(n => {
+          const nomeCircle = L.circle(n.coords, {
+            radius: n.radius,
+            color: '#854d0e',
+            fillColor: '#fef08a',
+            fillOpacity: 0.14,
+            weight: 1.5
+          });
+          nomeCircle.bindTooltip(`<b>${n.name}</b><br>المركز: ${n.capital}`, { className: 'nome-tooltip', sticky: true });
+          nomeCircle.bindPopup(`
+            <div style="font-family:'Cairo'; padding:4px;">
+              <h4 style="color:#b45309; border-bottom:2px solid #b45309; padding-bottom:4px; margin-bottom:6px;">${n.name}</h4>
+              <p style="font-size:0.8rem; line-height:1.5;">${n.desc}</p>
+              <div style="background:#fef3c7; color:#92400e; font-size:0.75rem; padding:4px 8px; border-radius:4px; margin-top:6px;">
+                <b>المركز الإداري:</b> ${n.capital}
+              </div>
+            </div>
+          `);
+          territoryGroup.addLayer(nomeCircle);
+        });
+
+        // 5. Draw Frontier Markers with Distinct Icons
+        frontierMarkers.forEach(f => {
+          const fMarker = L.circleMarker(f.coords, {
+            radius: 9,
+            fillColor: '#b91c1c',
+            color: '#ffffff',
+            weight: 3,
+            fillOpacity: 1
+          });
+          fMarker.bindPopup(`
+            <div style="font-family:'Cairo'; padding:4px;">
+              <div style="color:#b91c1c; font-weight:800; font-size:0.92rem; border-bottom:2px solid #b91c1c; padding-bottom:3px; margin-bottom:4px;">
+                <i class="fa-solid fa-flag"></i> ${f.name}
+              </div>
+              <p style="font-size:0.8rem; line-height:1.45; color:#334155;">${f.desc}</p>
+            </div>
+          `);
+          fMarker.bindTooltip(`<b>${f.type}:</b> ${f.name}`, { sticky: true });
+          territoryGroup.addLayer(fMarker);
+        });
+
+        territoryGroup.addTo(map);
+        btn.classList.add('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-map-location-dot"></i> إخفاء خريطة وحدود مصر';
+        
+        // Zoom out smoothly to show full historical Egypt borders
+        map.flyToBounds(polyUpper.getBounds().extend(polyLower.getBounds()).extend(polySinai.getBounds()), {
+          padding: [40, 40],
+          duration: 1.8
+        });
+      } else {
+        map.removeLayer(territoryGroup);
+        btn.classList.remove('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-map-location-dot"></i> حدود وخريطة مصر القديمة';
+      }
+    }
+
+
+    // Initial load
+    renderInterface(monumentsData);
+  </script>
+</body>
+</html>
