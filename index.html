@@ -847,6 +847,7 @@
       z-index: 1000;
     }
     .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
+    .icon-pyramid-dyn4 { background: linear-gradient(135deg, #0d9488, #115e59); }
     .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .icon-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
@@ -1308,13 +1309,25 @@
         
         // Leaflet Marker
         
-        function getMapSymbolIcon(cat) {
-          if (cat === 'هرم مدرج') return L.divIcon({
-            className: 'custom-div-icon',
-            html: '<div class="custom-map-icon icon-pyramid"><i class="fa-solid fa-monument"></i></div>',
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-          });
+        function getMapSymbolIcon(item) {
+          const cat = item.category;
+          if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
+            if (item.dynasty === 'الأسرة الثالثة') {
+              return L.divIcon({
+                className: 'custom-div-icon',
+                html: '<div class="custom-map-icon icon-pyramid"><i class="fa-solid fa-monument"></i></div>',
+                iconSize: [32, 32],
+                iconAnchor: [16, 16]
+              });
+            } else {
+              return L.divIcon({
+                className: 'custom-div-icon',
+                html: '<div class="custom-map-icon icon-pyramid-dyn4"><i class="fa-solid fa-monument"></i></div>',
+                iconSize: [32, 32],
+                iconAnchor: [16, 16]
+              });
+            }
+          }
           if (cat === 'محاجر') return L.divIcon({
             className: 'custom-div-icon',
             html: '<div class="custom-map-icon icon-quarry"><i class="fa-solid fa-hammer"></i></div>',
@@ -1352,7 +1365,7 @@
             iconAnchor: [16, 16]
           });
         }
-        const marker = L.marker(item.coords, { icon: getMapSymbolIcon(item.category) });
+        const marker = L.marker(item.coords, { icon: getMapSymbolIcon(item) });
 
 
         
@@ -1384,9 +1397,9 @@
         function getThumbBox(item) {
           if (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم') {
             if (item.dynasty === 'الأسرة الثالثة') {
-              return '<div class="card-thumb-box" style="background: linear-gradient(135deg, #d97706, #92400e);"><i class="fa-solid fa-monument"></i><span>هرم (الأسرة 3)</span></div>';
+              return '<div class="card-thumb-box" style="background: linear-gradient(135deg, #d97706, #92400e);"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
             } else {
-              return '<div class="card-thumb-box" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"><i class="fa-solid fa-monument"></i><span>هرم (الأسرة 4)</span></div>';
+              return '<div class="card-thumb-box" style="background: linear-gradient(135deg, #0d9488, #115e59);"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
             }
           }
           if (item.category === 'محاجر') return '<div class="card-thumb-box thumb-quarry"><i class="fa-solid fa-hammer"></i><span>محجر ومصدر</span></div>';
