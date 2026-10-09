@@ -1459,28 +1459,9 @@
       measureLinesGroup.addLayer(startMarker);
 
       if (measurePoints.length === 2) {
-        const dist = measurePoints[0].distanceTo(measurePoints[1]) / 1000;
+        const dist = (measurePoints[0].distanceTo(measurePoints[1]) / 1000).toFixed(2);
         const line = L.polyline(measurePoints, { color: '#d97706', weight: 4, dashArray: '6, 6' });
-        
-        // Popup with delete button right inside the popup too!
-        
-        const popupContent = `
-          <div class="pop-img-container">
-            <img src="${item.img}" class="pop-img" alt="${item.name}" loading="lazy">
-            <div class="pop-badge"><i class="fa-solid fa-landmark"></i> ${badgeInfo.text}</div>
-          </div>
-          <div class="pop-content-body">
-            <div class="pop-title">${item.name}</div>
-            <div class="pop-body">${item.info}</div>
-            <div class="pop-meta">
-              <span><b>الملك:</b> ${item.king}</span> | <span><b>الموقع:</b> ${item.site}</span>
-            </div>
-            <a href="https://www.google.com/maps/search/?api=1&query=${item.coords[0]},${item.coords[1]}" target="_blank" class="pop-gmaps-btn">
-              <i class="fa-solid fa-earth-africa"></i> فتح الموقع في Google Maps 3D
-            </a>
-          </div>
-        `;
-        line.bindPopup(popupContent);
+        line.bindPopup(`<div style="font-family:'Cairo'; padding:6px; text-align:center;"><b style="color:#d97706; font-size:0.9rem;"><i class="fa-solid fa-ruler"></i> المسافة المباشرة:</b><br><span style="font-size:1.1rem; font-weight:800; color:#1e293b;">${dist} كم</span></div>`);
         measureLinesGroup.addLayer(line);
         line.openPopup();
         measurePoints = [];
