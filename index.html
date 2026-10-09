@@ -1205,33 +1205,6 @@
         const badgeInfo = getSiteBadge(item.category);
         
         // Leaflet Marker
-        
-        function getMapSymbolIcon(cat) {
-          if (cat === 'هرم مدرج') return L.divIcon({
-            className: 'custom-div-icon',
-            html: '<div class="custom-map-icon icon-pyramid"><i class="fa-solid fa-monument"></i></div>',
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-          });
-          if (cat === 'محاجر') return L.divIcon({
-            className: 'custom-div-icon',
-            html: '<div class="custom-map-icon icon-quarry"><i class="fa-solid fa-hammer"></i></div>',
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-          });
-          if (cat === 'مصاطب') return L.divIcon({
-            className: 'custom-div-icon',
-            html: '<div class="custom-map-icon icon-mastaba"><i class="fa-solid fa-archway"></i></div>',
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-          });
-          return L.divIcon({
-            className: 'custom-div-icon',
-            html: '<div class="custom-map-icon icon-provincial"><i class="fa-solid fa-cubes"></i></div>',
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-          });
-        }
         const marker = L.marker(item.coords, { icon: getMapSymbolIcon(item.category) });
 
 
@@ -1261,12 +1234,7 @@
         const card = document.createElement('div');
         card.className = 'site-card';
         card.id = `card-${item.id}`;
-        function getThumbBox(cat) {
-          if (cat === 'هرم مدرج') return '<div class="card-thumb-box thumb-pyramid"><i class="fa-solid fa-monument"></i><span>هرم ملكي</span></div>';
-          if (cat === 'محاجر') return '<div class="card-thumb-box thumb-quarry"><i class="fa-solid fa-hammer"></i><span>محجر ومصدر</span></div>';
-          if (cat === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
-          return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>هرم إقليمي</span></div>';
-        }
+        
         card.innerHTML = `
           ${getThumbBox(item.category)}
           <div class="card-body-content">
