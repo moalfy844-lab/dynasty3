@@ -390,6 +390,7 @@
     .thumb-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
     .thumb-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
+    .thumb-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
     .thumb-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
     .card-thumb-box span { font-size: 0.62rem; margin-top: 3px; font-weight: 700; }
 
@@ -419,6 +420,7 @@
     .badge-pyramid { background: #fef3c7; color: #b45309; }
     .badge-quarry { background: #fee2e2; color: #991b1b; }
     .badge-mastaba { background: #dbeafe; color: #1e40af; }
+    .badge-tomb { background: #f3e8ff; color: #6b21a8; }
     .badge-provincial { background: #d1fae5; color: #065f46; }
 
     .site-card-details {
@@ -828,6 +830,7 @@
     .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
     .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
+    .icon-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
     .icon-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
 
   </style>
@@ -925,8 +928,8 @@
         <div class="category-tabs">
           <span class="cat-tab active" onclick="filterCategory('all', this)">الكل (51)</span>
           <span class="cat-tab" onclick="filterCategory('هرم مدرج', this)">الأهرامات الملكية</span>
+          <span class="cat-tab" onclick="filterCategory('مقابر', this)">المقابر الأثرية</span>
           <span class="cat-tab" onclick="filterCategory('محاجر', this)">المحاجر والمواد</span>
-          <span class="cat-tab" onclick="filterCategory('أهرامات أقاليم', this)">الأقاليم</span>
           <span class="cat-tab" onclick="filterCategory('مصاطب', this)">المصاطب</span>
         </div>
       </div>
@@ -1146,7 +1149,8 @@
       if (cat === 'هرم مدرج') return { class: 'badge-pyramid', color: '#d97706', text: 'هرم ملكي' };
       if (cat === 'محاجر') return { class: 'badge-quarry', color: '#dc2626', text: 'محجر ومصدر' };
       if (cat === 'مصاطب') return { class: 'badge-mastaba', color: '#2563eb', text: 'مصاطب كبرى' };
-      return { class: 'badge-provincial', color: '#059669', text: 'هرم إقليمي' };
+      if (cat === 'مقابر') return { class: 'badge-tomb', color: '#7c3aed', text: 'مقبرة أثرية' };
+      return { class: 'badge-provincial', color: '#059669', text: 'أثر تاريخي' };
     }
 
     function renderInterface(items) {
@@ -1175,6 +1179,12 @@
           if (cat === 'مصاطب') return L.divIcon({
             className: 'custom-div-icon',
             html: '<div class="custom-map-icon icon-mastaba"><i class="fa-solid fa-archway"></i></div>',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+          if (cat === 'مقابر') return L.divIcon({
+            className: 'custom-div-icon',
+            html: '<div class="custom-map-icon icon-tomb"><i class="fa-solid fa-dungeon"></i></div>',
             iconSize: [32, 32],
             iconAnchor: [16, 16]
           });
@@ -1218,7 +1228,8 @@
           if (cat === 'هرم مدرج') return '<div class="card-thumb-box thumb-pyramid"><i class="fa-solid fa-monument"></i><span>هرم ملكي</span></div>';
           if (cat === 'محاجر') return '<div class="card-thumb-box thumb-quarry"><i class="fa-solid fa-hammer"></i><span>محجر ومصدر</span></div>';
           if (cat === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
-          return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>هرم إقليمي</span></div>';
+          if (cat === 'مقابر') return '<div class="card-thumb-box thumb-tomb"><i class="fa-solid fa-dungeon"></i><span>مقبرة</span></div>';
+          return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>أثر تاريخي</span></div>';
         }
         card.innerHTML = `
           ${getThumbBox(item.category)}
