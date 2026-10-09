@@ -392,6 +392,7 @@
     .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .thumb-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
     .thumb-statue { background: linear-gradient(135deg, #0284c7, #0369a1); }
+    .thumb-temple { background: linear-gradient(135deg, #0d9488, #115e59); }
     .thumb-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
     .card-thumb-box span { font-size: 0.62rem; margin-top: 3px; font-weight: 700; }
 
@@ -423,6 +424,7 @@
     .badge-mastaba { background: #dbeafe; color: #1e40af; }
     .badge-tomb { background: #f3e8ff; color: #6b21a8; }
     .badge-statue { background: #e0f2fe; color: #0369a1; }
+    .badge-temple { background: #ccfbf1; color: #115e59; }
     .badge-provincial { background: #d1fae5; color: #065f46; }
 
     .site-card-details {
@@ -834,6 +836,7 @@
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .icon-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
     .icon-statue { background: linear-gradient(135deg, #0284c7, #0369a1); }
+    .icon-temple { background: linear-gradient(135deg, #0d9488, #115e59); }
     .icon-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
 
   </style>
@@ -933,6 +936,7 @@
           <span class="cat-tab" onclick="filterCategory('هرم مدرج', this)">الأهرامات الملكية</span>
           <span class="cat-tab" onclick="filterCategory('مقابر', this)">المقابر الأثرية</span>
           <span class="cat-tab" onclick="filterCategory('تمثال', this)">التماثيل والآثار</span>
+          <span class="cat-tab" onclick="filterCategory('معبد', this)">المعابد الأثرية</span>
           <span class="cat-tab" onclick="filterCategory('محاجر', this)">المحاجر والمواد</span>
           <span class="cat-tab" onclick="filterCategory('مصاطب', this)">المصاطب</span>
         </div>
@@ -1086,11 +1090,11 @@
       { id: 17, dynasty: "الأسرة الرابعة", name: "الهرم الأحمر", king: "سنفرو", site: "دهشور (الجيزة)", category: "هرم مدرج", coords: [29.8088213, 31.20651904], img: "https://upload.wikimedia.org/wikipedia/commons/8/82/Red_Pyramid_Dahshur.jpg", info: "أول هرم حقيقي ناجح بأسطح ملساء بالكامل شيده الملك سنفرو." },
       { id: 18, dynasty: "الأسرة الرابعة", name: "هرم خوفو", king: "خوفو", site: "الجيزة", category: "هرم مدرج", coords: [29.97891574, 31.13501526], img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramide.jpg", info: "الهرم الأكبر؛ عجيبة الدنيا الوحيدة الباقية، شيده الملك خوفو." },
       { id: 19, dynasty: "الأسرة الرابعة", name: "حفر مراكب الشمس", king: "خوفو", site: "الجيزة", category: "محاجر", coords: [29.97863798, 31.13570706], img: "https://upload.wikimedia.org/wikipedia/commons/3/36/Solar_boat_Giza.jpg", info: "حفر ومقاصير دفن المراكب الجنائزية الملكية الخاصة برحلة الملك خوفو السماوية." },
-      { id: 20, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك خوفو", king: "خوفو", site: "الجيزة", category: "مصاطب", coords: [29.97919789, 31.13572661], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المعبد الجنائزي الشرقي المخصص لتقديم القرابين والشعائر لروح الملك خوفو." },
+      { id: 20, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك خوفو", king: "خوفو", site: "الجيزة", category: "معبد", coords: [29.97919789, 31.13572661], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المعبد الجنائزي الشرقي المخصص لتقديم القرابين والشعائر لروح الملك خوفو." },
       { id: 21, dynasty: "الأسرة الرابعة", name: "الجبانة الشرقية", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.97822336, 31.13730821], img: "https://upload.wikimedia.org/wikipedia/commons/4/41/Eastern_Cemetery_Giza.jpg", info: "مقابر عائلة الملك خوفو وكبار موظفي الدولة مقسمة في مصاطب منتظمة." },
       { id: 22, dynasty: "الأسرة الرابعة", name: "الجبانة الغربية", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.979378, 31.1312481], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "جبانة كبار رجال الدولة وأمراء العائلة المالكة غرب الهرم الأكبر." },
       { id: 23, dynasty: "الأسرة الرابعة", name: "مقابر عمال بناء أهرام الملك خوفو", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.96967424, 31.13973657], img: "https://upload.wikimedia.org/wikipedia/commons/7/77/Workers_Village_Giza.jpg", info: "مدينة ومقابر العمال والمهندسين الذين شيدوا مجمع هرم خوفو." },
-      { id: 24, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك خوفو", king: "خوفو", site: "الجيزة", category: "مصاطب", coords: [29.98057853, 31.13795714], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المرفأ ومعبد الاستقبال الرئيسي المرتبط بفرع النيل القديم." },
+      { id: 24, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك خوفو", king: "خوفو", site: "الجيزة", category: "معبد", coords: [29.98057853, 31.13795714], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المرفأ ومعبد الاستقبال الرئيسي المرتبط بفرع النيل القديم." },
       { id: 25, dynasty: "الأسرة الرابعة", name: "نقوش وادي مغارة", king: "خوفو", site: "جنوب سيناء", category: "محاجر", coords: [28.89742356, 33.372482], img: "https://upload.wikimedia.org/wikipedia/commons/1/12/Wadi_Maghara_Sanakht_relief.jpg", info: "نقوش تخلد حملات استخراج النحاس والفيروز في عهد الملك خوفو." },
       { id: 26, dynasty: "الأسرة الرابعة", name: "موقع اكتشاف تمثال خوفو", king: "خوفو", site: "أبيدوس (سوهاج)", category: "تمثال", coords: [26.18415281, 31.91849789], img: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Statue_of_Khufu.jpg", info: "موقع العثور على التمثال العاجي الوحيد المعروف للملك خوفو." },
       { id: 27, dynasty: "الأسرة الرابعة", name: "برديات وادي الجرف", king: "خوفو", site: "رأس غارب (البحر الأحمر)", category: "محاجر", coords: [28.89168714, 32.65824471], img: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Wadi_el-Jarf_papyri.jpg", info: "أقدم برديات مكتشفة في العالم تسجل يوميات فريق عمل نقل الحجارة لبناء هرم خوفو." },
@@ -1098,20 +1102,20 @@
       { id: 29, dynasty: "الأسرة الرابعة", name: "هرم جدف رع", king: "جدف رع", site: "أبو رواش (الجيزة)", category: "هرم مدرج", coords: [30.0321711, 31.0748951], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Djedefre_Pyramid_Abu_Rawash.jpg", info: "أبعد الأهرامات الشمالية ملكاً لجدف رع successor خوفو." },
       { id: 30, dynasty: "الأسرة الرابعة", name: "هرم خفرع", king: "خفرع", site: "الجيزة", category: "هرم مدرج", coords: [29.97571533, 31.13154808], img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Pyramide_Khafra.jpg", info: "هرم الملك خفرع الثاني بين أهرامات الجيزة، محتفظاً بجزء من كسته العلوية." },
       { id: 31, dynasty: "الأسرة الرابعة", name: "تمثال أبو الهول", king: "خفرع", site: "الجيزة", category: "تمثال", coords: [29.97526256, 31.13760697], img: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Great_Sphinx_of_Giza_2008.jpg", info: "تمثال أسد برأس إنسان منحوت من الصخر الطبيعي لحراسة مجمع خفرع." },
-      { id: 32, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك خفرع", king: "خفرع", site: "الجيزة", category: "مصاطب", coords: [29.97471912, 31.1383184], img: "https://upload.wikimedia.org/wikipedia/commons/6/67/Khafre_Valley_Temple.jpg", info: "معبد الوادي الضخم المنجز من الحجر الجيري والجرانيت حيث عُثر على تماثيل خفرع." },
-      { id: 33, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك خفرع", king: "خفرع", site: "الجيزة", category: "مصاطب", coords: [29.97598699, 31.13266001], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المعبد الجنائزي الملاصق لهرم خفرع من جهة الشرق." },
+      { id: 32, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك خفرع", king: "خفرع", site: "الجيزة", category: "معبد", coords: [29.97471912, 31.1383184], img: "https://upload.wikimedia.org/wikipedia/commons/6/67/Khafre_Valley_Temple.jpg", info: "معبد الوادي الضخم المنجز من الحجر الجيري والجرانيت حيث عُثر على تماثيل خفرع." },
+      { id: 33, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك خفرع", king: "خفرع", site: "الجيزة", category: "معبد", coords: [29.97598699, 31.13266001], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المعبد الجنائزي الملاصق لهرم خفرع من جهة الشرق." },
       { id: 34, dynasty: "الأسرة الرابعة", name: "محاجر توشكي للديوريت", king: "خفرع", site: "توشكي (أسوان)", category: "محاجر", coords: [22.54016797, 31.81536196], img: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Diorite_quarry_Toshka.jpg", info: "محاجر حجر الديوريت الصلب المستخدم في نحت تماثيل خفرع الملكية." },
       { id: 35, dynasty: "الأسرة الرابعة", name: "مناجم وادي المغارة", king: "خفرع", site: "جنوب سيناء", category: "محاجر", coords: [28.89963601, 33.37734715], img: "https://upload.wikimedia.org/wikipedia/commons/1/12/Wadi_Maghara_Sanakht_relief.jpg", info: "مناجم النحاس والفيروز الملكية بسيناء." },
       { id: 36, dynasty: "الأسرة الرابعة", name: "هرم منكاورع", king: "منكاورع", site: "الجيزة", category: "هرم مدرج", coords: [29.97237109, 31.12861298], img: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Pyramide_Menkaure.jpg", info: "أصغر الأهرامات الثلاثة الرئيسية في الجيزة للملك منكاورع." },
-      { id: 37, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك منكاورع", king: "منكاورع", site: "الجيزة", category: "مصاطب", coords: [29.97244383, 31.13618878], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "معبد الوادي المرتبط بهرم منكاورع." },
-      { id: 38, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك منكاورع", king: "منكاورع", site: "الجيزة", category: "مصاطب", coords: [29.97251915, 31.12916615], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المعبد الجنائزي لتقديم القرابين لروح منكاورع." },
+      { id: 37, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك منكاورع", king: "منكاورع", site: "الجيزة", category: "معبد", coords: [29.97244383, 31.13618878], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "معبد الوادي المرتبط بهرم منكاورع." },
+      { id: 38, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك منكاورع", king: "منكاورع", site: "الجيزة", category: "معبد", coords: [29.97251915, 31.12916615], img: "https://upload.wikimedia.org/wikipedia/commons/1/18/Giza_Pyramid_Complex.jpg", info: "المعبد الجنائزي لتقديم القرابين لروح منكاورع." },
       { id: 39, dynasty: "الأسرة الرابعة", name: "مصطبة فرعون (مقبرة الملك شبسكاف)", king: "شبسكاف", site: "سقارة الجنوبية", category: "مقابر", coords: [29.83894894, 31.21533994], img: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Mastabat_Fara'un.jpg", info: "مقبرة ملكية ضخمة على شكل تابوت حجري ضخم (مصطبة) لملك شبسكاف." },
-      { id: 40, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك شبسكاف", king: "شبسكاف", site: "سقارة الجنوبية", category: "مصاطب", coords: [29.83893961, 31.21587036], img: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Mastabat_Fara'un.jpg", info: "المعبد الجنائزي الملحق بمقبرة شبسكاف." },
+      { id: 40, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك شبسكاف", king: "شبسكاف", site: "سقارة الجنوبية", category: "معبد", coords: [29.83893961, 31.21587036], img: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Mastabat_Fara'un.jpg", info: "المعبد الجنائزي الملحق بمقبرة شبسكاف." },
       { id: 41, dynasty: "الأسرة الرابعة", name: "مقبرة الملكة خنتكاوس (الهرم الرابع)", king: "خنتكاوس", site: "الجيزة", category: "مقابر", coords: [29.97337882, 31.13550979], img: "https://upload.wikimedia.org/wikipedia/commons/9/98/Khentkaus_I_tomb.jpg", info: "مقبرة الملكة خنتكاوس الأولى، وتُعرف أحياناً بالهرم الرابع في الجيزة." },
       { id: 42, dynasty: "الأسرة الرابعة", name: "الهرم الشمالي غير المكتمل (للملك بكا)", king: "بكا-با/كارع", site: "زاوية العريان", category: "هرم مدرج", coords: [29.94023734, 31.15154228], img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Sekhemkhet_pyramid_at_Saqqara.jpg", info: "هرم غير مكتمل في زاوية العريان من نهاية الأسرة الرابعة." },
       { id: 43, dynasty: "الأسرة الرابعة", name: "محجر أبو زعبل", king: "متنوع", site: "أبو زعبل (القليوبية)", category: "محاجر", coords: [30.27065586, 31.36850118], img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Quarry_Egypt.jpg", info: "محاجر استخراج الحجر الجيري والصلصال." },
       { id: 44, dynasty: "الأسرة الرابعة", name: "محجر الجيزة", king: "متنوع", site: "هضبة الجيزة", category: "محاجر", coords: [29.97582349, 31.13475146], img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Quarry_Egypt.jpg", info: "محاجر محط هضبة الجيزة التي استُخرجت منها كتل بناء الأهرامات." },
-      { id: 45, dynasty: "الأسرة الرابعة", name: "معبد أبو الهول", king: "منكاورع", site: "الجيزة", category: "مصاطب", coords: [29.97522731, 31.13832404], img: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Great_Sphinx_of_Giza_2008.jpg", info: "المعبد المقابل لتمثال أبو الهول." },
+      { id: 45, dynasty: "الأسرة الرابعة", name: "معبد أبو الهول", king: "منكاورع", site: "الجيزة", category: "معبد", coords: [29.97522731, 31.13832404], img: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Great_Sphinx_of_Giza_2008.jpg", info: "المعبد المقابل لتمثال أبو الهول." },
       { id: 46, dynasty: "الأسرة الرابعة", name: "محجر هرم منكاورع", king: "متنوع", site: "الجيزة", category: "محاجر", coords: [29.97122618, 31.12894652], img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Quarry_Egypt.jpg", info: "محاجر بناء وتكسير أحجار هرم منكاورع." },
       { id: 47, dynasty: "الأسرة الرابعة", name: "محاجر طرة", king: "متنوع", site: "طرة (القاهرة)", category: "محاجر", coords: [29.93556391, 31.29576255], img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Quarry_Egypt.jpg", info: "محاجر الحجر الجيري الأبيض الفاخر لكسوة الأهرامات." },
       { id: 48, dynasty: "الأسرة الرابعة", name: "محاجر المعصرة", king: "متنوع", site: "المعصرة (القاهرة)", category: "محاجر", coords: [29.88259271, 31.29784239], img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Quarry_Egypt.jpg", info: "محاجر الحجر الجيري الشهيرة شرق النيل." },
@@ -1155,6 +1159,7 @@
       if (cat === 'مصاطب') return { class: 'badge-mastaba', color: '#2563eb', text: 'مصاطب كبرى' };
       if (cat === 'مقابر') return { class: 'badge-tomb', color: '#7c3aed', text: 'مقبرة أثرية' };
       if (cat === 'تمثال') return { class: 'badge-statue', color: '#0284c7', text: 'تمثال أثري' };
+      if (cat === 'معبد') return { class: 'badge-temple', color: '#0d9488', text: 'معبد أثري' };
       return { class: 'badge-provincial', color: '#059669', text: 'أثر تاريخي' };
     }
 
@@ -1196,6 +1201,12 @@
           if (cat === 'تمثال') return L.divIcon({
             className: 'custom-div-icon',
             html: '<div class="custom-map-icon icon-statue"><i class="fa-solid fa-chess-rook"></i></div>',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+          if (cat === 'معبد') return L.divIcon({
+            className: 'custom-div-icon',
+            html: '<div class="custom-map-icon icon-temple"><i class="fa-solid fa-place-of-worship"></i></div>',
             iconSize: [32, 32],
             iconAnchor: [16, 16]
           });
@@ -1241,6 +1252,7 @@
           if (cat === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
           if (cat === 'مقابر') return '<div class="card-thumb-box thumb-tomb"><i class="fa-solid fa-dungeon"></i><span>مقبرة</span></div>';
           if (cat === 'تمثال') return '<div class="card-thumb-box thumb-statue"><i class="fa-solid fa-chess-rook"></i><span>تمثال</span></div>';
+          if (cat === 'معبد') return '<div class="card-thumb-box thumb-temple"><i class="fa-solid fa-place-of-worship"></i><span>معبد</span></div>';
           return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>أثر تاريخي</span></div>';
         }
         card.innerHTML = `
