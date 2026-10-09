@@ -236,11 +236,14 @@
       flex-direction: row;
       position: relative;
       overflow: hidden;
+      min-height: 0;
     }
 
     /* RIGHT SIDEBAR */
     #sidebar {
       width: 400px;
+      min-height: 0;
+      height: 100%;
       background: #ffffff;
       border-left: 2px solid #e2e8f0;
       display: flex;
@@ -441,6 +444,7 @@
       flex: 1;
       position: relative;
       height: 100%;
+      min-height: 0;
     }
     #map { 
       position: absolute;
@@ -1796,6 +1800,9 @@
       setTimeout(() => {
         map.invalidateSize();
       }, 250);
+    });
+    window.addEventListener('resize', () => {
+      if (map) map.invalidateSize();
     });
 
   </script>
