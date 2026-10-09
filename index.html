@@ -878,7 +878,7 @@
       <button class="king-btn active" onclick="filterDynasty('all', this)">كل الأسرات</button>
       <button class="king-btn" onclick="filterDynasty('الأسرة الثالثة', this)">الأسرة الثالثة</button>
       <button class="king-btn" onclick="filterDynasty('الأسرة الرابعة', this)">الأسرة الرابعة</button>
-      <button class="king-btn" onclick="filterKey('الأسرة الخامسة', this)">الأسرة الخامسة</button>
+      <button class="king-btn" onclick="filterDynasty('الأسرة الخامسة', this)">الأسرة الخامسة</button>
       <button class="king-btn" onclick="filterDynasty('الأسرة السادسة', this)">الأسرة السادسة</button>
     </div>
   </div>
@@ -1230,12 +1230,12 @@
       const query = document.getElementById('siteSearch').value.toLowerCase().trim();
       const filtered = monumentsData.filter(item => {
         const matchesCat = (activeFilter === 'all') || (item.category === activeFilter);
-        const matchesKing = (activeKing === 'all') || (item.king.includes(activeKing));
+        const matchesDynasty = (activeDynasty === 'all') || (item.dynasty === activeDynasty);
         const matchesQuery = item.name.toLowerCase().includes(query) ||
                              item.king.toLowerCase().includes(query) ||
                              item.site.toLowerCase().includes(query) ||
                              item.info.toLowerCase().includes(query);
-        return matchesCat && matchesKing && matchesQuery;
+        return matchesCat && matchesDynasty && matchesQuery;
       });
       renderInterface(filtered);
     }
@@ -1247,11 +1247,36 @@
       handleFilter();
     }
 
-    function filterKing(king, element) {
-      activeKing = king;
+    function filterDynasty(dynasty, element) {
+      activeDynasty = dynasty;
       document.querySelectorAll('.king-btn').forEach(b => b.classList.remove('active'));
       element.classList.add('active');
       handleFilter();
+
+      const filtered = monumentsData.filter(item => {
+        const matchesCat = (activeFilter === 'all') || (item.category === activeFilter);
+        const matchesDynasty = (activeDynasty === 'all') || (item.dynasty === activeDynasty);
+        return matchesCat && matchesDynasty;
+      });
+
+      if (filtered.length === 1) {
+        const item = filtered[0];
+        map.flyTo(item.coords, 14, { duration: 1.5 });
+        if (markersMap[item.id]) {
+          setTimeout(() => {
+            markersMap[item.id].openPopup();
+            selectCard(item.id);
+          }, 1600);
+        }
+      } else if (filtered.length > 1) {
+        const validMarkers = filtered.map(i => markersMap[i.id]).filter(m => m);
+        if (validMarkers.length > 0) {
+          const bounds = L.featureGroup(validMarkers).getBounds();
+          if (bounds.isValid()) {
+            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
+          }
+        }
+      }
     }
 
     // 4. Logistics Routes Layer
