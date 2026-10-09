@@ -1158,49 +1158,27 @@
 
   <!-- MODAL 2: Analytics & Charts -->
   <div class="modal-overlay" id="analyticsModal" onclick="if(event.target===this) toggleAnalyticsModal()">
-    <div class="modal-box" style="max-width: 900px;">
+    <div class="modal-box">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-chart-pie"></i> لوحة التحليل الإحصائي والمكاني الشامل لمعالم الأسر الفرعونية</h3>
+        <h3><i class="fa-solid fa-chart-pie"></i> لوحة التحليل الإحصائي والمكاني لمعالم الأسرة الثالثة</h3>
         <button class="modal-close" onclick="toggleAnalyticsModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-content">
-        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:14px;">
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px; text-align:center;">
-            <div id="modalTotalSites" style="font-size:1.3rem; font-weight:800; color:#1d4ed8;">51</div>
-            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">إجمالي المواقع والمعالم</div>
-          </div>
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px; text-align:center;">
-            <div style="font-size:1.3rem; font-weight:800; color:#b45309;">الأسرة 3 و 4</div>
-            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">النطاق الزمني المدروس</div>
-          </div>
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px; text-align:center;">
-            <div style="font-size:1.3rem; font-weight:800; color:#0d9488;">8 أقاليم</div>
-            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">التوزيع الجغرافي والإداري</div>
-          </div>
-        </div>
-        <div class="charts-grid" style="grid-template-columns: 1fr 1fr; gap:16px;">
+        <div class="charts-grid">
           <div class="chart-card">
             <h4>التوزيع حسب النمط المعماري والوظيفي</h4>
-            <canvas id="typeChart" style="max-height:220px;"></canvas>
+            <canvas id="typeChart"></canvas>
           </div>
           <div class="chart-card">
             <h4>التوزيع الجغرافي للمواقع حسب الأقاليم</h4>
-            <canvas id="regionChart" style="max-height:220px;"></canvas>
-          </div>
-          <div class="chart-card">
-            <h4>التوزيع حسب الأسرات الفرعونية</h4>
-            <canvas id="dynastyChart" style="max-height:220px;"></canvas>
-          </div>
-          <div class="chart-card">
-            <h4>أبرز الملوك وأصحاب المعالم الأثرية</h4>
-            <canvas id="kingChart" style="max-height:220px;"></canvas>
+            <canvas id="regionChart"></canvas>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Leaflet Library --><!-- Leaflet Library -->
+  <!-- Leaflet Library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">let darkModeActive = false;
     function toggleDarkMode() {
       const btn = document.getElementById('btnDarkMode');
@@ -1639,117 +1617,79 @@
 
       if (measurePoints.length === 2) {
         const dist = measurePoints[0].distanceTo(measurePoints[1]) / 1000;
-        const line = L.polyline(measurePoints, { color: '#d97706', weight:    let typeChartInstance = null;
-    let regionChartInstance = null;
-    let dynastyChartInstance = null;
-    let kingChartInstance = null;
+        const line = L.polyline(measurePoints, { color: '#d97706', weight: 4, dashArray: '6, 6' });
+        
+        // Popup with delete button right inside the popup too!
+        
+        const popupContent = `
+          <div class="pop-img-container">
+            <img src="${item.img}" class="pop-img" alt="${item.name}" loading="lazy">
+            <div class="pop-badge"><i class="fa-solid fa-landmark"></i> ${badgeInfo.text}</div>
+          </div>
+          <div class="pop-content-body">
+            <div class="pop-title">${item.name}</div>
+            <div class="pop-body">${item.info}</div>
+            <div class="pop-meta">
+              <span><b>الملك:</b> ${item.king}</span> | <span><b>الموقع:</b> ${item.site}</span>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=${item.coords[0]},${item.coords[1]}" target="_blank" class="pop-gmaps-btn">
+              <i class="fa-solid fa-earth-africa"></i> فتح الموقع في Google Maps 3D
+            </a>
+          </div>
+        `;
+        line.bindPopup(popupContent);
+        measureLinesGroup.addLayer(line);
+        line.openPopup();
+        measurePoints = [];
+      }
+    });
+
+    // 7. Modals (Logistics & Analytics)
+    function toggleMaterialModal() {
+      const m = document.getElementById('materialModal');
+      m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    let chartsInitialized = false;
+    function toggleAnalyticsModal() {
+      const m = document.getElementById('analyticsModal');
+      m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+      if (m.style.display === 'flex' && !chartsInitialized) {
+        initCharts();
+        chartsInitialized = true;
+      }
+    }
 
     function initCharts() {
-      const catCounts = {};
-      const regCounts = {};
-      const dynastyCounts = {};
-      const kingCounts = {};
-
-      monumentsData.forEach(item => {
-        let cat = item.category;
-        if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') cat = 'الأهرامات الملكية';
-        else if (cat === 'محاجر') cat = 'المحاجر والمناجم';
-        else if (cat === 'مقابر' || cat === 'مصاطب') cat = 'المقابر والمصاطب';
-        else if (cat === 'معبد') cat = 'المعابد الأثرية';
-        else if (cat === 'تمثال') cat = 'التماثيل والآثار';
-        else cat = 'أخرى';
-        catCounts[cat] = (catCounts[cat] || 0) + 1;
-
-        let reg = 'أخرى';
-        if (item.site.includes('الجيزة') || item.site.includes('سقارة') || item.site.includes('دهشور') || item.site.includes('أبو رواش')) reg = 'الجيزة ومنف';
-        else if (item.site.includes('أسوان')) reg = 'أسوان';
-        else if (item.site.includes('سوهاج') || item.site.includes('أبيدوس') || item.site.includes('جرجا')) reg = 'سوهاج وأبيدوس';
-        else if (item.site.includes('الفيوم')) reg = 'الفيوم';
-        else if (item.site.includes('سيناء')) reg = 'جنوب سيناء';
-        else if (item.site.includes('المنيا')) reg = 'المنيا';
-        else if (item.site.includes('قنا') || item.site.includes('إدفو')) reg = 'قنا وإدفو';
-        else if (item.site.includes('القاهرة') || item.site.includes('طرة') || item.site.includes('المعصرة') || item.site.includes('حلوان')) reg = 'القاهرة الكبرى';
-        regCounts[reg] = (regCounts[reg] || 0) + 1;
-
-        const dyn = item.dynasty || 'غير محدد';
-        dynastyCounts[dyn] = (dynastyCounts[dyn] || 0) + 1;
-
-        const k = item.king || 'غير محدد';
-        kingCounts[k] = (kingCounts[k] || 0) + 1;
-      });
-
-      document.getElementById('modalTotalSites').innerText = monumentsData.length;
-
-      if (typeChartInstance) typeChartInstance.destroy();
-      if (regionChartInstance) regionChartInstance.destroy();
-      if (dynastyChartInstance) dynastyChartInstance.destroy();
-      if (kingChartInstance) kingChartInstance.destroy();
-
-      typeChartInstance = new Chart(document.getElementById('typeChart'), {
+      // Type Chart
+      new Chart(document.getElementById('typeChart'), {
         type: 'doughnut',
         data: {
-          labels: Object.keys(catCounts),
+          labels: ['أهرامات أقاليم', 'أهرامات ملكية', 'محاجر ومناجم', 'مصاطب كبرى'],
           datasets: [{
-            data: Object.values(catCounts),
-            backgroundColor: ['#d97706', '#dc2626', '#2563eb', '#0d9488', '#7c3aed', '#059669']
+            data: [5, 3, 4, 2],
+            backgroundColor: ['#059669', '#d97706', '#dc2626', '#2563eb']
           }]
         },
-        options: { plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 10 } } } } }
+        options: { plugins: { legend: { position: 'bottom' } } }
       });
 
-      regionChartInstance = new Chart(document.getElementById('regionChart'), {
+      // Region Chart
+      new Chart(document.getElementById('regionChart'), {
         type: 'bar',
         data: {
-          labels: Object.keys(regCounts),
+          labels: ['الجيزة', 'أسوان', 'سوهاج', 'الفيوم', 'سيناء', 'المنيا', 'قنا'],
           datasets: [{
             label: 'عدد المعالم',
-            data: Object.values(regCounts),
+            data: [5, 2, 2, 2, 1, 1, 1],
             backgroundColor: '#1f3a52'
           }]
         },
-        options: { 
-          plugins: { legend: { display: false } }, 
-          scales: { 
-            x: { ticks: { font: { family: 'Cairo', size: 9 } } },
-            y: { beginAtZero: true, ticks: { font: { family: 'Cairo', size: 9 } } } 
-          } 
-        }
-      });
-
-      dynastyChartInstance = new Chart(document.getElementById('dynastyChart'), {
-        type: 'pie',
-        data: {
-          labels: Object.keys(dynastyCounts),
-          datasets: [{
-            data: Object.values(dynastyCounts),
-            backgroundColor: ['#b45309', '#1d4ed8', '#047857', '#7c3aed']
-          }]
-        },
-        options: { plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 10 } } } } }
-      });
-
-      const sortedKings = Object.entries(kingCounts).sort((a,b) => b[1] - a[1]).slice(0, 5);
-      kingChartInstance = new Chart(document.getElementById('kingChart'), {
-        type: 'bar',
-        data: {
-          labels: sortedKings.map(k => k[0]),
-          datasets: [{
-            label: 'عدد المعالم',
-            data: sortedKings.map(k => k[1]),
-            backgroundColor: '#d97706'
-          }]
-        },
-        options: { 
-          plugins: { legend: { display: false } }, 
-          scales: { 
-            x: { ticks: { font: { family: 'Cairo', size: 9 } } },
-            y: { beginAtZero: true, ticks: { font: { family: 'Cairo', size: 9 } } } 
-          } 
-        }
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
       });
     }
 
-    // 8. Export GeoJSON// 8. Export GeoJSON & CSV
+    // 8. Export GeoJSON & CSV
     function exportDataGeoJSON() {
       const geojson = {
         type: "FeatureCollection",
