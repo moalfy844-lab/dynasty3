@@ -407,7 +407,7 @@
     .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .thumb-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
     .thumb-statue { background: linear-gradient(135deg, #0284c7, #0369a1); }
-    .thumb-temple { background: linear-gradient(135deg, #ea580c, #9a3412); }
+    .thumb-temple { background: linear-gradient(135deg, #059669, #047857); }
     .thumb-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
     .card-thumb-box span { font-size: 0.62rem; margin-top: 3px; font-weight: 700; }
 
@@ -852,7 +852,7 @@
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .icon-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
     .icon-statue { background: linear-gradient(135deg, #0284c7, #0369a1); }
-    .icon-temple { background: linear-gradient(135deg, #ea580c, #9a3412); }
+    .icon-temple { background: linear-gradient(135deg, #059669, #047857); }
     .icon-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
 
   /* Dark Mode Theme */
@@ -1406,7 +1406,7 @@
           if (item.category === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
           if (item.category === 'مقابر') return '<div class="card-thumb-box thumb-tomb"><i class="fa-solid fa-dungeon"></i><span>مقبرة</span></div>';
           if (item.category === 'تمثال') return '<div class="card-thumb-box thumb-statue"><i class="fa-solid fa-chess-rook"></i><span>تمثال</span></div>';
-          if (item.category === 'معبد') return '<div class="card-thumb-box thumb-temple"><i class="fa-solid fa-place-of-worship"></i><span>معبد</span></div>';
+          if (item.category === 'معبد') return '<div class="card-thumb-box" style="background: linear-gradient(135deg, #059669, #047857);"><i class="fa-solid fa-place-of-worship"></i><span>معبد</span></div>';
           return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>أثر تاريخي</span></div>';
         }
         card.innerHTML = `
