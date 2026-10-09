@@ -25,7 +25,22 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Chart.js for Visual Analytics -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">let darkModeActive = false;
+    function toggleDarkMode() {
+      const btn = document.getElementById('btnDarkMode');
+      darkModeActive = !darkModeActive;
+      document.body.classList.toggle('dark-mode', darkModeActive);
+      if (darkModeActive) {
+        btn.classList.add('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i> الوضع النهاري';
+        btn.style.background = '#d97706';
+      } else {
+        btn.classList.remove('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i> الوضع الليلي';
+        btn.style.background = '#475569';
+      }
+    }
+  </script>
 
   <style>
     :root {
@@ -839,6 +854,103 @@
     .icon-temple { background: linear-gradient(135deg, #0d9488, #115e59); }
     .icon-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
 
+  /* Dark Mode Theme */
+    body.dark-mode {
+      --top-header-bg: #020617;
+      --sub-header-bg: #0f172a;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      background: #020617;
+      color: #f8fafc;
+    }
+    body.dark-mode #sidebar {
+      background: #0f172a;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+    body.dark-mode .kpi-container,
+    body.dark-mode .filter-section {
+      background: #0f172a;
+      border-color: #334155;
+    }
+    body.dark-mode .kpi-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    body.dark-mode .kpi-lbl {
+      color: #94a3b8;
+    }
+    body.dark-mode .section-head {
+      color: #f8fafc;
+    }
+    body.dark-mode .badge-count {
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+    body.dark-mode .search-input-wrap input {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #475569;
+    }
+    body.dark-mode .cat-tab {
+      background: #1e293b;
+      border-color: #475569;
+      color: #cbd5e1;
+    }
+    body.dark-mode .cat-tab.active, body.dark-mode .cat-tab:hover {
+      background: #d97706;
+      border-color: #d97706;
+      color: white;
+    }
+    body.dark-mode .site-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    body.dark-mode .site-card:hover {
+      border-color: #d97706;
+    }
+    body.dark-mode .site-card.active-card {
+      background: #27272a;
+      border-color: #f59e0b;
+    }
+    body.dark-mode .site-card-title {
+      color: #f8fafc;
+    }
+    body.dark-mode .site-card-details {
+      color: #94a3b8;
+    }
+    body.dark-mode .site-card-coords {
+      color: #cbd5e1;
+    }
+    body.dark-mode #routes-legend {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: #334155;
+      color: #f8fafc;
+    }
+    body.dark-mode #routes-legend h4 {
+      color: #f8fafc;
+    }
+    body.dark-mode .modal-box {
+      background: #0f172a;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+    body.dark-mode .material-table th {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+    body.dark-mode .material-table td {
+      border-color: #334155;
+      color: #cbd5e1;
+    }
+    body.dark-mode .chart-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    body.dark-mode .chart-card h4 {
+      color: #f8fafc;
+    }
   </style>
 </head>
 <body>
@@ -875,6 +987,7 @@
       <button class="action-btn" id="btnAhramat" onclick="toggleAhramatBranch()"><i class="fa-solid fa-water"></i> فرع الأهرامات</button>
       <button class="action-btn" id="btnToggleRoutes" onclick="toggleRoutes()"><i class="fa-solid fa-route"></i> طرق النقل</button>
       <button class="action-btn" id="btnMeasure" onclick="toggleMeasure()"><i class="fa-solid fa-ruler-combined"></i> قياس المسافة</button>
+      <button class="action-btn" id="btnDarkMode" onclick="toggleDarkMode()" style="background:#475569;"><i class="fa-solid fa-moon"></i> الوضع الليلي</button>
       <button class="action-btn" id="btnClearMeasure" onclick="clearMeasurement()" style="background:#b91c1c;"><i class="fa-solid fa-trash-can"></i> مسح</button>
       <button class="action-btn" onclick="fitAllPoints()"><i class="fa-solid fa-expand"></i> نطاق مصر</button>
     </div>
@@ -1066,7 +1179,22 @@
   </div>
 
   <!-- Leaflet Library -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">let darkModeActive = false;
+    function toggleDarkMode() {
+      const btn = document.getElementById('btnDarkMode');
+      darkModeActive = !darkModeActive;
+      document.body.classList.toggle('dark-mode', darkModeActive);
+      if (darkModeActive) {
+        btn.classList.add('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i> الوضع النهاري';
+        btn.style.background = '#d97706';
+      } else {
+        btn.classList.remove('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i> الوضع الليلي';
+        btn.style.background = '#475569';
+      }
+    }
+  </script>
 
   <script>
         // 1. Comprehensive Archaeological Dataset (14 Monuments)
@@ -1301,7 +1429,24 @@
     function handleFilter() {
       const query = document.getElementById('siteSearch').value.toLowerCase().trim();
       const filtered = monumentsData.filter(item => {
-        const matchesCat = (activeFilter === 'all') || (item.category === activeFilter);
+        let matchesCat = true;
+        if (activeFilter !== 'all') {
+          if (activeFilter === 'هرم مدرج') {
+            matchesCat = (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم' || item.name.includes('هرم'));
+          } else if (activeFilter === 'مقابر') {
+            matchesCat = (item.category === 'مقابر' || item.name.includes('مقبرة') || item.name.includes('مقابر') || item.name.includes('جبانة'));
+          } else if (activeFilter === 'تمثال') {
+            matchesCat = (item.category === 'تمثال' || item.name.includes('تمثال') || item.name.includes('أبو الهول'));
+          } else if (activeFilter === 'معبد') {
+            matchesCat = (item.category === 'معبد' || item.name.includes('معبد'));
+          } else if (activeFilter === 'محاجر') {
+            matchesCat = (item.category === 'محاجر' || item.name.includes('محجر') || item.name.includes('محاجر') || item.name.includes('مناجم') || item.name.includes('برديات') || item.name.includes('حفر'));
+          } else if (activeFilter === 'مصاطب') {
+            matchesCat = (item.category === 'مصاطب' || item.name.includes('مصطبة') || item.name.includes('مصاطب'));
+          } else {
+            matchesCat = (item.category === activeFilter);
+          }
+        }
         const matchesDynasty = (activeDynasty === 'all') || (item.dynasty === activeDynasty);
         const matchesQuery = item.name.toLowerCase().includes(query) ||
                              item.king.toLowerCase().includes(query) ||
@@ -1829,6 +1974,21 @@
       }, 250);
     });
 
+  let darkModeActive = false;
+    function toggleDarkMode() {
+      const btn = document.getElementById('btnDarkMode');
+      darkModeActive = !darkModeActive;
+      document.body.classList.toggle('dark-mode', darkModeActive);
+      if (darkModeActive) {
+        btn.classList.add('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i> الوضع النهاري';
+        btn.style.background = '#d97706';
+      } else {
+        btn.classList.remove('active-tool');
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i> الوضع الليلي';
+        btn.style.background = '#475569';
+      }
+    }
   </script>
   <!-- Mobile View Tabs -->
   
