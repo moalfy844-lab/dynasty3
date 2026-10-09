@@ -1102,53 +1102,67 @@
 
   <!-- MODAL 1: Logistics Table -->
   <div class="modal-overlay" id="materialModal" onclick="if(event.target===this) toggleMaterialModal()">
-    <div class="modal-box">
+    <div class="modal-box" style="max-width: 920px;">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-dolly"></i> لوجستيات وطرق نقل مواد البناء في عصر الأسرة الثالثة</h3>
+        <h3><i class="fa-solid fa-dolly"></i> دليل اللوجستيات وشبكة إمداد مواد البناء (الأسرات 3 - 4)</h3>
         <button class="modal-close" onclick="toggleMaterialModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-content">
-        <p style="margin-bottom: 12px; color: #475569;">
-          كان تشييد مجمع هرم زوسر المدرج بمثابة أول ثورة لوجستية وهندسية في التاريخ؛ حيث اعتمد المهندس <b>إمحوتب</b> على جلب خامات متخصصة من محاجر تبعد مئات الكيلومترات عبر مجرى النيل وفرع الأهرامات:
+        <p style="margin-bottom: 12px; color: #475569; line-height: 1.6;">
+          مثلت العمارة الملكية الضخمة من الأسرة الثالثة وحتى الأسرة الرابعة أكبر شبكة إمداد لوجستية وهندسية في العالم القديم. اعتمد مهندسو الدولة (مثل إمحوتب وحم إيونو) على فرع النيل المندثر (<b>فرع الأهرامات</b>) وشبكة طرق ممهدة وموانئ بحرية (مثل وادي الجرف) لجلب الخامات الثقيلة من مسافات تتجاوز 850 كم:
         </p>
         <table class="material-table">
           <thead>
             <tr>
               <th>المادة الخام</th>
               <th>المصدر (المحجر)</th>
-              <th>وجهة الوصول</th>
-              <th>طريقة ووسيلة النقل</th>
-              <th>أين استُخدمت بالهرم والمجمع؟</th>
+              <th>وجهة الوصول الرئيسية</th>
+              <th>طريقة ووسيلة النقل الإستراتيجية</th>
+              <th>التوظيف المعماري في المجمعات الهرمية</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><span class="material-badge" style="background:#fee2e2; color:#991b1b;">الجرانيت الوردي</span></td>
               <td>محاجر أسوان (الشلال الأول)</td>
-              <td>سقارة (قاع بئر الهرم)</td>
-              <td>مراكب نيلية شحن ثقيل بمجرى النيل (~850 كم شمالاً) مع تيار النهر، ثم زحافات خشبية من المرفأ.</td>
-              <td>تبطين حجرة الدفن الملكية لزوسر على عمق 28 متراً وسدادة الغرفة.</td>
+              <td>سقارة والجيزة (حجرات الدفن)</td>
+              <td>مراكب شحن نيلية ثقيلة مستفيدة من الفيضان وقوة التيار نحو الشمال (~850 كم)، ثم زحافات خشبية وموانئ فرع الأهرامات.</td>
+              <td>تبطين حجرات الدفن الملكية (لزوسر وخفرع ومنكاورع) وسدادات الأبواب وسقف حجرة الملك بخوفو.</td>
             </tr>
             <tr>
               <td><span class="material-badge" style="background:#e0f2fe; color:#0369a1;">الحجر الجيري الأبيض</span></td>
               <td>محاجر طرة والمعصرة (شرق النيل)</td>
-              <td>سقارة (الهرم والسور)</td>
-              <td>معديات وصنادل عبور نهرية عبر مجرى النيل القديم وفروعه الغربية، ثم قنوات مائية.</td>
-              <td>الكسوة الخارجية للهرم المدرج والجدار الدفاعي الضخم المحيط بالمجمع.</td>
+              <td>أهرامات الجيزة، سقارة،وميدوم</td>
+              <td>صنادل نقل نظيمة عبر مجرى النيل وفرع الأهرامات المندثر الملاصق لهضاب الأهرامات، وقنوات وموانئ تفريغ قريبة.</td>
+              <td>الكسوة الخارجية للأهرامات الكبرى، الجدران الخارجية والأسوار الدفاعية للمجمعات.</td>
             </tr>
             <tr>
               <td><span class="material-badge" style="background:#f1f5f9; color:#0f172a; border: 1px solid #cbd5e1;">البازلت الأسود</span></td>
-              <td>محاجر جبل القطراني (الفيوم)</td>
-              <td>سقارة (المعابد الجنائزية)</td>
-              <td>طريق ممهد (طريق ودان الفرس - أقدم طريق مرصوف بالعالم) حتى بحيرة قارون ثم النيل.</td>
-              <td>رصف أرضيات المقاصير والمعابد الجنائزية المحيطة بالفناء الكبير.</td>
+              <td>محاجر جبل القطراني (شمال الفيوم)</td>
+              <td>سقارة والجيزة</td>
+              <td>نقل البر عبر "طريق ودان الفرس" (أقدم طريق مرصوف بالعالم) حتى بحيرة قارون، ثم الإبحار عبر النيل شمالاً.</td>
+              <td>رصف أرضيات المعابد الجنائزية والمقاصير الملكية (معبد زوسر ومجمع خوفو).</td>
             </tr>
             <tr>
-              <td><span class="material-badge" style="background:#f3e8ff; color:#6b21a8;">الفيروز والنحاس</span></td>
-              <td>مناجم وادي مغارة (سيناء)</td>
-              <td>العاصمة منف / سقارة</td>
-              <td>قوافل برية عبر دروب سيناء ثم سفن ساحلية بخليج السويس ثم دروب صحراوية لمنف.</td>
-              <td>صناعة أزاميل الحفر، أدوات البنائين النحاسية، وحلي التمائم والزينة الملكية.</td>
+              <td><span class="material-badge" style="background:#f3e8ff; color:#6b21a8;">الديوريت الصلب</span></td>
+              <td>محاجر توشكي (أقصى جنوب أسوان)</td>
+              <td>معابد الوادي (منف والجيزة)</td>
+              <td>شحن نهري طويل الأمد من عمق الصحراء الجنوبية حتى العاصمة منف ومجمعات خفرع.</td>
+              <td>نحت التماثيل الملكية الصلبة والبارزة (مثل تمثال خفرع الجلوس الشهير بالمتحف المصري).</td>
+            </tr>
+            <tr>
+              <td><span class="material-badge" style="background:#fef3c7; color:#b45309;">الألباستر (المرمر)</span></td>
+              <td>محاجر حتنوب (صحراء المنيا)</td>
+              <td>معابد ومقابر الدولة</td>
+              <td>قوافل برية عبر دروب الصحراء الشرقية ثم النيل حتى المعابد المركزية.</td>
+              <td>صناعة الأواني الكنوز واللوحات والأرضيات المضيئة والقرابين.</td>
+            </tr>
+            <tr>
+              <td><span class="material-badge" style="background:#ccfbf1; color:#115e59;">الفيروز والنحاس</span></td>
+              <td>مناجم وادي مغارة وسرابيط وخادم (سيناء)</td>
+              <td>العاصمة منف / ميناء وادي الجرف</td>
+              <td>سفن ساحلية بخليج السويس وميناء وادي الجرف البحري، وقوافل برية عسكرية مؤمنة.</td>
+              <td>صناعة أدوات البناء والأزاميل النحاسية وحلي التمائم والزينة الملكية.</td>
             </tr>
           </tbody>
         </table>
@@ -1158,27 +1172,49 @@
 
   <!-- MODAL 2: Analytics & Charts -->
   <div class="modal-overlay" id="analyticsModal" onclick="if(event.target===this) toggleAnalyticsModal()">
-    <div class="modal-box">
+    <div class="modal-box" style="max-width: 900px;">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-chart-pie"></i> لوحة التحليل الإحصائي والمكاني لمعالم الأسرة الثالثة</h3>
+        <h3><i class="fa-solid fa-chart-pie"></i> لوحة التحليل الإحصائي والمكاني الشامل لمعالم الأسر الفرعونية</h3>
         <button class="modal-close" onclick="toggleAnalyticsModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-content">
-        <div class="charts-grid">
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:14px;">
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px; text-align:center;">
+            <div id="modalTotalSites" style="font-size:1.3rem; font-weight:800; color:#1d4ed8;">51</div>
+            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">إجمالي المواقع والمعالم</div>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px; text-align:center;">
+            <div style="font-size:1.3rem; font-weight:800; color:#b45309;">الأسرة 3 و 4</div>
+            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">النطاق الزمني المدروس</div>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:10px; text-align:center;">
+            <div style="font-size:1.3rem; font-weight:800; color:#0d9488;">8 أقاليم</div>
+            <div style="font-size:0.75rem; color:#64748b; font-weight:700;">التوزيع الجغرافي والإداري</div>
+          </div>
+        </div>
+        <div class="charts-grid" style="grid-template-columns: 1fr 1fr; gap:16px;">
           <div class="chart-card">
             <h4>التوزيع حسب النمط المعماري والوظيفي</h4>
-            <canvas id="typeChart"></canvas>
+            <canvas id="typeChart" style="max-height:220px;"></canvas>
           </div>
           <div class="chart-card">
             <h4>التوزيع الجغرافي للمواقع حسب الأقاليم</h4>
-            <canvas id="regionChart"></canvas>
+            <canvas id="regionChart" style="max-height:220px;"></canvas>
+          </div>
+          <div class="chart-card">
+            <h4>التوزيع حسب الأسرات الفرعونية</h4>
+            <canvas id="dynastyChart" style="max-height:220px;"></canvas>
+          </div>
+          <div class="chart-card">
+            <h4>أبرز الملوك وأصحاب المعالم الأثرية</h4>
+            <canvas id="kingChart" style="max-height:220px;"></canvas>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Leaflet Library -->
+  <!-- Leaflet Library --><!-- Leaflet Library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">let darkModeActive = false;
     function toggleDarkMode() {
       const btn = document.getElementById('btnDarkMode');
@@ -1617,79 +1653,117 @@
 
       if (measurePoints.length === 2) {
         const dist = measurePoints[0].distanceTo(measurePoints[1]) / 1000;
-        const line = L.polyline(measurePoints, { color: '#d97706', weight: 4, dashArray: '6, 6' });
-        
-        // Popup with delete button right inside the popup too!
-        
-        const popupContent = `
-          <div class="pop-img-container">
-            <img src="${item.img}" class="pop-img" alt="${item.name}" loading="lazy">
-            <div class="pop-badge"><i class="fa-solid fa-landmark"></i> ${badgeInfo.text}</div>
-          </div>
-          <div class="pop-content-body">
-            <div class="pop-title">${item.name}</div>
-            <div class="pop-body">${item.info}</div>
-            <div class="pop-meta">
-              <span><b>الملك:</b> ${item.king}</span> | <span><b>الموقع:</b> ${item.site}</span>
-            </div>
-            <a href="https://www.google.com/maps/search/?api=1&query=${item.coords[0]},${item.coords[1]}" target="_blank" class="pop-gmaps-btn">
-              <i class="fa-solid fa-earth-africa"></i> فتح الموقع في Google Maps 3D
-            </a>
-          </div>
-        `;
-        line.bindPopup(popupContent);
-        measureLinesGroup.addLayer(line);
-        line.openPopup();
-        measurePoints = [];
-      }
-    });
-
-    // 7. Modals (Logistics & Analytics)
-    function toggleMaterialModal() {
-      const m = document.getElementById('materialModal');
-      m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-    }
-
-    let chartsInitialized = false;
-    function toggleAnalyticsModal() {
-      const m = document.getElementById('analyticsModal');
-      m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-      if (m.style.display === 'flex' && !chartsInitialized) {
-        initCharts();
-        chartsInitialized = true;
-      }
-    }
+        const line = L.polyline(measurePoints, { color: '#d97706', weight:    let typeChartInstance = null;
+    let regionChartInstance = null;
+    let dynastyChartInstance = null;
+    let kingChartInstance = null;
 
     function initCharts() {
-      // Type Chart
-      new Chart(document.getElementById('typeChart'), {
-        type: 'doughnut',
-        data: {
-          labels: ['أهرامات أقاليم', 'أهرامات ملكية', 'محاجر ومناجم', 'مصاطب كبرى'],
-          datasets: [{
-            data: [5, 3, 4, 2],
-            backgroundColor: ['#059669', '#d97706', '#dc2626', '#2563eb']
-          }]
-        },
-        options: { plugins: { legend: { position: 'bottom' } } }
+      const catCounts = {};
+      const regCounts = {};
+      const dynastyCounts = {};
+      const kingCounts = {};
+
+      monumentsData.forEach(item => {
+        let cat = item.category;
+        if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') cat = 'الأهرامات الملكية';
+        else if (cat === 'محاجر') cat = 'المحاجر والمناجم';
+        else if (cat === 'مقابر' || cat === 'مصاطب') cat = 'المقابر والمصاطب';
+        else if (cat === 'معبد') cat = 'المعابد الأثرية';
+        else if (cat === 'تمثال') cat = 'التماثيل والآثار';
+        else cat = 'أخرى';
+        catCounts[cat] = (catCounts[cat] || 0) + 1;
+
+        let reg = 'أخرى';
+        if (item.site.includes('الجيزة') || item.site.includes('سقارة') || item.site.includes('دهشور') || item.site.includes('أبو رواش')) reg = 'الجيزة ومنف';
+        else if (item.site.includes('أسوان')) reg = 'أسوان';
+        else if (item.site.includes('سوهاج') || item.site.includes('أبيدوس') || item.site.includes('جرجا')) reg = 'سوهاج وأبيدوس';
+        else if (item.site.includes('الفيوم')) reg = 'الفيوم';
+        else if (item.site.includes('سيناء')) reg = 'جنوب سيناء';
+        else if (item.site.includes('المنيا')) reg = 'المنيا';
+        else if (item.site.includes('قنا') || item.site.includes('إدفو')) reg = 'قنا وإدفو';
+        else if (item.site.includes('القاهرة') || item.site.includes('طرة') || item.site.includes('المعصرة') || item.site.includes('حلوان')) reg = 'القاهرة الكبرى';
+        regCounts[reg] = (regCounts[reg] || 0) + 1;
+
+        const dyn = item.dynasty || 'غير محدد';
+        dynastyCounts[dyn] = (dynastyCounts[dyn] || 0) + 1;
+
+        const k = item.king || 'غير محدد';
+        kingCounts[k] = (kingCounts[k] || 0) + 1;
       });
 
-      // Region Chart
-      new Chart(document.getElementById('regionChart'), {
+      document.getElementById('modalTotalSites').innerText = monumentsData.length;
+
+      if (typeChartInstance) typeChartInstance.destroy();
+      if (regionChartInstance) regionChartInstance.destroy();
+      if (dynastyChartInstance) dynastyChartInstance.destroy();
+      if (kingChartInstance) kingChartInstance.destroy();
+
+      typeChartInstance = new Chart(document.getElementById('typeChart'), {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(catCounts),
+          datasets: [{
+            data: Object.values(catCounts),
+            backgroundColor: ['#d97706', '#dc2626', '#2563eb', '#0d9488', '#7c3aed', '#059669']
+          }]
+        },
+        options: { plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 10 } } } } }
+      });
+
+      regionChartInstance = new Chart(document.getElementById('regionChart'), {
         type: 'bar',
         data: {
-          labels: ['الجيزة', 'أسوان', 'سوهاج', 'الفيوم', 'سيناء', 'المنيا', 'قنا'],
+          labels: Object.keys(regCounts),
           datasets: [{
             label: 'عدد المعالم',
-            data: [5, 2, 2, 2, 1, 1, 1],
+            data: Object.values(regCounts),
             backgroundColor: '#1f3a52'
           }]
         },
-        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        options: { 
+          plugins: { legend: { display: false } }, 
+          scales: { 
+            x: { ticks: { font: { family: 'Cairo', size: 9 } } },
+            y: { beginAtZero: true, ticks: { font: { family: 'Cairo', size: 9 } } } 
+          } 
+        }
+      });
+
+      dynastyChartInstance = new Chart(document.getElementById('dynastyChart'), {
+        type: 'pie',
+        data: {
+          labels: Object.keys(dynastyCounts),
+          datasets: [{
+            data: Object.values(dynastyCounts),
+            backgroundColor: ['#b45309', '#1d4ed8', '#047857', '#7c3aed']
+          }]
+        },
+        options: { plugins: { legend: { position: 'bottom', labels: { font: { family: 'Cairo', size: 10 } } } } }
+      });
+
+      const sortedKings = Object.entries(kingCounts).sort((a,b) => b[1] - a[1]).slice(0, 5);
+      kingChartInstance = new Chart(document.getElementById('kingChart'), {
+        type: 'bar',
+        data: {
+          labels: sortedKings.map(k => k[0]),
+          datasets: [{
+            label: 'عدد المعالم',
+            data: sortedKings.map(k => k[1]),
+            backgroundColor: '#d97706'
+          }]
+        },
+        options: { 
+          plugins: { legend: { display: false } }, 
+          scales: { 
+            x: { ticks: { font: { family: 'Cairo', size: 9 } } },
+            y: { beginAtZero: true, ticks: { font: { family: 'Cairo', size: 9 } } } 
+          } 
+        }
       });
     }
 
-    // 8. Export GeoJSON & CSV
+    // 8. Export GeoJSON// 8. Export GeoJSON & CSV
     function exportDataGeoJSON() {
       const geojson = {
         type: "FeatureCollection",
