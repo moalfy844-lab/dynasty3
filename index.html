@@ -806,6 +806,30 @@
       }
     }
 
+  
+    /* Custom Leaflet Symbol Icons */
+    .custom-map-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.95rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      border: 2px solid #ffffff;
+      transition: transform 0.2s ease;
+    }
+    .custom-map-icon:hover {
+      transform: scale(1.15);
+      z-index: 1000;
+    }
+    .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
+    .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
+    .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
+    .icon-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
+
   </style>
 </head>
 <body>
@@ -1102,14 +1126,35 @@
         const badgeInfo = getSiteBadge(item.category);
         
         // Leaflet Marker
-        const marker = L.circleMarker(item.coords, {
-          radius: item.category === 'محاجر' ? 10 : 8,
-          fillColor: badgeInfo.color,
-          color: '#ffffff',
-          weight: 2,
-          opacity: 1,
-          fillOpacity: 0.95
-        });
+        
+        function getMapSymbolIcon(cat) {
+          if (cat === 'هرم مدرج') return L.divIcon({
+            className: 'custom-div-icon',
+            html: '<div class="custom-map-icon icon-pyramid"><i class="fa-solid fa-monument"></i></div>',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+          if (cat === 'محاجر') return L.divIcon({
+            className: 'custom-div-icon',
+            html: '<div class="custom-map-icon icon-quarry"><i class="fa-solid fa-hammer"></i></div>',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+          if (cat === 'مصاطب') return L.divIcon({
+            className: 'custom-div-icon',
+            html: '<div class="custom-map-icon icon-mastaba"><i class="fa-solid fa-archway"></i></div>',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+          return L.divIcon({
+            className: 'custom-div-icon',
+            html: '<div class="custom-map-icon icon-provincial"><i class="fa-solid fa-cubes"></i></div>',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+        }
+        const marker = L.marker(item.coords, { icon: getMapSymbolIcon(item.category) });
+
 
         
         const popupContent = `
