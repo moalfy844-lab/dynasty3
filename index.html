@@ -3,7 +3,7 @@
 <head>
   <!-- Open Graph Meta Tags for WhatsApp & Social Media Preview -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="أطلس فجر الأهرامات | معالم وشبكات إمداد الأسرة الثالثة" />
+  <meta property="og:title" content="المعالم الاثرية للاسرات الفرعونيه من الاسرة الثالثه حتى الاسرة السادسه" />
   <meta property="og:description" content="خريطة تفاعلية أثرية لاستكشاف أهرامات ومصاطب ومحاجر الأسرة الثالثة، مسارات نقل المواد، ومجرى فرع الأهرامات المندثر (2686 – 2613 ق.م)." />
   <meta property="og:image" content="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmx1knXrg2_N-KezxYt_Nmq8VDdgQ5a3J8wKSZK7k5l-fpYy5gs5Y9C1owRddpwgf0Tj9Pdl5T9Z5b03JGc6X_Za5X5g98E1bcZN_OKPlT0Lx097BXhu4KxYUa4zvKPJDp1wAoYdQ=s680-w680-h510-rw" />
   <meta property="og:url" content="https://moalfy844-lab.github.io/dynasty3/" />
@@ -14,7 +14,7 @@
   <meta charset="utf-8" />
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>أطلس فجر الأهرامات: المستكشف الجغرافي لمعالم الأسرة الثالثة</title>
+  <title>المعالم الاثرية للاسرات الفرعونيه من الاسرة الثالثه حتى الاسرة السادسة</title>
   
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -839,8 +839,8 @@
     <div class="main-header-right">
       <i class="fa-solid fa-monument app-icon"></i>
       <div class="header-text">
-        <h1>أطلس فجر الأهرامات | معالم وشبكات إمداد الأسرة الثالثة</h1>
-        <p>التوزيع المكاني، شبكات النقل اللوجستية، ومجرى فرع الأهرامات المندثر (2686 – 2613 ق.م)</p>
+        <h1>المعالم الاثرية للاسرات الفرعونيه من الاسرة الثالثه حتى الاسرة السادسه</h1>
+        <p>التوزيع المكاني والمعالم الأثرية لملوك ومقاطعات الأسرات من الثالثة حتى السادسة</p>
       </div>
     </div>
     <div class="main-header-left">
@@ -856,8 +856,6 @@
     <div class="basemap-group">
       <button class="basemap-tab active" onclick="switchBasemap('streets', this)">خريطة الشوارع</button>
       <button class="basemap-tab" onclick="switchBasemap('satellite', this)">صور الأقمار الصناعية</button>
-      <button class="basemap-tab" onclick="switchBasemap('topo', this)">خريطة التضاريس الطبوغرافية</button>
-      <button class="basemap-tab" onclick="switchBasemap('carto', this)">الخريطة الكارتوغرافية البسيطة</button>
     </div>
 
         <div class="tools-group">
@@ -1085,9 +1083,7 @@
 
     const basemapLayers = {
       streets: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri Streets' }),
-      satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri Satellite' }),
-      topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri Topo' }),
-      carto: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16, attribution: 'Esri Gray Canvas' })
+      satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri Satellite' })
     };
     let currentBasemap = basemapLayers.streets;
     currentBasemap.addTo(map);
