@@ -369,6 +369,7 @@
       border-right: 4px solid #d97706;
     }
 
+    /* Thumbnail and Categories Styles */
     .card-thumb-box {
       width: 70px;
       height: 70px;
@@ -384,7 +385,9 @@
       position: relative;
       overflow: hidden;
     }
-    .thumb-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
+    .thumb-pyramid-dyn3 { background: linear-gradient(135deg, #d97706, #92400e); }
+    .thumb-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
+    .thumb-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); } /* لون عنابي ملكي للأسرة السادسة */
     .thumb-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .thumb-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
@@ -417,6 +420,7 @@
       white-space: nowrap;
     }
     .badge-pyramid { background: #fef3c7; color: #b45309; }
+    .badge-pyramid-dyn6 { background: #ffe4e6; color: #9f1239; }
     .badge-quarry { background: #fee2e2; color: #991b1b; }
     .badge-mastaba { background: #dbeafe; color: #1e40af; }
     .badge-tomb { background: #f3e8ff; color: #6b21a8; }
@@ -750,6 +754,7 @@
     .custom-map-icon:hover { transform: scale(1.15); z-index: 1000; }
     .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
     .icon-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
+    .icon-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); } /* عنابي ملكي للأسرة السادسة */
     .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .icon-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
@@ -1095,9 +1100,13 @@
     function getSiteBadge(item) {
       const cat = item.category;
       if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
-        return item.dynasty === 'الأسرة الثالثة' 
-          ? { class: 'badge-pyramid', color: '#d97706', text: 'هرم (الأسرة 3)' }
-          : { class: 'badge-mastaba', color: '#2563eb', text: 'هرم ملوكي' };
+        if (item.dynasty === 'الأسرة السادسة') {
+          return { class: 'badge-pyramid-dyn6', color: '#9f1239', text: 'هرم (الأسرة 6)' };
+        } else if (item.dynasty === 'الأسرة الثالثة') {
+          return { class: 'badge-pyramid', color: '#d97706', text: 'هرم (الأسرة 3)' };
+        } else {
+          return { class: 'badge-mastaba', color: '#2563eb', text: 'هرم ملوكي' };
+        }
       }
       if (cat === 'محاجر') return { class: 'badge-quarry', color: '#dc2626', text: 'محجر ومصدر' };
       if (cat === 'مصاطب') return { class: 'badge-mastaba', color: '#2563eb', text: 'مصاطب كبرى' };
@@ -1110,14 +1119,36 @@
     function getMapSymbolIcon(item) {
       const cat = item.category;
       if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
-        const iconClass = item.dynasty === 'الأسرة الثالثة' ? 'icon-pyramid' : 'icon-pyramid-dyn4';
+        let iconClass = 'icon-pyramid';
+        if (item.dynasty === 'الأسرة الرابعة') iconClass = 'icon-pyramid-dyn4';
+        if (item.dynasty === 'الأسرة السادسة') iconClass = 'icon-pyramid-dyn6'; // لون عنابي مميز للأسرة السادسة
         return L.divIcon({ className: 'custom-div-icon', html: `<div class="custom-map-icon ${iconClass}"><i class="fa-solid fa-monument"></i></div>`, iconSize: [32, 32], iconAnchor: [16, 16] });
       }
       if (cat === 'محاجر') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-quarry"><i class="fa-solid fa-hammer"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
       if (cat === 'مصاطب') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-mastaba"><i class="fa-solid fa-archway"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
       if (cat === 'مقابر') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-tomb"><i class="fa-solid fa-dungeon"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
+      if (cat === 'تمثال') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-statue"><i class="fa-solid fa-chess-rook"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
       if (cat === 'معبد') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-temple"><i class="fa-solid fa-place-of-worship"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
       return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-provincial"><i class="fa-solid fa-cubes"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
+    }
+
+    function getThumbBox(item) {
+      const cat = item.category;
+      if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
+        if (item.dynasty === 'الأسرة السادسة') {
+          return '<div class="card-thumb-box thumb-pyramid-dyn6"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        } else if (item.dynasty === 'الأسرة الثالثة') {
+          return '<div class="card-thumb-box thumb-pyramid-dyn3"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        } else {
+          return '<div class="card-thumb-box thumb-pyramid-dyn4"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        }
+      }
+      if (cat === 'محاجر') return '<div class="card-thumb-box thumb-quarry"><i class="fa-solid fa-hammer"></i><span>محجر</span></div>';
+      if (cat === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
+      if (cat === 'مقابر') return '<div class="card-thumb-box thumb-tomb"><i class="fa-solid fa-dungeon"></i><span>مقبرة</span></div>';
+      if (cat === 'تمثال') return '<div class="card-thumb-box thumb-statue"><i class="fa-solid fa-chess-rook"></i><span>تمثال</span></div>';
+      if (cat === 'معبد') return '<div class="card-thumb-box thumb-temple"><i class="fa-solid fa-place-of-worship"></i><span>معبد</span></div>';
+      return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>أثر</span></div>';
     }
 
     function renderInterface(items) {
@@ -1154,7 +1185,7 @@
         card.className = 'site-card';
         card.id = `card-${item.id}`;
         card.innerHTML = `
-          <div class="card-thumb-box thumb-pyramid"><i class="fa-solid fa-monument"></i><span>${item.category}</span></div>
+          ${getThumbBox(item)}
           <div class="card-body-content">
             <div class="site-card-header">
               <span class="site-card-title">${item.name}</span>
