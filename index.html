@@ -183,7 +183,6 @@
       transition: 0.2s;
     }
     .action-btn:hover { background: #0f766e; }
-    .action-btn.active-tool { background: #e11d48; }
 
     /* Timeline Bar */
     .timeline-bar {
@@ -387,7 +386,7 @@
     }
     .thumb-pyramid-dyn3 { background: linear-gradient(135deg, #d97706, #92400e); }
     .thumb-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
-    .thumb-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); } /* لون عنابي ملكي للأسرة السادسة */
+    .thumb-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
     .thumb-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .thumb-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
@@ -450,44 +449,6 @@
       position: relative;
     }
     #map { width: 100%; height: 100%; }
-
-    /* Floating Legend */
-    #routes-legend {
-      position: absolute;
-      bottom: 24px;
-      left: 14px;
-      z-index: 999;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(4px);
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 10px 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-      font-size: 0.74rem;
-      max-width: 290px;
-      display: none;
-    }
-    #routes-legend h4 {
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #1e293b;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 5px;
-    }
-    .legend-line {
-      width: 24px;
-      height: 4px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
 
     /* Modals */
     .modal-overlay {
@@ -754,7 +715,7 @@
     .custom-map-icon:hover { transform: scale(1.15); z-index: 1000; }
     .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
     .icon-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
-    .icon-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); } /* عنابي ملكي للأسرة السادسة */
+    .icon-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
     .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
     .icon-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
@@ -807,14 +768,7 @@
 
     <div class="tools-group">
       <div class="coord-display" id="coordIndicator">خط الطول: 31.2164°E | خط العرض: 29.8713°N</div>
-      <button class="action-btn" id="btnTour" onclick="toggleTour()"><i class="fa-solid fa-play"></i> الجولة الافتراضية</button>
-      <button class="action-btn" id="btnBuffers" onclick="toggleBuffers()"><i class="fa-solid fa-bullseye"></i> نطاقات التأثير (10 كم)</button>
-      <button class="action-btn" id="btnNomes" onclick="toggleNomes()"><i class="fa-solid fa-map-location-dot"></i> حدود وخريطة مصر القديمة</button>
-      <button class="action-btn" id="btnAhramat" onclick="toggleAhramatBranch()"><i class="fa-solid fa-water"></i> فرع الأهرامات</button>
-      <button class="action-btn" id="btnToggleRoutes" onclick="toggleRoutes()"><i class="fa-solid fa-route"></i> طرق النقل</button>
-      <button class="action-btn" id="btnMeasure" onclick="toggleMeasure()"><i class="fa-solid fa-ruler-combined"></i> قياس المسافة</button>
       <button class="action-btn" id="btnDarkMode" onclick="toggleDarkMode()" style="background:#475569;"><i class="fa-solid fa-moon"></i> الوضع الليلي</button>
-      <button class="action-btn" id="btnClearMeasure" onclick="clearMeasurement()" style="background:#b91c1c;"><i class="fa-solid fa-trash-can"></i> مسح</button>
       <button class="action-btn" onclick="fitAllPoints()"><i class="fa-solid fa-expand"></i> نطاق مصر</button>
     </div>
   </div>
@@ -887,30 +841,6 @@
       <button class="floating-sidebar-btn" id="floatingSidebarBtn" onclick="toggleSidebar(true)">
         <i class="fa-solid fa-list-ul"></i> قائمة الآثار
       </button>
-
-      <div id="routes-legend">
-        <h4><i class="fa-solid fa-layer-group"></i> الطبقات الهيدرولوجية واللوجستية:</h4>
-        <div class="legend-item" id="leg-ahramat" style="display:none;">
-          <div class="legend-line" style="background: #0ea5e9; height: 5px;"></div>
-          <span><b>فرع الأهرامات المندثر:</b> المجرى القديم المحاذي للأهرامات</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background: #e11d48;"></div>
-          <span><b>الجرانيت الوردي:</b> أسوان ➔ النيل ➔ سقارة (850 كم)</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background: #0284c7;"></div>
-          <span><b>الحجر الجيري الأبيض:</b> طرة ➔ عبر النيل ➔ سقارة</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background: #1e293b;"></div>
-          <span><b>البازلت الأسود:</b> جبل القطراني ➔ بحيرة قارون ➔ سقارة</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-line" style="background: #7c3aed;"></div>
-          <span><b>الفيروز والنحاس:</b> وادي مغارة ➔ خليج السويس ➔ منف</span>
-        </div>
-      </div>
 
       <div id="map"></div>
     </main>
@@ -1121,7 +1051,7 @@
       if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
         let iconClass = 'icon-pyramid';
         if (item.dynasty === 'الأسرة الرابعة') iconClass = 'icon-pyramid-dyn4';
-        if (item.dynasty === 'الأسرة السادسة') iconClass = 'icon-pyramid-dyn6'; // لون عنابي مميز للأسرة السادسة
+        if (item.dynasty === 'الأسرة السادسة') iconClass = 'icon-pyramid-dyn6';
         return L.divIcon({ className: 'custom-div-icon', html: `<div class="custom-map-icon ${iconClass}"><i class="fa-solid fa-monument"></i></div>`, iconSize: [32, 32], iconAnchor: [16, 16] });
       }
       if (cat === 'محاجر') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-quarry"><i class="fa-solid fa-hammer"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
