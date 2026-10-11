@@ -386,7 +386,7 @@
     }
     .thumb-pyramid-dyn3 { background: linear-gradient(135deg, #d97706, #92400e); }
     .thumb-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
-    .thumb-pyramid-dyn5 { background: linear-gradient(135deg, #0d9488, #115e59); }
+    .thumb-pyramid-dyn5 { background: linear-gradient(135deg, #ca8a04, #854d0e); } /* لون ذهبي برونزي مميز لأهرامات الأسرة الخامسة */
     .thumb-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
     .thumb-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
@@ -420,7 +420,7 @@
       white-space: nowrap;
     }
     .badge-pyramid { background: #fef3c7; color: #b45309; }
-    .badge-pyramid-dyn5 { background: #ccfbf1; color: #0f766e; }
+    .badge-pyramid-dyn5 { background: #fef9c3; color: #854d0e; } /* شارة ذهبية متناسقة */
     .badge-pyramid-dyn6 { background: #ffe4e6; color: #9f1239; }
     .badge-quarry { background: #fee2e2; color: #991b1b; }
     .badge-mastaba { background: #dbeafe; color: #1e40af; }
@@ -717,7 +717,7 @@
     .custom-map-icon:hover { transform: scale(1.15); z-index: 1000; }
     .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
     .icon-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
-    .icon-pyramid-dyn5 { background: linear-gradient(135deg, #0d9488, #115e59); }
+    .icon-pyramid-dyn5 { background: linear-gradient(135deg, #ca8a04, #854d0e); } /* أيقونة الخريطة بلون ذهبي برونزي مميز لأهرامات الأسرة الخامسة */
     .icon-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
     .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
@@ -745,7 +745,7 @@
 </head>
 <body>
 
-  <!-- 1. Top Header Bar -->
+  <!-- 1. Main Header -->
   <header class="main-header">
     <div class="main-header-right">
       <i class="fa-solid fa-monument app-icon"></i>
@@ -920,7 +920,7 @@
 
     // Comprehensive Archaeological Dataset (124 Monuments)
     const monumentsData = [
-      // ==================== الأسرة الثالثة (البيانات الجديدة المحدثة من الصورة) ====================
+      // ==================== الأسرة الثالثة ====================
       { id: 201, dynasty: "الأسرة الثالثة", name: "هرم زوسر المدرج", king: "زوسر (نثري خت)", site: "سقارة", category: "هرم مدرج", coords: [29.871456, 31.216545], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مدرج / مجمع جنائزي ملكي خاص بالملك زوسر." },
       { id: 202, dynasty: "الأسرة الثالثة", name: "المقبرة الجنوبية لزوسر", king: "زوسر", site: "سقارة", category: "مقابر", coords: [29.869231, 31.216131], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقبرة رمزية (بئر وسراديب) تابعة لمجمع زوسر الجنائزي." },
       { id: 203, dynasty: "الأسرة الثالثة", name: "المعبد الجنائزي لزوسر", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.871899, 31.216571], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المعبد الجنائزي الرئيسي الواقع بالناحية الشمالية لهرم زوسر." },
@@ -947,7 +947,7 @@
       { id: 224, dynasty: "الأسرة الثالثة", name: "حصن ومدنية ألفنتين (الدولة القديمة)", king: "زوسر – خابا – حوني", site: "أسوان", category: "معبد", coords: [24.085226, 32.885828], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مدينة حدودية وحصن ملكي هام بالحدود الجنوبية." },
       { id: 225, dynasty: "الأسرة الثالثة", name: "منف (ميت رهينة)", king: "كل ملوك الأسرة الثالثة", site: "ميت رهينة", category: "معبد", coords: [29.849700, 31.250800], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "عاصمة مصر القديمة والمقر الإداري الرئيسي لملوك الأسرة الثالثة." },
 
-      // ==================== المحاجر الإضافية المستمرة ====================
+      // ==================== المحاجر الإضافية ====================
       { id: 8, dynasty: "الأسرة الثالثة", name: "محاجر بازلت جبل القطراني", king: "زوسر", site: "شمال الفيوم", category: "محاجر", coords: [29.6600, 30.6500], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر كتل البازلت الأسود لرصف معابد زوسر." },
       { id: 9, dynasty: "الأسرة الثالثة", name: "مناجم ونقوش وادي مغارة", king: "سانخت / زوسر", site: "جنوب سيناء", category: "محاجر", coords: [28.8973, 33.3726], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر الفيروز والنحاس الضروري لأزاميل البنائين وحلي الدولة." },
 
@@ -1089,7 +1089,7 @@
         if (item.dynasty === 'الأسرة السادسة') {
           return { class: 'badge-pyramid-dyn6', color: '#9f1239', text: 'هرم (الأسرة 6)' };
         } else if (item.dynasty === 'الأسرة الخامسة') {
-          return { class: 'badge-pyramid-dyn5', color: '#0d9488', text: 'هرم (الأسرة 5)' };
+          return { class: 'badge-pyramid-dyn5', color: '#ca8a04', text: 'هرم (الأسرة 5)' };
         } else if (item.dynasty === 'الأسرة الثالثة') {
           return { class: 'badge-pyramid', color: '#d97706', text: 'هرم (الأسرة 3)' };
         } else {
