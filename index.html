@@ -386,7 +386,7 @@
     }
     .thumb-pyramid-dyn3 { background: linear-gradient(135deg, #d97706, #92400e); }
     .thumb-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
-    .thumb-pyramid-dyn5 { background: linear-gradient(135deg, #0d9488, #115e59); } /* لون زمردي أثري مميز للأسرة الخامسة */
+    .thumb-pyramid-dyn5 { background: linear-gradient(135deg, #0d9488, #115e59); }
     .thumb-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
     .thumb-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
@@ -717,7 +717,7 @@
     .custom-map-icon:hover { transform: scale(1.15); z-index: 1000; }
     .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
     .icon-pyramid-dyn4 { background: linear-gradient(135deg, #ea580c, #9a3412); }
-    .icon-pyramid-dyn5 { background: linear-gradient(135deg, #0d9488, #115e59); } /* لون زمردي للأسرة الخامسة */
+    .icon-pyramid-dyn5 { background: linear-gradient(135deg, #0d9488, #115e59); }
     .icon-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
     .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
     .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
@@ -795,15 +795,15 @@
     <aside id="sidebar">
       <div class="kpi-container">
         <div class="kpi-card">
-          <div class="kpi-val total" id="valTotal">112</div>
+          <div class="kpi-val total" id="valTotal">124</div>
           <div class="kpi-lbl">إجمالي المعالم</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-val" id="valPyramids">17</div>
+          <div class="kpi-val" id="valPyramids">24</div>
           <div class="kpi-lbl">الأهرامات</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-val quarries" id="valQuarries">4</div>
+          <div class="kpi-val quarries" id="valQuarries">6</div>
           <div class="kpi-lbl">المحاجر</div>
         </div>
         <div class="kpi-card">
@@ -816,7 +816,7 @@
         <div class="section-head">
           <div style="display:flex; align-items:center; gap:8px;">
             <span>المواقع الأثرية ومصادر المواد</span>
-            <span class="badge-count" id="countBadge">112 موقع</span>
+            <span class="badge-count" id="countBadge">124 موقع</span>
           </div>
           <button class="close-sidebar-btn" onclick="toggleSidebar(false)" title="إغلاق القائمة"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -825,7 +825,7 @@
           <input type="text" id="siteSearch" placeholder="ابحث عن أثر، محجر، ملك، أو مادة خام..." onkeyup="handleFilter()">
         </div>
         <div class="category-tabs">
-          <span class="cat-tab active" onclick="filterCategory('all', this)">الكل (112)</span>
+          <span class="cat-tab active" onclick="filterCategory('all', this)">الكل (124)</span>
           <span class="cat-tab" onclick="filterCategory('هرم مدرج', this)">الأهرامات الملكية</span>
           <span class="cat-tab" onclick="filterCategory('مقابر', this)">المقابر الأثرية</span>
           <span class="cat-tab" onclick="filterCategory('تمثال', this)">التماثيل والآثار</span>
@@ -870,7 +870,7 @@
           <tbody>
             <tr>
               <td><span class="material-badge" style="background:#fee2e2; color:#991b1b;">الجرانيت الوردي</span></td>
-              <td>محاجر أسوان (الشلال الأول)</td>
+              <td>محاجر أسوان وجزيرة سهيل</td>
               <td>سقارة والجيزة</td>
               <td>مراكب نيلية شحن ثقيل بمجرى النيل، ثم زحافات خشبية.</td>
               <td>تبطين حجرة الدفن الملكية لزوسر وسقف حجرة خوفو.</td>
@@ -918,26 +918,42 @@
     let activeFilter = 'all';
     let activeDynasty = 'all';
 
-    // Comprehensive Archaeological Dataset (112 Monuments)
+    // Comprehensive Archaeological Dataset (124 Monuments)
     const monumentsData = [
-      // --- الأسرة الثالثة ---
-      { id: 1, dynasty: "الأسرة الثالثة", name: "هرم زوسر المدرج", king: "زوسر", site: "سقارة (الجيزة)", category: "هرم مدرج", coords: [29.8713, 31.2164], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "أول بناء حجري ضخم في التاريخ؛ نقطة التقاء مسارات حجر طرة وجرانيت أسوان وبازلت الفيوم عبر فرع الأهرامات." },
-      { id: 2, dynasty: "الأسرة الثالثة", name: "هرم سخم خت (المدفون)", king: "سخم خت", site: "سقارة (الجيزة)", category: "هرم مدرج", coords: [29.8664, 31.2128], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مدرج لم يكتمل، يتميز بممرات منحوتة في الصخر وتابوت ألباستر سليم وحلي ذهبية رفيعة." },
-      { id: 3, dynasty: "الأسرة الثالثة", name: "مقبرة حسي رع (مصطبة 2405)", king: "زوسر", site: "شمال سقارة", category: "مقابر", coords: [29.8778, 31.2185], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقبرة كبير الأطباء والكتبة في عهد زوسر؛ تميزت بألواح خشب الأرز النادرة المنحوتة بإتقان." },
-      { id: 4, dynasty: "الأسرة الثالثة", name: "الهرم الطبقي (خابا)", king: "خابا", site: "زاوية العريان (الجيزة)", category: "هرم مدرج", coords: [29.9300, 31.1500], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مدرج غير مكتمل شيد بنظام الطبقات والشرائح الحجرية المائلة بالصحراء الغربية." },
-      { id: 5, dynasty: "الأسرة الثالثة", name: "مصاطب بيت خلاف (K1 & K2)", king: "سانخت", site: "جرجا (سوهاج)", category: "مصاطب", coords: [26.3167, 31.7833], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصاطب طوب لبن هائلة شكلت مقر إدارة وسيطرة ملوك الأسرة الثالثة في صعيد مصر." },
-      { id: 6, dynasty: "الأسرة الثالثة", name: "محاجر طرة والمعصرة", king: "زوسر", site: "طرة (شرق النيل)", category: "محاجر", coords: [29.9500, 31.3000], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر الحجر الجيري الأبيض الناعم عالي النقاوة لكسوة الهرم المدرج وجدار المجمع الأبيض." },
-      { id: 7, dynasty: "الأسرة الثالثة", name: "محاجر جرانيت أسوان", king: "زوسر", site: "الشلال الأول (أسوان)", category: "محاجر", coords: [24.0750, 32.8850], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر كتل الجرانيت الوردي الضخمة لتبطين حجرة دفن الملك زوسر على عمق 28 متراً." },
-      { id: 8, dynasty: "الأسرة الثالثة", name: "محاجر بازلت جبل القطراني", king: "زوسر", site: "شمال الفيوم", category: "محاجر", coords: [29.6600, 30.6500], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر كتل البازلت الأسود لرصف معابد زوسر؛ نُقلت عبر أقدم طريق مرصوف في التاريخ (طريق ودان الفرس)." },
-      { id: 9, dynasty: "الأسرة الثالثة", name: "مناجم ونقوش وادي مغارة", king: "سانخت", site: "جنوب سيناء", category: "محاجر", coords: [28.8973, 33.3726], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر الفيروز والنحاس الضروري لأزاميل البنائين وحلي الدولة؛ خلّد سانخت وزوسر حملاتهما هناك بنقوش صخرية." },
-      { id: 11, dynasty: "الأسرة الثالثة", name: "هرم زاوية الميتين", king: "حوني", site: "زاوية سلطان (المنيا)", category: "أهرامات أقاليم", coords: [28.0500, 30.8170], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "الهرم الإقليمي الوحيد الواقع شرق نهر النيل كرمز لسلطة التاج المركزية." },
-      { id: 12, dynasty: "الأسرة الثالثة", name: "هرم سينكي (أبيدوس)", king: "حوني", site: "البلينا (سوهاج)", category: "أهرامات أقاليم", coords: [26.1917, 31.8683], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم إقليمي تميز ببقاء بقايا منحدرات البناء الترابية القديمة حوله." },
-      { id: 13, dynasty: "الأسرة الثالثة", name: "هرم نقادة (طوخ)", king: "حوني", site: "طوخ (قنا)", category: "أهرامات أقاليم", coords: [25.9667, 32.7333], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مصمت من الحجر الجيري المحلي يمثل أحد رموز الحكم السبعة لحوني." },
-      { id: 14, dynasty: "الأسرة الثالثة", name: "هرم الكولا (نخن)", king: "حوني", site: "الكوم الأحمر (إدفو)", category: "أهرامات أقاليم", coords: [25.1300, 32.7300], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مدرج يشرف على وادي النيل عند العاصمة الدينية التاريخية نخن." },
+      // ==================== الأسرة الثالثة (البيانات الجديدة المحدثة من الصورة) ====================
+      { id: 201, dynasty: "الأسرة الثالثة", name: "هرم زوسر المدرج", king: "زوسر (نثري خت)", site: "سقارة", category: "هرم مدرج", coords: [29.871456, 31.216545], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مدرج / مجمع جنائزي ملكي خاص بالملك زوسر." },
+      { id: 202, dynasty: "الأسرة الثالثة", name: "المقبرة الجنوبية لزوسر", king: "زوسر", site: "سقارة", category: "مقابر", coords: [29.869231, 31.216131], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقبرة رمزية (بئر وسراديب) تابعة لمجمع زوسر الجنائزي." },
+      { id: 203, dynasty: "الأسرة الثالثة", name: "المعبد الجنائزي لزوسر", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.871899, 31.216571], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المعبد الجنائزي الرئيسي الواقع بالناحية الشمالية لهرم زوسر." },
+      { id: 204, dynasty: "الأسرة الثالثة", name: "فناء الحب الثلاثيني (Heb-Sed Court)", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.870121, 31.217498], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "فناء شعائري لإقامة أعياد الحب سد وتجديد شرعية حكم الملك." },
+      { id: 205, dynasty: "الأسرة الثالثة", name: "صالة الأعمدة (رواق المدخل)", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.869182, 31.217320], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "رواق أعمدة حجرية يمثل ممر المدخل لمجمع زوسر." },
+      { id: 206, dynasty: "الأسرة الثالثة", name: "مدخل مجمع زوسر", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.869157, 31.217739], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "بوابة ومدخل المجمع الحجري الرئيسي." },
+      { id: 207, dynasty: "الأسرة الثالثة", name: "الهرم المدفون (Buried Pyramid)", king: "سخم خت", site: "سقارة", category: "هرم مدرج", coords: [29.866150, 31.213640], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مدرج غير مكتمل للملك سخم خت في سقارة." },
+      { id: 208, dynasty: "الأسرة الثالثة", name: "هرم ميدوم", king: "حوني (محتمل) / سنفرو", site: "ميدوم", category: "هرم مدرج", coords: [29.388446, 31.157093], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم بدأه حوني غالباً وأتمه سنفرو، يمثل مرحلة الانتقال للهرم الحقيقي." },
+      { id: 209, dynasty: "الأسرة الثالثة", name: "هرم ألفنتين", king: "حوني (منسوب)", site: "أسوان", category: "أهرامات أقاليم", coords: [24.085662, 32.885513], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم إقليمي صغير (3 درجات) على جزيرة الفنتين بأسوان." },
+      { id: 210, dynasty: "الأسرة الثالثة", name: "هرم إدفو الجنوبي", king: "حوني (منسوب)", site: "إدفو", category: "أهرامات أقاليم", coords: [24.943750, 32.842040], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم إقليمي صغير جنوب مدينة إدفو." },
+      { id: 211, dynasty: "الأسرة الثالثة", name: "هرم الكولة", king: "حوني (منسوب)", site: "الكوم الأحمر", category: "أهرامات أقاليم", coords: [25.133390, 32.733460], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم إقليمي صغير (3 درجات) بالقرب من نخن." },
+      { id: 212, dynasty: "الأسرة الثالثة", name: "هرم سنكي", king: "حوني (منسوب)", site: "أبيدوس", category: "أهرامات أقاليم", coords: [26.157800, 31.966370], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم إقليمي صغير بمنطقة أبيدوس." },
+      { id: 213, dynasty: "الأسرة الثالثة", name: "هرم زاوية الميتين (زاوية سلطان)", king: "حوني (منسوب)", site: "المنيا", category: "أهرامات أقاليم", coords: [28.045895, 30.828781], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم إقليمي صغير شرق النيل بالمنيا." },
+      { id: 214, dynasty: "الأسرة الثالثة", name: "هرم سيلا", king: "حوني أو سنفرو", site: "الفيوم", category: "أهرامات أقاليم", coords: [29.382614, 31.053525], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم إقليمي صغير على حافة هضبة الفيوم." },
+      { id: 215, dynasty: "الأسرة الثالثة", name: "مصطبة بيت خلاف K1", king: "زوسر (ختم) – مالكها غير مؤكد", site: "بيت خلاف", category: "مصاطب", coords: [26.295415, 31.771771], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصطبة طوب لبن ضخمة بمنطقة بيت خلاف." },
+      { id: 216, dynasty: "الأسرة الثالثة", name: "مصطبة بيت خلاف K2", king: "ساناخت (اسم على قطعة) – غير مؤكد", site: "بيت خلاف", category: "مصاطب", coords: [26.297080, 31.770028], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصطبة طوب لبن هائلة بمنطقة بيت خلاف." },
+      { id: 217, dynasty: "الأسرة الثالثة", name: "مصاطب بيت خلاف K3–K5", king: "زوسر (يؤرخ بعهده)", site: "بيت خلاف", category: "مصاطب", coords: [26.295609, 31.770829], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مجموعة مصاطب طوب لبن تؤرخ بعصر الملك زوسر." },
+      { id: 218, dynasty: "الأسرة الثالثة", name: "مصطبة حسي رع S2405", king: "زوسر", site: "سقارة", category: "مصاطب", coords: [29.868521, 31.218790], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصطبة موظف كبير وطبيب الملك زوسر، اشتهرت بألواحها الخشبية." },
+      { id: 219, dynasty: "الأسرة الثالثة", name: "جبانة أم القعاب (مقبرة خع سخموي)", king: "خع سخموي (الأسرة 2) – ختوم زوسر", site: "أبيدوس", category: "مقابر", coords: [26.176099, 31.907781], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "جبانة ملكية تحوي ختوم الملك زوسر." },
+      { id: 220, dynasty: "الأسرة الثالثة", name: "لوحة المجاعة – جزيرة سهيل", king: "زوسر (النص بطلمي)", site: "أسوان", category: "تمثال", coords: [24.057547, 32.874197], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "نقش صخري ونص تاريخي يسجل قصة المجاعة في عهد زوسر." },
+      { id: 221, dynasty: "الأسرة الثالثة", name: "محاجر الجرانيت – جزيرة سهيل", king: "أسوان (استخدام عبر العصور)", site: "أسوان", category: "محاجر", coords: [24.057916, 32.873242], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محجر استخراج أحجار الجرانيت الوردي بأسوان." },
+      { id: 222, dynasty: "الأسرة الثالثة", name: "محاجر طرة", king: "زوسر (تكسية الهرم)", site: "طرة", category: "محاجر", coords: [29.933628, 31.297596], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محجر استخراج الحجر الجيري الأبيض الناعم لكسوة الهرم." },
+      { id: 223, dynasty: "الأسرة الثالثة", name: "هيراكونبوليس (الكوم الأحمر)", king: "زوسر – خابا", site: "إدفو", category: "معبد", coords: [25.091301, 32.773642], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مدينة موقع ختوم وآثار هامة من الأسرة الثالثة." },
+      { id: 224, dynasty: "الأسرة الثالثة", name: "حصن ومدنية ألفنتين (الدولة القديمة)", king: "زوسر – خابا – حوني", site: "أسوان", category: "معبد", coords: [24.085226, 32.885828], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مدينة حدودية وحصن ملكي هام بالحدود الجنوبية." },
+      { id: 225, dynasty: "الأسرة الثالثة", name: "منف (ميت رهينة)", king: "كل ملوك الأسرة الثالثة", site: "ميت رهينة", category: "معبد", coords: [29.849700, 31.250800], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "عاصمة مصر القديمة والمقر الإداري الرئيسي لملوك الأسرة الثالثة." },
 
-      // --- الأسرة الرابعة ---
-      { id: 10, dynasty: "الأسرة الرابعة", name: "هرم سيلا", king: "سنفرو", site: "جبل الروس (الفيوم)", category: "هرم مدرج", coords: [29.38261111, 31.05352778], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم أثري شيده الملك سنفرو من الأسرة الرابعة في جبل الروس (الفيوم)." },
-      { id: 15, dynasty: "الأسرة الرابعة", name: "هرم ميدوم", king: "سنفرو", site: "ميدوم (بني سويف)", category: "هرم مدرج", coords: [29.38857906, 31.15705492], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "أول أهرامات سنفرو؛ تحول من هرم مدرج إلى هرم حقيقي بكسوة كاملة." },
+      // ==================== المحاجر الإضافية المستمرة ====================
+      { id: 8, dynasty: "الأسرة الثالثة", name: "محاجر بازلت جبل القطراني", king: "زوسر", site: "شمال الفيوم", category: "محاجر", coords: [29.6600, 30.6500], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر كتل البازلت الأسود لرصف معابد زوسر." },
+      { id: 9, dynasty: "الأسرة الثالثة", name: "مناجم ونقوش وادي مغارة", king: "سانخت / زوسر", site: "جنوب سيناء", category: "محاجر", coords: [28.8973, 33.3726], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر الفيروز والنحاس الضروري لأزاميل البنائين وحلي الدولة." },
+
+      // ==================== الأسرة الرابعة ====================
+      { id: 10, dynasty: "الأسرة الرابعة", name: "هرم سيلا (الرابعة)", king: "سنفرو", site: "جبل الروس (الفيوم)", category: "هرم مدرج", coords: [29.38261111, 31.05352778], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم أثري شيده الملك سنفرو من الأسرة الرابعة في جبل الروس (الفيوم)." },
+      { id: 15, dynasty: "الأسرة الرابعة", name: "هرم ميدوم (الرابعة)", king: "سنفرو", site: "ميدوم (بني سويف)", category: "هرم مدرج", coords: [29.38857906, 31.15705492], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "أول أهرامات سنفرو؛ تحول من هرم مدرج إلى هرم حقيقي بكسوة كاملة." },
       { id: 16, dynasty: "الأسرة الرابعة", name: "الهرم المنحني", king: "سنفرو", site: "دهشور (الجيزة)", category: "هرم مدرج", coords: [29.7905015, 31.20975719], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم سنفرو الجنوبي بدهشور؛ تتميز زاويته بانكسار هندسي فريد." },
       { id: 17, dynasty: "الأسرة الرابعة", name: "الهرم الأحمر", king: "سنفرو", site: "دهشور (الجيزة)", category: "هرم مدرج", coords: [29.8088213, 31.20651904], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "أول هرم حقيقي ناجح بأسطح ملساء بالكامل شيده الملك سنفرو." },
       { id: 18, dynasty: "الأسرة الرابعة", name: "هرم خوفو", king: "خوفو", site: "الجيزة", category: "هرم مدرج", coords: [29.97891574, 31.13501526], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "الهرم الأكبر؛ عجيبة الدنيا الوحيدة الباقية، شيده الملك خوفو." },
@@ -947,7 +963,7 @@
       { id: 22, dynasty: "الأسرة الرابعة", name: "الجبانة الغربية", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.979378, 31.1312481], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "جبانة كبار رجال الدولة وأمراء العائلة المالكة غرب الهرم الأكبر." },
       { id: 23, dynasty: "الأسرة الرابعة", name: "مقابر عمال بناء أهرام الملك خوفو", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.96967424, 31.13973657], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مدينة ومقابر العمال والمهندسين الذين شيدوا مجمع هرم خوفو." },
       { id: 24, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك خوفو", king: "خوفو", site: "الجيزة", category: "معبد", coords: [29.98057853, 31.13795714], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المرفأ ومعبد الاستقبال الرئيسي المرتبط بفرع النيل القديم." },
-      { id: 25, dynasty: "الأسرة الرابعة", name: "نقوش وادي مغارة", king: "خوفو", site: "جنوب سيناء", category: "محاجر", coords: [28.89742356, 33.372482], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "نقوش تخلد حملات استخراج النحاس والفيروز في عهد الملك خوفو." },
+      { id: 25, dynasty: "الأسرة الرابعة", name: "نقوش وادي مغارة (الرابعة)", king: "خوفو", site: "جنوب سيناء", category: "محاجر", coords: [28.89742356, 33.372482], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "نقوش تخلد حملات استخراج النحاس والفيروز في عهد الملك خوفو." },
       { id: 26, dynasty: "الأسرة الرابعة", name: "موقع اكتشاف تمثال خوفو", king: "خوفو", site: "أبيدوس (سوهاج)", category: "تمثال", coords: [26.18415281, 31.91849789], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "موقع العثور على التمثال العاجي الوحيد المعروف للملك خوفو." },
       { id: 27, dynasty: "الأسرة الرابعة", name: "برديات وادي الجرف", king: "خوفو", site: "رأس غارب (البحر الأحمر)", category: "محاجر", coords: [28.89168714, 32.65824471], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "أقدم برديات مكتشفة في العالم تسجل يوميات فريق عمل نقل الحجارة لبناء هرم خوفو." },
       { id: 28, dynasty: "الأسرة الرابعة", name: "مصطبة حم إيونو", king: "خوفو", site: "الجيزة", category: "مصاطب", coords: [29.97937467, 31.12995456], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصطبة الوزير المهندس حم إيونو المشرف على بناء هرم خوفو الأكبر." },
@@ -969,13 +985,13 @@
       { id: 44, dynasty: "الأسرة الرابعة", name: "محجر الجيزة", king: "متنوع", site: "هضبة الجيزة", category: "محاجر", coords: [29.97582349, 31.13475146], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر هضبة الجيزة التي استُخرجت منها كتل بناء الأهرامات." },
       { id: 45, dynasty: "الأسرة الرابعة", name: "معبد أبو الهول", king: "منكاورع", site: "الجيزة", category: "معبد", coords: [29.97522731, 31.13832404], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المعبد المقابل لتمثال أبو الهول." },
       { id: 46, dynasty: "الأسرة الرابعة", name: "محجر هرم منكاورع", king: "متنوع", site: "الجيزة", category: "محاجر", coords: [29.97122618, 31.12894652], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر بناء وتكسير أحجار هرم منكاورع." },
-      { id: 47, dynasty: "الأسرة الرابعة", name: "محاجر طرة", king: "متنوع", site: "طرة (القاهرة)", category: "محاجر", coords: [29.93556391, 31.29576255], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الحجر الجيري الأبيض الفاخر لكسوة الأهرامات." },
+      { id: 47, dynasty: "الأسرة الرابعة", name: "محاجر طرة (الرابعة)", king: "متنوع", site: "طرة (القاهرة)", category: "محاجر", coords: [29.93556391, 31.29576255], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الحجر الجيري الأبيض الفاخر لكسوة الأهرامات." },
       { id: 48, dynasty: "الأسرة الرابعة", name: "محاجر المعصرة", king: "متنوع", site: "المعصرة (القاهرة)", category: "محاجر", coords: [29.88259271, 31.29784239], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الحجر الجيري الشهيرة شرق النيل." },
       { id: 49, dynasty: "الأسرة الرابعة", name: "محاجر حلوان", king: "متنوع", site: "حلوان", category: "محاجر", coords: [29.83290406, 31.33326263], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر ومقابر تاريخية بحلوان." },
       { id: 50, dynasty: "الأسرة الرابعة", name: "محاجر حتنوب", king: "متنوع", site: "المنيا", category: "محاجر", coords: [27.52965013, 31.028916], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الألباستر (المرمر) الملكية في صحراء المنيا." },
-      { id: 51, dynasty: "الأسرة الرابعة", name: "محاجر أسوان", king: "متنوع", site: "أسوان", category: "محاجر", coords: [24.07768707, 32.892515], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الجرانيت الوردي الشهيرة بشلال أسوان الأول." },
+      { id: 51, dynasty: "الأسرة الرابعة", name: "محاجر أسوان (الرابعة)", king: "متنوع", site: "أسوان", category: "محاجر", coords: [24.07768707, 32.892515], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الجرانيت الوردي الشهيرة بشلال أسوان الأول." },
 
-      // --- الأسرة الخامسة (بيانات جدول المعالم الجديد) ---
+      // ==================== الأسرة الخامسة ====================
       { id: 101, dynasty: "الأسرة الخامسة", name: "هرم الملك أوسركاف", king: "أوسركاف", site: "سقارة", category: "هرم مدرج", coords: [29.873356, 31.218858], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم مؤسس الأسرة الخامسة أوسركاف بالقرب من مجمع زوسر." },
       { id: 102, dynasty: "الأسرة الخامسة", name: "هرم الملكة نفر حتبس زوجة أوسركاف", king: "أوسركاف", site: "سقارة", category: "هرم مدرج", coords: [29.872750, 31.218600], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم الملكة نفر حتبس المكتشف بجوار هرم زوجها أوسركاف." },
       { id: 103, dynasty: "الأسرة الخامسة", name: "هرم الملك ساحورع", king: "ساحورع", site: "أبو صير", category: "هرم مدرج", coords: [29.897653, 31.203333], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "أول هرم أقيم في منطقة أبو صير للملك ساحورع." },
@@ -1009,13 +1025,13 @@
       { id: 131, dynasty: "الأسرة الخامسة", name: "مصطبة جدكارع إيسى (1)", king: "جد كارع إيسيسي", site: "سقارة الشمالية", category: "مصاطب", coords: [29.873644, 31.213833], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصطبة كبار رجال الدولة في عهد جدكارع إيسيسي." },
       { id: 132, dynasty: "الأسرة الخامسة", name: "مصطبة جدكارع إيسى (2)", king: "جد كارع إيسيسي", site: "سقارة الشمالية", category: "مصاطب", coords: [29.870820, 31.216493], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصطبة كبار الموظفين بالأسرة الخامسة في سقارة." },
 
-      // --- الأسرة السادسة ---
+      // ==================== الأسرة السادسة ====================
       { id: 52, dynasty: "الأسرة السادسة", name: "هرم تيتي", king: "تيتي", site: "شمال سقارة", category: "هرم مدرج", coords: [29.875003, 31.221765], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم الملك تيتي أول ملوك الأسرة السادسة في شمال سقارة." },
       { id: 53, dynasty: "الأسرة السادسة", name: "هرم الملكة إيبوت الأولى", king: "تيتي", site: "سقارة", category: "مقابر", coords: [29.8767, 31.2222], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم الملكة إيبوت الأولى زوجة الملك تيتي وأم الملك بيبي الأول." },
       { id: 54, dynasty: "الأسرة السادسة", name: "هرم الملكة خوِيت الثانية", king: "تيتي", site: "سقارة", category: "مقابر", coords: [29.8767, 31.2223], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم الملكة خويت الثانية شمال هرم الملك تيتي في سقارة." },
       { id: 55, dynasty: "الأسرة السادسة", name: "مقبرة مريروكا", king: "تيتي", site: "شمال سقارة", category: "مقابر", coords: [29.875847, 31.221342], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقبرة وزير الملك تيتي مريروكا، من أكبر وأهم مقابر الأفراد في الدولة القديمة." },
       { id: 56, dynasty: "الأسرة السادسة", name: "مقبرة كاجمني", king: "تيتي", site: "شمال سقارة", category: "مقابر", coords: [29.875872, 31.221534], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقبرة كاجمني الوزير والقاضي في عهد الملك تيتي." },
-      { id: 57, dynasty: "الأسرة السادسة", name: "محاجر حتنوب", king: "بيبي الأول / بيبي الثاني", site: "المنيا", category: "محاجر", coords: [27.55, 31.0], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "نشاط تعديني بارز لملوك الأسرة السادسة في محاجر المرمر بالمنيا." },
+      { id: 57, dynasty: "الأسرة السادسة", name: "محاجر حتنوب (السادسة)", king: "بيبي الأول / بيبي الثاني", site: "المنيا", category: "محاجر", coords: [27.55, 31.0], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "نشاط تعديني بارز لملوك الأسرة السادسة في محاجر المرمر بالمنيا." },
       { id: 58, dynasty: "الأسرة السادسة", name: "نقوش وادي الحمامات", king: "وسر كارع", site: "الصحراء الشرقية", category: "محاجر", coords: [25.9898, 33.5691], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "نقوش صخرية توثق البعثات الاستكشافية والتعدينية في عهد وسر كارع." },
       { id: 59, dynasty: "الأسرة السادسة", name: "هرم بيبي الأول", king: "بيبي الأول", site: "جنوب سقارة", category: "هرم مدرج", coords: [29.854413, 31.218978], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "هرم الملك بيبي الأول (منفر) في جنوب سقارة." },
       { id: 60, dynasty: "الأسرة السادسة", name: "مدينة ومعبد نِخَن (الكوم الأحمر)", king: "بيبي الأول", site: "إدفو", category: "معبد", coords: [25.0978, 32.7844], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مدينة ومعبد نخن التاريخي في إدفو، وشهد عناية في عهد بيبي الأول." },
@@ -1027,7 +1043,7 @@
       { id: 66, dynasty: "الأسرة السادسة", name: "معبد تل بسطة", king: "بيبي الأول وبيبي الثاني", site: "الشرقية", category: "معبد", coords: [30.57335, 31.51292], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "معبد تل بسطة التاريخي بالشرقية." },
       { id: 67, dynasty: "الأسرة السادسة", name: "معبد دندرة", king: "بيبي الأول", site: "قنا", category: "معبد", coords: [26.142275, 32.670362], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "معبد دندرة التاريخي الذي شهد إضافات في عصر الأسرة السادسة." },
       { id: 68, dynasty: "الأسرة السادسة", name: "معبد قفط", king: "بيبي الأول / بيبي الثاني", site: "قنا", category: "معبد", coords: [25.9961, 32.8172], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "معبد قفط مع آثار ونقوش تخص ملوك الأسرة السادسة." },
-      { id: 69, dynasty: "الأسرة السادسة", name: "معبد أبيدوس", king: "بيبي الأول", site: "سوهاج", category: "معبد", coords: [26.184705, 31.918929], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "منشآت ونقوش ملكية لبيبي الأول في أبيدوس." },
+      { id: 69, dynasty: "الأسرة السادسة", name: "معبد أبيدوس (السادسة)", king: "بيبي الأول", site: "سوهاج", category: "معبد", coords: [26.184705, 31.918929], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "منشآت ونقوش ملكية لبيبي الأول في أبيدوس." },
       { id: 70, dynasty: "الأسرة السادسة", name: "مقابر الحواويش", king: "تتي / بيبي الأول", site: "سوهاج", category: "مقابر", coords: [26.588926, 31.813827], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقابر الحواويش لأمراء وحكام إقليم أخميم." },
       { id: 71, dynasty: "الأسرة السادسة", name: "مقبرة خيني H24", king: "بيبي الثاني", site: "سوهاج", category: "مقابر", coords: [26.588927, 31.813828], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقبرة الأمير خيني (H24) في مقابر الحواويش." },
       { id: 72, dynasty: "الأسرة السادسة", name: "مقبرة كاحب/تي اقر", king: "تيتي", site: "سوهاج", category: "مقابر", coords: [26.588928, 31.813829], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقبرة كاحب / تي أقر في جبانة الحواويش بأخميم." },
