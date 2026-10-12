@@ -753,28 +753,33 @@
       }
     }
 
-    // جلب طبقة النيل القديم بصيغة GeoJSON المحفوظة في المشروع بشكل صحيح ونظيف
+    // تحميل ملف النيل تلقائياً وفوراً عند تشغيل الصفحة
     let nileLayer = null;
     let nileVisible = false;
 
     fetch('nile_branch.geojson')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('الملف غير موجود أو مساره خاطئ');
+        return res.json();
+      })
       .then(data => {
         nileLayer = L.geoJSON(data, {
           style: {
-            color: '#0284c7',       // لون إطار مجرى النيل
+            color: '#0284c7',
             weight: 3,
-            fillColor: '#38bdf8',   // لون التعبئة السماوي
+            fillColor: '#38bdf8',
             fillOpacity: 0.45
           }
         }).bindPopup("<b>مجرى نهر النيل القديم (فرع الأهرامات التاريخي)</b>");
       })
-      .catch(err => console.log("خطأ في تحميل طبقة النيل:", err));
+      .catch(err => {
+        console.error("مشكلة في تحميل ملف النيل:", err);
+      });
 
     function toggleNileLayer() {
       const btn = document.getElementById('btnNileLayer');
       if (!nileLayer) {
-        alert("جاري تحميل ملف النيل، يرجى المحاولة بعد ثانية...");
+        alert("عذراً، جاري تحميل ملف النيل أو أن اسم ملف الـ GeoJSON في مستودع جيت هب ليس 'nile_branch.geojson' تماماً. تأكد من تطابق اسم الملف.");
         return;
       }
       if (nileVisible) {
