@@ -620,8 +620,8 @@
 
   <!-- 2. Second Bar -->
   <div class="top-sub-bar">
-    <div style="font-size:0.78rem; font-weight:700; color:#38bdf8;">
-      <i class="fa-solid fa-satellite"></i> العرض النشط: صور الأقمار الصناعية (Esri Satellite)
+    <div style="font-size:0.78rem; font-weight:700; color:#38bdf8;" id="layerIndicator">
+      <i class="fa-solid fa-satellite"></i> العرض النشط: صور الأقمار الصناعية (Google Satellite)
     </div>
     <div class="coord-display" id="coordIndicator">خط الطول: 31.2164°E | خط العرض: 29.8713°N</div>
   </div>
@@ -845,12 +845,17 @@
       { id: 324, dynasty: "الأسرة السادسة", name: "هرم بيبي الثاني", king: "بيبي الثاني", site: "جنوب سقارة", category: "هرم مدرج", coords: [29.840228, 31.213498], img: "https://lh3.googleusercontent.com/d/1Ab5ndNtB65k2s26wcJGitSW3vldVBbFK=s800", info: "هرم الملك بيبي الثاني أخر ملوك الأسرة السادسة الكبار في جنوب سقارة." }
     ];
 
-    // Map Setup (Satellite only)
-    const map = L.map('map', { zoomControl: false }).setView([27.5, 31.8], 7);
+    // Map Setup (Google Satellite Hybrid with Max Zoom 22)
+    const map = L.map('map', { zoomControl: false, maxZoom: 22 }).setView([27.5, 31.8], 7);
     L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
-    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri' });
-    satelliteLayer.addTo(map);
+    // Google Satellite Tiles (Supports deep zooming without breaking)
+    const googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+      maxZoom: 22,
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      attribution: 'Google Maps'
+    });
+    googleSatelliteLayer.addTo(map);
 
     map.on('mousemove', function(e) {
       document.getElementById('coordIndicator').innerText = `خط الطول: ${e.latlng.lng.toFixed(4)}°E | خط العرض: ${e.latlng.lat.toFixed(4)}°N`;
@@ -988,7 +993,7 @@
 
         card.onclick = () => {
           if (window.innerWidth <= 900) toggleSidebar(false);
-          map.flyTo(item.coords, 14, { duration: 1.2 });
+          map.flyTo(item.coords, 17, { duration: 1.2 });
           marker.openPopup();
           selectCard(item.id);
         };
@@ -1075,7 +1080,7 @@
         if (validMarkers.length > 0) {
           const bounds = L.featureGroup(validMarkers).getBounds();
           if (bounds.isValid()) {
-            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
+            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
           }
         }
       }
