@@ -989,7 +989,7 @@
       { id: 50, dynasty: "الأسرة الرابعة", name: "محاجر حتنوب", king: "متنوع", site: "المنيا", category: "محاجر", coords: [27.52965013, 31.028916], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الألباستر (المرمر) الملكية في صحراء المنيا." },
       { id: 51, dynasty: "الأسرة الرابعة", name: "محاجر أسوان", king: "متنوع", site: "أسوان", category: "محاجر", coords: [24.07768707, 32.892515], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الجرانيت الوردي الشهيرة بشلال أسوان الأول." },
 
-      // ==================== الأسرة الخامسة (محدثة بصور الـ 29 معلماً المرفقة) ====================
+      // ==================== الأسرة الخامسة ====================
       { id: 101, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك اوسركاف", king: "أوسركاف", site: "سقارة", category: "معبد", coords: [29.873330, 31.218610], img: "https://lh3.googleusercontent.com/d/1Jf0dNvvfVeFxVngutOJ5EGOe70Yzo7_J=s800", info: "المعبد الجنائزي الملحق بهرم أوسركاف بسقارة." },
       { id: 102, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك اوناس", king: "أوناس", site: "سقارة", category: "معبد", coords: [29.868200, 31.215000], img: "https://lh3.googleusercontent.com/d/1kwMAhDcSuysYzltACiEVxIRfqEtHWG3f=s800", info: "المعبد الجنائزي الملاصق لهرم الملك أوناس." },
       { id: 103, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك جد كارع", king: "جد كارع إيسيسي", site: "سقارة الجنوبية", category: "معبد", coords: [29.851153, 31.221500], img: "https://lh3.googleusercontent.com/d/1MqYQTP4PluX4GmHnBc_Ud0lc2OMtW4GJ=s800", info: "المعبد الجنائزي لجد كارع إيسيسي جنوب سقارة." },
@@ -1211,7 +1211,18 @@
     function handleFilter() {
       const query = document.getElementById('siteSearch').value.toLowerCase().trim();
       const filtered = monumentsData.filter(item => {
-        let matchesCat = (activeFilter === 'all') || (item.category === activeFilter);
+        // Updated logic to ensure all pyramids (royal & regional) and all tombs/mastabas are fully filtered when selected
+        let matchesCat = false;
+        if (activeFilter === 'all') {
+          matchesCat = true;
+        } else if (activeFilter === 'هرم مدرج') {
+          matchesCat = (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم');
+        } else if (activeFilter === 'مقابر') {
+          matchesCat = (item.category === 'مقابر' || item.category === 'مصاطب');
+        } else {
+          matchesCat = (item.category === activeFilter);
+        }
+
         let matchesDynasty = (activeDynasty === 'all') || (item.dynasty === activeDynasty);
         let matchesQuery = item.name.toLowerCase().includes(query) ||
                            item.king.toLowerCase().includes(query) ||
@@ -1236,7 +1247,16 @@
       handleFilter();
 
       const filtered = monumentsData.filter(item => {
-        const matchesCat = (activeFilter === 'all') || (item.category === activeFilter);
+        let matchesCat = false;
+        if (activeFilter === 'all') {
+          matchesCat = true;
+        } else if (activeFilter === 'هرم مدرج') {
+          matchesCat = (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم');
+        } else if (activeFilter === 'مقابر') {
+          matchesCat = (item.category === 'مقابر' || item.category === 'مصاطب');
+        } else {
+          matchesCat = (item.category === activeFilter);
+        }
         const matchesDynasty = (activeDynasty === 'all') || (item.dynasty === activeDynasty);
         return matchesCat && matchesDynasty;
       });
