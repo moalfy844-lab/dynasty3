@@ -753,13 +753,13 @@
       }
     }
 
-    // جلب ملف الـ GeoJSON الفعلي الذي قمت برفعه (nile_branch.geojson)
+    // جلب ملف الـ GeoJSON مباشرة من الرابط المباشر لمستودع جيت هب
     let nileLayer = null;
     let nileVisible = false;
 
-    fetch('nile_branch.geojson')
+    fetch('https://raw.githubusercontent.com/moalfy844-lab/dynasty3/main/nile_branch.geojson')
       .then(res => {
-        if (!res.ok) throw new Error('الملف غير موجود');
+        if (!res.ok) throw new Error('فشل جلب الملف من جيت هب');
         return res.json();
       })
       .then(data => {
@@ -779,7 +779,7 @@
     function toggleNileLayer() {
       const btn = document.getElementById('btnNileLayer');
       if (!nileLayer) {
-        alert("جاري تحميل الطبقة من المستودع، يرجى المحاولة بعد ثانية...");
+        alert("جاري تحميل الطبقة من الرابط المباشر، يرجى المحاولة بعد ثانيتين...");
         return;
       }
       if (nileVisible) {
@@ -926,7 +926,7 @@
     function handleFilter() {
       const query = document.getElementById('siteSearch').value.toLowerCase();
       const filtered = monumentsData.filter(item => {
-        const matchQuery = item.name.toLowerCase().includes(query) ||
+        The matchQuery = item.name.toLowerCase().includes(query) ||
                            item.king.toLowerCase().includes(query) ||
                            item.site.toLowerCase().includes(query) ||
                            item.info.toLowerCase().includes(query);
