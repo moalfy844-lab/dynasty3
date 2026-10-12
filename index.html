@@ -80,6 +80,12 @@
       font-family: 'Tajawal', sans-serif;
     }
 
+    .main-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     /* 2. Top Sub-Bar */
     .top-sub-bar {
       background: var(--sub-header-bg);
@@ -93,11 +99,33 @@
       font-size: 0.78rem;
     }
 
-    .tools-group {
+    .layer-selector-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
+    .layer-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      border: 1px solid #475569;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'Cairo', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .layer-btn.active {
+      background: #d97706;
+      color: #ffffff;
+      border-color: #f59e0b;
+    }
+    .layer-btn:hover {
+      background: rgba(217, 119, 6, 0.5);
+      color: #ffffff;
+    }
+
     .coord-display {
       font-family: 'Consolas', monospace;
       font-size: 0.76rem;
@@ -618,10 +646,12 @@
     </div>
   </header>
 
-  <!-- 2. Second Bar -->
+  <!-- 2. Second Bar with Layer Switcher -->
   <div class="top-sub-bar">
-    <div style="font-size:0.78rem; font-weight:700; color:#38bdf8;" id="layerIndicator">
-      <i class="fa-solid fa-satellite"></i> العرض النشط: صور الأقمار الصناعية (Google Satellite)
+    <div class="layer-selector-group">
+      <span style="font-weight:700; color:#fbbf24;"><i class="fa-solid fa-layer-group"></i> طبقة الخريطة:</span>
+      <button class="layer-btn active" id="btnGoogleLayer" onclick="switchMapLayer('google')">Google Satellite</button>
+      <button class="layer-btn" id="btnEsriLayer" onclick="switchMapLayer('esri')">Esri Satellite</button>
     </div>
     <div class="coord-display" id="coordIndicator">خط الطول: 31.2164°E | خط العرض: 29.8713°N</div>
   </div>
@@ -643,7 +673,6 @@
     
     <!-- RIGHT SIDEBAR -->
     <aside id="sidebar">
-      <!-- KPIs: Total sum = 153 -->
       <div class="kpi-container">
         <div class="kpi-card">
           <div class="kpi-val total" id="valTotal">153</div>
@@ -712,11 +741,9 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    // Variables definition for filtering
     let activeFilter = 'all';
     let activeDynasty = 'all';
 
-    // Comprehensive Archaeological Dataset (153 Monuments)
     const monumentsData = [
       // ==================== الأسرة الثالثة ====================
       { id: 201, dynasty: "الأسرة الثالثة", name: "هرم زوسر المدرج", king: "زوسر (نثري خت)", site: "سقارة", category: "هرم مدرج", coords: [29.871456, 31.216545], img: "https://lh3.googleusercontent.com/d/1fDjFAuyDvJv3dTHhw9xJ_mPWDZ595fx-=s800", info: "أول بناء حجري ضخم في التاريخ ومجمع جنائزي ملكي متكامل تصميمه يرجع للمهندس إمحوتب." },
@@ -845,17 +872,41 @@
       { id: 324, dynasty: "الأسرة السادسة", name: "هرم بيبي الثاني", king: "بيبي الثاني", site: "جنوب سقارة", category: "هرم مدرج", coords: [29.840228, 31.213498], img: "https://lh3.googleusercontent.com/d/1Ab5ndNtB65k2s26wcJGitSW3vldVBbFK=s800", info: "هرم الملك بيبي الثاني أخر ملوك الأسرة السادسة الكبار في جنوب سقارة." }
     ];
 
-    // Map Setup (Google Satellite Hybrid with Max Zoom 22)
+    // Map Setup
     const map = L.map('map', { zoomControl: false, maxZoom: 22 }).setView([27.5, 31.8], 7);
     L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
-    // Google Satellite Tiles (Supports deep zooming without breaking)
+    // Tile Layers Definition
     const googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
       maxZoom: 22,
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
       attribution: 'Google Maps'
     });
+
+    const esriSatelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: 'Esri'
+    });
+
+    // Default Layer
     googleSatelliteLayer.addTo(map);
+    let currentLayer = 'google';
+
+    function switchMapLayer(layerType) {
+      if (layerType === 'google') {
+        map.removeLayer(esriSatelliteLayer);
+        googleSatelliteLayer.addTo(map);
+        document.getElementById('btnGoogleLayer').classList.add('active');
+        document.getElementById('btnEsriLayer').classList.remove('active');
+        currentLayer = 'google';
+      } else if (layerType === 'esri') {
+        map.removeLayer(googleSatelliteLayer);
+        esriSatelliteLayer.addTo(map);
+        document.getElementById('btnEsriLayer').classList.add('active');
+        document.getElementById('btnGoogleLayer').classList.remove('active');
+        currentLayer = 'esri';
+      }
+    }
 
     map.on('mousemove', function(e) {
       document.getElementById('coordIndicator').innerText = `خط الطول: ${e.latlng.lng.toFixed(4)}°E | خط العرض: ${e.latlng.lat.toFixed(4)}°N`;
@@ -867,17 +918,10 @@
     function getSiteBadge(item) {
       const cat = item.category;
       if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
-        if (item.dynasty === 'الأسرة السادسة') {
-          return { class: 'badge-pyramid-dyn6', color: '#9f1239', text: 'هرم (الأسرة 6)' };
-        } else if (item.dynasty === 'الأسرة الخامسة') {
-          return { class: 'badge-pyramid-dyn5', color: '#ca8a04', text: 'هرم (الأسرة 5)' };
-        } else if (item.dynasty === 'الأسرة الرابعة') {
-          return { class: 'badge-pyramid-dyn4', color: '#78350f', text: 'هرم (الأسرة 4)' };
-        } else if (item.dynasty === 'الأسرة الثالثة') {
-          return { class: 'badge-pyramid', color: '#d97706', text: 'هرم (الأسرة 3)' };
-        } else {
-          return { class: 'badge-mastaba', color: '#2563eb', text: 'هرم ملوكي' };
-        }
+        if (item.dynasty === 'الأسرة السادسة') return { class: 'badge-pyramid-dyn6', color: '#9f1239', text: 'هرم (الأسرة 6)' };
+        if (item.dynasty === 'الأسرة الخامسة') return { class: 'badge-pyramid-dyn5', color: '#ca8a04', text: 'هرم (الأسرة 5)' };
+        if (item.dynasty === 'الأسرة الرابعة') return { class: 'badge-pyramid-dyn4', color: '#78350f', text: 'هرم (الأسرة 4)' };
+        return { class: 'badge-pyramid', color: '#d97706', text: 'هرم (الأسرة 3)' };
       }
       if (cat === 'محاجر') return { class: 'badge-quarry', color: '#dc2626', text: 'محجر ومصدر' };
       if (cat === 'مصاطب') return { class: 'badge-mastaba', color: '#1e40af', text: 'مصاطب كبرى' };
@@ -907,17 +951,10 @@
     function getThumbBox(item) {
       const cat = item.category;
       if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
-        if (item.dynasty === 'الأسرة السادسة') {
-          return '<div class="card-thumb-box thumb-pyramid-dyn6"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
-        } else if (item.dynasty === 'الأسرة الخامسة') {
-          return '<div class="card-thumb-box thumb-pyramid-dyn5"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
-        } else if (item.dynasty === 'الأسرة الرابعة') {
-          return '<div class="card-thumb-box thumb-pyramid-dyn4"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
-        } else if (item.dynasty === 'الأسرة الثالثة') {
-          return '<div class="card-thumb-box thumb-pyramid-dyn3"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
-        } else {
-          return '<div class="card-thumb-box thumb-pyramid-dyn4"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
-        }
+        if (item.dynasty === 'الأسرة السادسة') return '<div class="card-thumb-box thumb-pyramid-dyn6"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        if (item.dynasty === 'الأسرة الخامسة') return '<div class="card-thumb-box thumb-pyramid-dyn5"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        if (item.dynasty === 'الأسرة الرابعة') return '<div class="card-thumb-box thumb-pyramid-dyn4"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        return '<div class="card-thumb-box thumb-pyramid-dyn3"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
       }
       if (cat === 'محاجر') return '<div class="card-thumb-box thumb-quarry"><i class="fa-solid fa-hammer"></i><span>محجر</span></div>';
       if (cat === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
@@ -932,21 +969,8 @@
       cardsList.innerHTML = '';
       markerGroup.clearLayers();
 
-      const categoryOrder = {
-        'هرم مدرج': 1,
-        'أهرامات أقاليم': 1,
-        'تمثال': 2,
-        'معبد': 3,
-        'مقابر': 4,
-        'مصاطب': 5,
-        'محاجر': 6
-      };
-
-      const sortedItems = [...items].sort((a, b) => {
-        const orderA = categoryOrder[a.category] || 99;
-        const orderB = categoryOrder[b.category] || 99;
-        return orderA - orderB;
-      });
+      const categoryOrder = { 'هرم مدرج': 1, 'أهرامات أقاليم': 1, 'تمثال': 2, 'معبد': 3, 'مقابر': 4, 'مصاطب': 5, 'محاجر': 6 };
+      const sortedItems = [...items].sort((a, b) => (categoryOrder[a.category] || 99) - (categoryOrder[b.category] || 99));
 
       sortedItems.forEach(item => {
         const badgeInfo = getSiteBadge(item);
@@ -1022,20 +1046,9 @@
     function handleFilter() {
       const query = document.getElementById('siteSearch').value.toLowerCase().trim();
       const filtered = monumentsData.filter(item => {
-        let matchesCat = false;
-        if (activeFilter === 'all') {
-          matchesCat = true;
-        } else if (activeFilter === 'هرم مدرج') {
-          matchesCat = (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم');
-        } else if (activeFilter === 'مقابر') {
-          matchesCat = (item.category === 'مقابر');
-        } else if (activeFilter === 'مصاطب') {
-          matchesCat = (item.category === 'مصاطب');
-        } else {
-          matchesCat = (item.category === activeFilter);
-        }
-
-        let matchesDynasty = (activeDynasty === 'all') || (item.dynasty === activeDynasty);
+        let matchesCat = activeFilter === 'all' || 
+                         (activeFilter === 'هرم مدرج' ? (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم') : item.category === activeFilter);
+        let matchesDynasty = activeDynasty === 'all' || item.dynasty === activeDynasty;
         let matchesQuery = item.name.toLowerCase().includes(query) ||
                            item.king.toLowerCase().includes(query) ||
                            item.site.toLowerCase().includes(query) ||
@@ -1059,19 +1072,9 @@
       handleFilter();
 
       const filtered = monumentsData.filter(item => {
-        let matchesCat = false;
-        if (activeFilter === 'all') {
-          matchesCat = true;
-        } else if (activeFilter === 'هرم مدرج') {
-          matchesCat = (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم');
-        } else if (activeFilter === 'مقابر') {
-          matchesCat = (item.category === 'مقابر');
-        } else if (activeFilter === 'مصاطب') {
-          matchesCat = (item.category === 'مصاطب');
-        } else {
-          matchesCat = (item.category === activeFilter);
-        }
-        const matchesDynasty = (activeDynasty === 'all') || (item.dynasty === activeDynasty);
+        let matchesCat = activeFilter === 'all' || 
+                         (activeFilter === 'هرم مدرج' ? (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم') : item.category === activeFilter);
+        let matchesDynasty = activeDynasty === 'all' || item.dynasty === activeDynasty;
         return matchesCat && matchesDynasty;
       });
 
