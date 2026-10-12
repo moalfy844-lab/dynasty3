@@ -1211,14 +1211,16 @@
     function handleFilter() {
       const query = document.getElementById('siteSearch').value.toLowerCase().trim();
       const filtered = monumentsData.filter(item => {
-        // Updated logic to ensure all pyramids (royal & regional) and all tombs/mastabas are fully filtered when selected
+        // Strict separation: pyramids, tombs, and mastabas are completely distinct categories
         let matchesCat = false;
         if (activeFilter === 'all') {
           matchesCat = true;
         } else if (activeFilter === 'هرم مدرج') {
           matchesCat = (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم');
         } else if (activeFilter === 'مقابر') {
-          matchesCat = (item.category === 'مقابر' || item.category === 'مصاطب');
+          matchesCat = (item.category === 'مقابر'); // Strict: only 'مقابر' without mixing 'مصاطب'
+        } else if (activeFilter === 'مصاطب') {
+          matchesCat = (item.category === 'مصاطب'); // Strict: only 'مصاطب'
         } else {
           matchesCat = (item.category === activeFilter);
         }
@@ -1253,7 +1255,9 @@
         } else if (activeFilter === 'هرم مدرج') {
           matchesCat = (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم');
         } else if (activeFilter === 'مقابر') {
-          matchesCat = (item.category === 'مقابر' || item.category === 'مصاطب');
+          matchesCat = (item.category === 'مقابر');
+        } else if (activeFilter === 'مصاطب') {
+          matchesCat = (item.category === 'مصاطب');
         } else {
           matchesCat = (item.category === activeFilter);
         }
