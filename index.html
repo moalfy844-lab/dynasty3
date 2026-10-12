@@ -4,7 +4,7 @@
   <!-- Open Graph Meta Tags for WhatsApp & Social Media Preview -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="المعالم الاثرية للاسرات الفرعونيه من الاسرة الثالثه حتى الاسرة السادسة" />
-  <meta property="og:description" content="خريطة تفاعلية أثرية لاستكشاف أهرامات ومقاطعات الأسرة الثالثة حتى السادسة." />
+  <meta property="og:description" content="خريطة تفاعلية أثرية لاستكشاف أهرامات ومصاطب ومحاجر الأسرة الثالثة حتى السادسة." />
   <meta property="og:image" content="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmx1knXrg2_N-KezxYt_Nmq8VDdgQ5a3J8wKSZK7k5l-fpYy5gs5Y9C1owRddpwgf0Tj9Pdl5T9Z5b03JGc6X_Za5X5g98E1bcZN_OKPlT0Lx097BXhu4KxYUa4zvKPJDp1wAoYdQ=s680-w680-h510-rw" />
   <meta property="og:url" content="https://moalfy844-lab.github.io/dynasty3/" />
   <meta property="og:image:width" content="680" />
@@ -97,15 +97,12 @@
       border-bottom: 2px solid rgba(0,0,0,0.25);
       z-index: 1001;
       font-size: 0.78rem;
-      flex-wrap: wrap;
-      gap: 8px;
     }
 
     .layer-selector-group {
       display: flex;
       align-items: center;
       gap: 6px;
-      flex-wrap: wrap;
     }
     .layer-btn {
       background: rgba(255, 255, 255, 0.1);
@@ -195,16 +192,20 @@
     }
     .king-btn:hover { background: #d97706; color: white; border-color: #f59e0b; }
     
+    /* Dynamic Dynasty Button Colors */
     .king-btn.dyn3 { border-color: #d97706; }
     .king-btn.dyn3.active, .king-btn.dyn3:hover { background: #d97706; color: #fff; }
+
     .king-btn.dyn4 { border-color: #78350f; }
     .king-btn.dyn4.active, .king-btn.dyn4:hover { background: #78350f; color: #fff; }
+
     .king-btn.dyn5 { border-color: #facc15; color: #facc15; }
     .king-btn.dyn5.active, .king-btn.dyn5:hover { background: #ca8a04; color: #fff; border-color: #facc15; }
+
     .king-btn.dyn6 { border-color: #9f1239; }
     .king-btn.dyn6.active, .king-btn.dyn6:hover { background: #9f1239; color: #fff; }
 
-    /* Workspace */
+    /* 3. Main Workspace */
     .workspace {
       flex: 1;
       display: flex;
@@ -213,6 +214,7 @@
       overflow: hidden;
     }
 
+    /* RIGHT SIDEBAR */
     #sidebar {
       width: 400px;
       background: #ffffff;
@@ -225,8 +227,8 @@
 
     .kpi-container {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3px;
       padding: 6px 8px;
       background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
@@ -235,15 +237,18 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 5px;
-      padding: 4px;
+      padding: 4px 1px;
       text-align: center;
     }
     .kpi-val { font-size: 0.95rem; font-weight: 800; color: #b45309; }
     .kpi-val.total { color: #1e40af; }
     .kpi-val.pyramids { color: #d97706; }
     .kpi-val.tombs { color: #7c3aed; }
+    .kpi-val.mastabas { color: #2563eb; }
+    .kpi-val.statues { color: #0284c7; }
+    .kpi-val.temples { color: #059669; }
     .kpi-val.quarries { color: #dc2626; }
-    .kpi-lbl { font-size: 0.6rem; color: var(--text-muted); font-weight: 700; margin-top: 1px; }
+    .kpi-lbl { font-size: 0.55rem; color: var(--text-muted); font-weight: 700; line-height: 1.1; margin-top: 1px; }
 
     .filter-section {
       padding: 8px 12px;
@@ -345,6 +350,7 @@
       border-right: 4px solid #d97706;
     }
 
+    /* Thumbnail and Categories Styles */
     .card-thumb-box {
       width: 70px;
       height: 70px;
@@ -360,10 +366,16 @@
       position: relative;
       overflow: hidden;
     }
-    .thumb-dyn3 { background: linear-gradient(135deg, #d97706, #92400e); }
-    .thumb-dyn4 { background: linear-gradient(135deg, #78350f, #451a03); }
-    .thumb-dyn5 { background: linear-gradient(135deg, #facc15, #ca8a04); color: #451a03 !important; }
-    .thumb-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
+    .thumb-pyramid-dyn3 { background: linear-gradient(135deg, #d97706, #92400e); }
+    .thumb-pyramid-dyn4 { background: linear-gradient(135deg, #78350f, #451a03); }
+    .thumb-pyramid-dyn5 { background: linear-gradient(135deg, #facc15, #ca8a04); color: #451a03 !important; }
+    .thumb-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
+    .thumb-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
+    .thumb-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
+    .thumb-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
+    .thumb-statue { background: linear-gradient(135deg, #0284c7, #0369a1); }
+    .thumb-temple { background: linear-gradient(135deg, #059669, #047857); }
+    .thumb-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
     .card-thumb-box span { font-size: 0.62rem; margin-top: 3px; font-weight: 700; }
 
     .card-body-content {
@@ -381,6 +393,7 @@
       font-size: 0.88rem;
       font-weight: 700;
       color: #0f172a;
+      transition: color 0.2s;
     }
     .site-card-badge {
       font-size: 0.65rem;
@@ -389,10 +402,16 @@
       font-weight: 700;
       white-space: nowrap;
     }
-    .badge-dyn3 { background: #fef3c7; color: #b45309; }
-    .badge-dyn4 { background: #fdf2f8; color: #78350f; }
-    .badge-dyn5 { background: #fef9c3; color: #ca8a04; }
-    .badge-dyn6 { background: #ffe4e6; color: #9f1239; }
+    .badge-pyramid { background: #fef3c7; color: #b45309; }
+    .badge-pyramid-dyn4 { background: #fdf2f8; color: #78350f; }
+    .badge-pyramid-dyn5 { background: #fef9c3; color: #ca8a04; }
+    .badge-pyramid-dyn6 { background: #ffe4e6; color: #9f1239; }
+    .badge-quarry { background: #fee2e2; color: #991b1b; }
+    .badge-mastaba { background: #dbeafe; color: #1e40af; }
+    .badge-tomb { background: #f3e8ff; color: #6b21a8; }
+    .badge-statue { background: #e0f2fe; color: #0369a1; }
+    .badge-temple { background: #ccfbf1; color: #115e59; }
+    .badge-provincial { background: #d1fae5; color: #065f46; }
 
     .site-card-details {
       display: flex;
@@ -400,6 +419,7 @@
       font-size: 0.72rem;
       color: #64748b;
       margin-top: 2px;
+      transition: color 0.2s;
     }
     .site-card-coords {
       font-family: monospace;
@@ -407,8 +427,10 @@
       color: #475569;
       direction: ltr;
       text-align: left;
+      transition: color 0.2s;
     }
 
+    /* LEFT MAP CONTAINER */
     #map-wrapper {
       flex: 1;
       height: 100%;
@@ -416,6 +438,7 @@
     }
     #map { width: 100%; height: 100%; }
 
+    /* Popup Styling - Clean & Structured */
     .leaflet-popup-content-wrapper { 
       border-radius: 12px; 
       font-family: 'Cairo', sans-serif; 
@@ -512,6 +535,7 @@
       display: none;
       align-items: center;
       gap: 8px;
+      transition: all 0.2s;
     }
     .close-sidebar-btn {
       background: #f1f5f9;
@@ -557,6 +581,7 @@
       .drawer-backdrop.active { display: block !important; }
     }
 
+    /* Custom Map Icons */
     .custom-map-icon {
       width: 32px;
       height: 32px;
@@ -571,10 +596,37 @@
       transition: transform 0.2s ease;
     }
     .custom-map-icon:hover { transform: scale(1.15); z-index: 1000; }
-    .icon-dyn3 { background: linear-gradient(135deg, #d97706, #92400e); }
-    .icon-dyn4 { background: linear-gradient(135deg, #78350f, #451a03); }
-    .icon-dyn5 { background: linear-gradient(135deg, #facc15, #ca8a04); color: #451a03 !important; }
-    .icon-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
+    .icon-pyramid { background: linear-gradient(135deg, #d97706, #92400e); }
+    .icon-pyramid-dyn4 { background: linear-gradient(135deg, #78350f, #451a03); }
+    .icon-pyramid-dyn5 { background: linear-gradient(135deg, #facc15, #ca8a04); color: #451a03 !important; }
+    .icon-pyramid-dyn6 { background: linear-gradient(135deg, #9f1239, #4c0519); }
+    .icon-quarry { background: linear-gradient(135deg, #dc2626, #7f1d1d); }
+    .icon-mastaba { background: linear-gradient(135deg, #2563eb, #1e3a8a); }
+    .icon-tomb { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
+    .icon-statue { background: linear-gradient(135deg, #0284c7, #0369a1); }
+    .icon-temple { background: linear-gradient(135deg, #059669, #047857); }
+    .icon-provincial { background: linear-gradient(135deg, #059669, #064e3b); }
+
+    /* Dark Mode Theme & Fixed Text Color */
+    body.dark-mode {
+      --top-header-bg: #020617;
+      --sub-header-bg: #0f172a;
+      --text-main: #ffffff;
+      --text-muted: #cbd5e1;
+      background: #020617;
+      color: #ffffff;
+    }
+    body.dark-mode #sidebar { background: #0f172a; border-color: #334155; color: #ffffff; }
+    body.dark-mode .kpi-container, body.dark-mode .filter-section { background: #0f172a; border-color: #334155; }
+    body.dark-mode .kpi-card { background: #1e293b; border-color: #334155; }
+    body.dark-mode .search-input-wrap input { background: #1e293b; color: #ffffff; border-color: #475569; }
+    body.dark-mode .cat-tab { background: #1e293b; border-color: #475569; color: #cbd5e1; }
+    body.dark-mode .site-card { background: #1e293b; border-color: #334155; }
+    body.dark-mode .site-card-title { color: #ffffff !important; }
+    body.dark-mode .site-card-details { color: #cbd5e1 !important; }
+    body.dark-mode .site-card-coords { color: #94a3b8 !important; }
+    body.dark-mode .section-head { color: #ffffff !important; }
+    body.dark-mode .badge-count { background: #334155; color: #f8fafc; }
   </style>
 </head>
 <body>
@@ -616,27 +668,35 @@
     </div>
   </div>
 
-  <!-- 4. Workspace -->
+  <!-- 4. Workspace: Sidebar (Right) + Map (Left) -->
   <div class="workspace">
     
     <!-- RIGHT SIDEBAR -->
     <aside id="sidebar">
       <div class="kpi-container">
         <div class="kpi-card">
-          <div class="kpi-val total" id="valTotal">35</div>
+          <div class="kpi-val total" id="valTotal">153</div>
           <div class="kpi-lbl">الإجمالي</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-val pyramids" id="valPyramids">15</div>
+          <div class="kpi-val pyramids" id="valPyramids">28</div>
           <div class="kpi-lbl">الأهرامات</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-val tombs" id="valTombs">14</div>
+          <div class="kpi-val tombs" id="valTombs">42</div>
           <div class="kpi-lbl">المقابر</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-val quarries" id="valQuarries">6</div>
-          <div class="kpi-lbl">المعابد/المحاجر</div>
+          <div class="kpi-val mastabas" id="valMastabas">18</div>
+          <div class="kpi-lbl">المصاطب</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val statues" id="valStatues">12</div>
+          <div class="kpi-lbl">التماثيل</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val quarries" id="valQuarries">53</div>
+          <div class="kpi-lbl">معابد/محاجر</div>
         </div>
       </div>
 
@@ -644,7 +704,7 @@
         <div class="section-head">
           <div style="display:flex; align-items:center; gap:8px;">
             <span>المواقع الأثرية ومصادر المواد</span>
-            <span class="badge-count" id="countBadge">35 موقع</span>
+            <span class="badge-count" id="countBadge">153 موقع</span>
           </div>
           <button class="close-sidebar-btn" onclick="toggleSidebar(false)" title="إغلاق القائمة"><i class="fa-solid fa-xmark"></i></button>
         </div>
@@ -653,10 +713,13 @@
           <input type="text" id="siteSearch" placeholder="ابحث عن أثر، محجر، ملك، أو مادة خام..." onkeyup="handleFilter()">
         </div>
         <div class="category-tabs">
-          <span class="cat-tab active" onclick="filterCategory('all', this)">الكل (35)</span>
-          <span class="cat-tab" onclick="filterCategory('هرم', this)">الأهرامات</span>
-          <span class="cat-tab" onclick="filterCategory('مقابر', this)">المقابر</span>
-          <span class="cat-tab" onclick="filterCategory('معابد ومحاجر', this)">المعابد والمحاجر</span>
+          <span class="cat-tab active" onclick="filterCategory('all', this)">الكل (153)</span>
+          <span class="cat-tab" onclick="filterCategory('هرم مدرج', this)">الأهرامات الملكية</span>
+          <span class="cat-tab" onclick="filterCategory('مقابر', this)">المقابر الأثرية</span>
+          <span class="cat-tab" onclick="filterCategory('تمثال', this)">التماثيل والآثار</span>
+          <span class="cat-tab" onclick="filterCategory('معبد', this)">المعابد الأثرية</span>
+          <span class="cat-tab" onclick="filterCategory('محاجر', this)">المحاجر والمواد</span>
+          <span class="cat-tab" onclick="filterCategory('مصاطب', this)">المصاطب</span>
         </div>
       </div>
 
@@ -681,9 +744,139 @@
     let activeFilter = 'all';
     let activeDynasty = 'all';
 
+    const monumentsData = [
+      // ==================== الأسرة الثالثة ====================
+      { id: 201, dynasty: "الأسرة الثالثة", name: "هرم زوسر المدرج", king: "زوسر (نثري خت)", site: "سقارة", category: "هرم مدرج", coords: [29.871456, 31.216545], img: "https://lh3.googleusercontent.com/d/1fDjFAuyDvJv3dTHhw9xJ_mPWDZ595fx-=s800", info: "أول بناء حجري ضخم في التاريخ ومجمع جنائزي ملكي متكامل تصميمه يرجع للمهندس إمحوتب." },
+      { id: 202, dynasty: "الأسرة الثالثة", name: "المقبرة الجنوبية لزوسر", king: "زوسر", site: "سقارة", category: "مقابر", coords: [29.869231, 31.216131], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مقبرة رمزية تحتوي على آبار وسراديب مبطنة بفيش القيشاني الأزرق وتضم تابوتاً من الجرانيت." },
+      { id: 203, dynasty: "الأسرة الثالثة", name: "المعبد الجنائزي لزوسر", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.871899, 31.216571], img: "https://lh3.googleusercontent.com/d/1oIPEBQ4xQ9iTF9Khnun1EFXQienjYzYh=s800", info: "المعبد الجنائزي الرئيسي الواقع بالناحية الشمالية لهرم زوسر لتقديم القرابين والشعائر." },
+      { id: 204, dynasty: "الأسرة الثالثة", name: "فناء الحب الثلاثيني (Heb-Sed Court)", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.870121, 31.217498], img: "https://lh3.googleusercontent.com/d/1fDjFAuyDvJv3dTHhw9xJ_mPWDZ595fx-=s800", info: "فناء شعائري لإقامة أعياد تجديد شرعية وسلطة الملك (الحب سد)." },
+      { id: 205, dynasty: "الأسرة الثالثة", name: "صالة الأعمدة (رواق المدخل)", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.869182, 31.217320], img: "https://lh3.googleusercontent.com/d/1e9MjmoKgHN8ZMtxYbPZEydxhKe6Oguql=s800", info: "رواق يحوي أعمدة حجرية متصلة بالجدران محاكية لرزم البردي والشهب." },
+      { id: 206, dynasty: "الأسرة الثالثة", name: "مدخل مجمع زوسر", king: "زوسر", site: "سقارة", category: "معبد", coords: [29.869157, 31.217739], img: "https://lh3.googleusercontent.com/d/1e9MjmoKgHN8ZMtxYbPZEydxhKe6Oguql=s800", info: "البوابة الوحيدة الحقيقية ضمن سور المجمع الجنائزي الضخم والمحاط بأبواب وهمية." },
+      { id: 207, dynasty: "الأسرة الثالثة", name: "الهرم المدفون (Buried Pyramid)", king: "سخم خت", site: "سقارة", category: "هرم مدرج", coords: [29.866150, 31.213640], img: "https://lh3.googleusercontent.com/d/1NtKgyxgIoP0TNiSD-vFID4qZbbsrLRFd=s800", info: "هرم مدرج غير مكتمل تم اكتشافه جنوب غرب هرم زوسر بواسطة العالم زكريا غنيم." },
+      { id: 208, dynasty: "الأسرة الثالثة", name: "هرم ميدوم", king: "حوني / سنفرو", site: "ميدوم", category: "هرم مدرج", coords: [29.388446, 31.157093], img: "https://lh3.googleusercontent.com/d/1JtrKkOjzVs80BjSnakTP6XqBW9qo9tPI=s800", info: "هرم بدأه حوني كـ هرم مدرج وأتمه سنفرو بكسوة أفقية ملساء تحول بها لهرم حقيقي." },
+      { id: 209, dynasty: "الأسرة الثالثة", name: "هرم ألفنتين", king: "حوني (منسوب)", site: "أسوان", category: "أهرامات أقاليم", coords: [24.085662, 32.885513], img: "https://lh3.googleusercontent.com/d/1oiZbmPGUmfoW7efYKt9VWPFKqHaS_gkD=s800", info: "أحد الأهرامات الإقليمية السبعة الصغيرة غير الجنائزية الواقعة بأسوان." },
+      { id: 210, dynasty: "الأسرة الثالثة", name: "هرم إدفو الجنوبي", king: "حوني (منسوب)", site: "إدفو", category: "أهرامات أقاليم", coords: [24.943750, 32.842040], img: "https://lh3.googleusercontent.com/d/1lZTB56ICmyWeDTnwui6VBpfI5TO_fPWy=s800", info: "هرم مدرج إقليمي صغير شيد ليرمز للسلطة الملكية والسيادة بالإقليم." },
+      { id: 211, dynasty: "الأسرة الثالثة", name: "هرم الكولة", king: "حوني (منسوب)", site: "الكوم الأحمر", category: "أهرامات أقاليم", coords: [25.133390, 32.733460], img: "https://lh3.googleusercontent.com/d/1g70m6wMzsEhD5FJBZB76fvfL32eA2Jwp=s800", info: "هرم مدرج صغير مبني من كتل الحجر الجيري المحلي بوسط الصعيد." },
+      { id: 212, dynasty: "الأسرة الثالثة", name: "هرم سنكي (أبيدوس)", king: "حوني (منسوب)", site: "أبيدوس", category: "أهرامات أقاليم", coords: [26.157800, 31.966370], img: "https://lh3.googleusercontent.com/d/1NEzqbszOBCsS38sqgdail98pH8Js-5aG=s800", info: "هرم سنكي الإقليمي قرب أبيدوس، ويحتفظ بآثار منحدرات البناء الخشبية والطينية." },
+      { id: 213, dynasty: "الأسرة الثالثة", name: "هرم زاوية الميتين (زاوية سلطان)", king: "حوني (منسوب)", site: "المنيا", category: "أهرامات أقاليم", coords: [28.045895, 30.828781], img: "https://lh3.googleusercontent.com/d/1aRSbzFWxwGRFCKnLW1GNgTm8Ejs1siNN=s800", info: "الهرم الإقليمي الوحيد الواقع شرق النيل بمنطقة المنيا." },
+      { id: 214, dynasty: "الأسرة الثالثة", name: "هرم سيلا", king: "سنفرو / حوني", site: "الفيوم", category: "أهرامات أقاليم", coords: [29.382614, 31.053525], img: "https://lh3.googleusercontent.com/d/15xvF_j94O5ScOqQVgrM1_9g4YNe3wLa0=s800", info: "هرم مدرج على حافة الفيوم تم العثور فيه على لوحات تحمل اسم سنفرو." },
+      { id: 215, dynasty: "الأسرة الثالثة", name: "مصطبة بيت خلاف K1", king: "زوسر / ساناخت", site: "بيت خلاف", category: "مصاطب", coords: [26.295415, 31.771771], img: "https://lh3.googleusercontent.com/d/1HYJ_WvY1ZjlbSBhBGsXnrfEnF4yG5a60=s800", info: "مصطبة ضخمة من الطوب اللبن بسوهاج تم العثور فيها على ختوم الملك زوسر." },
+      { id: 216, dynasty: "الأسرة الثالثة", name: "مصطبة بيت خلاف K2", king: "ساناخت", site: "بيت خلاف", category: "مصاطب", coords: [26.297080, 31.770028], img: "https://lh3.googleusercontent.com/d/1HYJ_WvY1ZjlbSBhBGsXnrfEnF4yG5a60=s800", info: "مقبرة مصطبة ضخمة شيدت لحاكم أو أمير بارز من عصر الملك ساناخت." },
+      { id: 217, dynasty: "الأسرة الثالثة", name: "مصاطب بيت خلاف K3–K5", king: "زوسر", site: "بيت خلاف", category: "مصاطب", coords: [26.295609, 31.770829], img: "https://lh3.googleusercontent.com/d/1HYJ_WvY1ZjlbSBhBGsXnrfEnF4yG5a60=s800", info: "مجموعة مصاطب تؤرخ بعهد زوسر وتوضح تنظيم الجبانات الإقليمية." },
+      { id: 218, dynasty: "الأسرة الثالثة", name: "مصطبة حسي رع S2405", king: "زوسر", site: "سقارة", category: "مصاطب", coords: [29.868521, 31.218790], img: "https://lh3.googleusercontent.com/d/1Rdmmn-RRaNalwyOI06AOlGhR3MY1AHdw=s800", info: "مقبرة كاتب وطبيب الأسنان الملكي حسي رع مع ألواحه الخشبية المنحوتة بدقة." },
+      { id: 219, dynasty: "الأسرة الثالثة", name: "جبانة أم القعاب (خع سخموي)", king: "خع سخموي / زوسر", site: "أبيدوس", category: "مقابر", coords: [26.176099, 31.907781], img: "https://lh3.googleusercontent.com/d/1uj4hnxLuwyjqwL8T0_9BUwj07cSMEjzT=s800", info: "المقبرة الملكية الانتقالية بين الأسرتين الثانية والثالثة بأبيدوس." },
+      { id: 220, dynasty: "الأسرة الثالثة", name: "لوحة المجاعة – جزيرة سهيل", king: "زوسر", site: "أسوان", category: "تمثال", coords: [24.057547, 32.874197], img: "https://lh3.googleusercontent.com/d/1Z1mDZ-Yl6NPRiCEVhxLznI0GubCRWoi4=s800", info: "نقش صخري على جزيرة سهيل يروي استشارة زوسر لإمحوتب لإنهاء سبع سنوات مجاعة." },
+      { id: 221, dynasty: "الأسرة الثالثة", name: "محاجر الجرانيت – جزيرة سهيل", king: "زوسر", site: "أسوان", category: "محاجر", coords: [24.057916, 32.873242], img: "https://lh3.googleusercontent.com/d/1aFvNxoiP_kfW9BnqVWBx736d_adIm0Pk=s800", info: "محاجر الجرانيت الوردي بأسوان المقاطع التي استخدمت لحجرة دفن زوسر." },
+      { id: 222, dynasty: "الأسرة الثالثة", name: "محاجر طرة", king: "زوسر", site: "طرة", category: "محاجر", coords: [29.933628, 31.297596], img: "https://lh3.googleusercontent.com/d/1njb0BXsPkB9jL8ZRTA3h5WeJ42sgSI4q=s800", info: "محاجر الحجر الجيري الناعم ذو اللون الأبيض الملكي الناصع المستخدم في كسوة المباني." },
+      { id: 223, dynasty: "الأسرة الثالثة", name: "هيراكونبوليس (الكوم الأحمر)", king: "زوسر / خابا", site: "إدفو", category: "معبد", coords: [25.091301, 32.773642], img: "https://lh3.googleusercontent.com/d/1VqkiWB9JHxuPkoaxBbtvM2ie_iHVuZvj=s800", info: "العاصمة الدينية والتاريخية بصعيد مصر مع بقايا منشآت الأسرة الثالثة." },
+      { id: 224, dynasty: "الأسرة الثالثة", name: "حصن ومدنية ألفنتين", king: "زوسر / حوني", site: "أسوان", category: "معبد", coords: [24.085226, 32.885828], img: "https://lh3.googleusercontent.com/d/1iXZSAE5sXrJyvh2toWeXeKsbZB0yEQ4Y=s800", info: "الحصن الحدودي والمركز الإداري الجنوبي لتأمين الحدود وسلاسل الإمداد." },
+      { id: 225, dynasty: "الأسرة الثالثة", name: "منف (ميت رهينة)", king: "ملوك الأسرة الثالثة", site: "ميت رهينة", category: "معبد", coords: [29.849700, 31.250800], img: "https://lh3.googleusercontent.com/d/1qH6CpbkXKyk1XKVJQBHoI_xRPFe1uHsC=s800", info: "عاصمة مصر القديمة الإدارية والتنظيمية لمشروعات بناء الأهرامات." },
+      { id: 8, dynasty: "الأسرة الثالثة", name: "محاجر بازلت جبل القطراني", king: "زوسر", site: "شمال الفيوم", category: "محاجر", coords: [29.6600, 30.6500], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر كتل البازلت الأسود لرصف معابد زوسر." },
+      { id: 9, dynasty: "الأسرة الثالثة", name: "مناجم ونقوش وادي مغارة", king: "سانخت / زوسر", site: "جنوب سيناء", category: "محاجر", coords: [28.8973, 33.3726], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مصدر الفيروز والنحاس الضروري لأزاميل البنائين وحلي الدولة." },
+
+      // ==================== الأسرة الرابعة ====================
+      { id: 10, dynasty: "الأسرة الرابعة", name: "هرم سيلا", king: "سنفرو", site: "جبل الروس (الفيوم)", category: "هرم مدرج", coords: [29.38261111, 31.05352778], img: "https://lh3.googleusercontent.com/d/15xvF_j94O5ScOqQVgrM1_9g4YNe3wLa0=s800", info: "هرم أثري شيده الملك سنفرو من الأسرة الرابعة في جبل الروس (الفيوم)." },
+      { id: 15, dynasty: "الأسرة الرابعة", name: "هرم ميدوم", king: "سنفرو", site: "ميدوم (بني سويف)", category: "هرم مدرج", coords: [29.38857906, 31.15705492], img: "https://lh3.googleusercontent.com/d/1RF6DCf0rEWP63jyC30UJw3u_aHLPYp47=s800", info: "أول أهرامات سنفرو؛ تحول من هرم مدرج إلى هرم حقيقي بكسوة كاملة." },
+      { id: 16, dynasty: "الأسرة الرابعة", name: "الهرم المنحني", king: "سنفرو", site: "دهشور (الجيزة)", category: "هرم مدرج", coords: [29.7905015, 31.20975719], img: "https://lh3.googleusercontent.com/d/15-MSvv26U1jhftHPMbgONpvXwZC4Ckog=s800", info: "هرم سنفرو الجنوبي بدهشور؛ تتميز زاويته بانكسار هندسي فريد." },
+      { id: 17, dynasty: "الأسرة الرابعة", name: "الهرم الأحمر", king: "سنفرو", site: "دهشور (الجيزة)", category: "هرم مدرج", coords: [29.8088213, 31.20651904], img: "https://lh3.googleusercontent.com/d/1xmVP0faS0SCUZxsHKe30mWGaOtCup6JN=s800", info: "أول هرم حقيقي ناجح بأسطح ملساء بالكامل شيده الملك سنفرو." },
+      { id: 18, dynasty: "الأسرة الرابعة", name: "هرم خوفو", king: "خوفو", site: "الجيزة", category: "هرم مدرج", coords: [29.97891574, 31.13501526], img: "https://lh3.googleusercontent.com/d/1mIF9PkDko5688IbRxlZKMFX_4LL7AUR0=s800", info: "الهرم الأكبر؛ عجيبة الدنيا الوحيدة الباقية، شيده الملك خوفو." },
+      { id: 19, dynasty: "الأسرة الرابعة", name: "حفر مراكب الشمس", king: "خوفو", site: "الجيزة", category: "محاجر", coords: [29.97863798, 31.13570706], img: "https://lh3.googleusercontent.com/d/17ZGGaUsOY6JQXnS36BlRCjtyVPmhrSEE=s800", info: "حفر ومقاصير دفن المراكب الجنائزية الملكية الخاصة برحلة الملك خوفو." },
+      { id: 20, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي لخوفو", king: "خوفو", site: "الجيزة", category: "معبد", coords: [29.97919789, 31.13572661], img: "https://lh3.googleusercontent.com/d/1nmjb652duQ41dh8CBu2O8YodbCqGjt9U=s800", info: "المعبد الجنائزي الشرقي المخصص لتقديم القرابين والشعائر لروح الملك خوفو." },
+      { id: 21, dynasty: "الأسرة الرابعة", name: "الجبانة الشرقية لخوفو", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.97822336, 31.13730821], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مقابر عائلة الملك خوفو وكبار موظفي الدولة مقسمة في مصاطب منتظمة." },
+      { id: 22, dynasty: "الأسرة الرابعة", name: "الجبانة الغربية لخوفو", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.979378, 31.1312481], img: "https://lh3.googleusercontent.com/d/132_zQFQmZFnfWXFjiKn099CjT5EpLOxR=s800", info: "جبانة كبار رجال الدولة وأمراء العائلة المالكة غرب الهرم الأكبر." },
+      { id: 23, dynasty: "الأسرة الرابعة", name: "مقابر عمال بناء أهرام الملك خوفو", king: "خوفو", site: "الجيزة", category: "مقابر", coords: [29.96967424, 31.13973657], img: "https://lh3.googleusercontent.com/d/1C0jLLyjilkK7cQ7aXgiEMlygrZh8j8VA=s800", info: "مدينة ومقابر العمال والمهندسين الذين شيدوا مجمع هرم خوفو." },
+      { id: 24, dynasty: "الأسرة الرابعة", name: "الطريق الصاعد لخوفو", king: "خوفو", site: "الجيزة", category: "معبد", coords: [29.98057853, 31.13795714], img: "https://lh3.googleusercontent.com/d/1Nr1dHh-Khb5GfgZajRw0JJC33gC6MG8Y=s800", info: "المرفأ ومعبد الاستقبال الرئيسي المرتبط بفرع النيل القديم عبر الطريق الصاعد." },
+      { id: 25, dynasty: "الأسرة الرابعة", name: "نقوش وادي مغارة", king: "خوفو", site: "جنوب سيناء", category: "محاجر", coords: [28.89742356, 33.372482], img: "https://lh3.googleusercontent.com/d/1yO5RDAPjthpL-cnZPuejf2nb1Gk5fX6D=s800", info: "نقوش تخلد حملات استخراج النحاس والفيروز في عهد الملك خوفو." },
+      { id: 26, dynasty: "الأسرة الرابعة", name: "موقع اكتشاف تمثال خوفو", king: "خوفو", site: "أبيدوس (سوهاج)", category: "تمثال", coords: [26.18415281, 31.91849789], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "موقع العثور على التمثال العاجي الوحيد المعروف للملك خوفو." },
+      { id: 27, dynasty: "الأسرة الرابعة", name: "برديات وادي الجرف", king: "خوفو", site: "رأس غارب (البحر الأحمر)", category: "محاجر", coords: [28.89168714, 32.65824471], img: "https://lh3.googleusercontent.com/d/1pseFANh4xYv1cumdEuBm-1uHvm0JfONH=s800", info: "أقدم برديات مكتشفة في العالم تسجل يوميات فريق عمل نقل الحجارة لبناء هرم خوفو." },
+      { id: 28, dynasty: "الأسرة الرابعة", name: "مصطبة حم إيونو", king: "خوفو", site: "الجيزة", category: "مصاطب", coords: [29.97937467, 31.12995456], img: "https://lh3.googleusercontent.com/d/132_zQFQmZFnfWXFjiKn099CjT5EpLOxR=s800", info: "مصطبة الوزير المهندس حم إيونو المشرف على بناء هرم خوفو الأكبر." },
+      { id: 29, dynasty: "الأسرة الرابعة", name: "هرم جدف رع", king: "جدف رع", site: "أبو رواش (الجيزة)", category: "هرم مدرج", coords: [30.0321711, 31.0748951], img: "https://lh3.googleusercontent.com/d/1gMdbKiusUej56WcySCF4pNDwljHmWbKp=s800", info: "أبعد الأهرامات الشمالية ملكاً لجدف رع successor خوفو." },
+      { id: 30, dynasty: "الأسرة الرابعة", name: "هرم خفرع", king: "خفرع", site: "الجيزة", category: "هرم مدرج", coords: [29.97571533, 31.13154808], img: "https://lh3.googleusercontent.com/d/1DWjv5BKwoiO85sZbnc9ttVvYl8eq0TNF=s800", info: "هرم الملك خفرع الثاني بين أهرامات الجيزة، محتفظاً بجزء من كسوته العلوية." },
+      { id: 31, dynasty: "الأسرة الرابعة", name: "تمثال أبو الهول", king: "خفرع", site: "الجيزة", category: "تمثال", coords: [29.97526256, 31.13760697], img: "https://lh3.googleusercontent.com/d/1WZz9dyccumvaO1skIpoqbmAPJ6F7wrZx=s800", info: "تمثال أسد برأس إنسان منحوت من الصخر الطبيعي لحراسة مجمع خفرع." },
+      { id: 32, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك خفرع", king: "خفرع", site: "الجيزة", category: "معبد", coords: [29.97471912, 31.1383184], img: "https://lh3.googleusercontent.com/d/1z8ok9ePtujLOk1ki_zyRLzHYX1MP-DaY=s800", info: "معبد الوادي الضخم المنجز من الحجر الجيري والجرانيت." },
+      { id: 33, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك خفرع", king: "خفرع", site: "الجيزة", category: "معبد", coords: [29.97598699, 31.13266001], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المعبد الجنائزي الملاصق لهرم خفرع من جهة الشرق." },
+      { id: 34, dynasty: "الأسرة الرابعة", name: "محاجر توشكي للديوريت", king: "خفرع", site: "توشكي (أسوان)", category: "محاجر", coords: [22.54016797, 31.81536196], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر حجر الديوريت الصلب المستخدم في نحت تماثيل خفرع الملكية." },
+      { id: 35, dynasty: "الأسرة الرابعة", name: "مناجم وادي المغارة", king: "خفرع", site: "جنوب سيناء", category: "محاجر", coords: [28.89963601, 33.37734715], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "مناجم النحاس والفيروز الملكية بسيناء." },
+      { id: 36, dynasty: "الأسرة الرابعة", name: "هرم منكاورع", king: "منكاورع", site: "الجيزة", category: "هرم مدرج", coords: [29.97237109, 31.12861298], img: "https://lh3.googleusercontent.com/d/1AXiPEbvXCQa9KIcekPfLjvaq1IduxqQF=s800", info: "أصغر الأهرامات الثلاثة الرئيسية في الجيزة للملك منكاورع." },
+      { id: 37, dynasty: "الأسرة الرابعة", name: "معبد الوادي للملك منكاورع", king: "منكاورع", site: "الجيزة", category: "معبد", coords: [29.97244383, 31.13618878], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "معبد الوادي المرتبط بهرم منكاورع." },
+      { id: 38, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك منكاورع", king: "منكاورع", site: "الجيزة", category: "معبد", coords: [29.97251915, 31.12916615], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المعبد الجنائزي لتقديم القرابين لروح منكاورع." },
+      { id: 39, dynasty: "الأسرة الرابعة", name: "مصطبة فرعون", king: "شبسكاف", site: "سقارة الجنوبية", category: "مقابر", coords: [29.83894894, 31.21533994], img: "https://lh3.googleusercontent.com/d/1AQ6HFAbh46PiBjVEeAdmZYmI7u763w3H=s800", info: "مقبرة ملكية ضخمة على شكل تابوت حجري ضخم (مصطبة) لملك شبسكاف." },
+      { id: 40, dynasty: "الأسرة الرابعة", name: "المعبد الجنائزي للملك شبسكاف", king: "شبسكاف", site: "سقارة الجنوبية", category: "معبد", coords: [29.83893961, 31.21587036], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المعبد الجنائزي الملحق بمقبرة شبسكاف." },
+      { id: 41, dynasty: "الأسرة الرابعة", name: "المجموعة الجنائزية للملكة خنتكاوس", king: "خنتكاوس", site: "الجيزة", category: "مقابر", coords: [29.97337882, 31.13550979], img: "https://lh3.googleusercontent.com/d/1M-WlO26M0OaG8NPne-KKZbMqHPI6OSfj=s800", info: "مقبرة الملكة خنتكاوس الأولى، وتُعرف أحياناً بالهرم الرابع في الجيزة." },
+      { id: 42, dynasty: "الأسرة الرابعة", name: "الهرم الشمالي للملك بكا رع", king: "بكا", site: "زاوية العريان", category: "هرم مدرج", coords: [29.94023734, 31.15154228], img: "https://lh3.googleusercontent.com/d/1pTIm-8BAX9NjlC39tZTjwwsH7NauKDVP=s800", info: "هرم غير مكتمل في زاوية العريان من نهاية الأسرة الرابعة." },
+      { id: 43, dynasty: "الأسرة الرابعة", name: "محجر أبو زعبل", king: "متنوع", site: "أبو زعبل (القليوبية)", category: "محاجر", coords: [30.27065586, 31.36850118], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر استخراج الحجر الجيري والصلصال." },
+      { id: 44, dynasty: "الأسرة الرابعة", name: "محجر الجيزة", king: "متنوع", site: "هضبة الجيزة", category: "محاجر", coords: [29.97582349, 31.13475146], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر هضبة الجيزة التي استُخرجت منها كتل بناء الأهرامات." },
+      { id: 45, dynasty: "الأسرة الرابعة", name: "معبد أبو الهول", king: "منكاورع", site: "الجيزة", category: "معبد", coords: [29.97522731, 31.13832404], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "المعبد المقابل لتمثال أبو الهول." },
+      { id: 46, dynasty: "الأسرة الرابعة", name: "محجر هرم منكاورع", king: "متنوع", site: "الجيزة", category: "محاجر", coords: [29.97122618, 31.12894652], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر بناء وتكسير أحجار هرم منكاورع." },
+      { id: 47, dynasty: "الأسرة الرابعة", name: "محاجر طرة", king: "متنوع", site: "طرة (القاهرة)", category: "محاجر", coords: [29.93556391, 31.29576255], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الحجر الجيري الأبيض الفاخر لكسوة الأهرامات." },
+      { id: 48, dynasty: "الأسرة الرابعة", name: "محاجر المعصرة", king: "متنوع", site: "المعصرة (القاهرة)", category: "محاجر", coords: [29.88259271, 31.29784239], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الحجر الجيري الشهيرة شرق النيل." },
+      { id: 49, dynasty: "الأسرة الرابعة", name: "محاجر حلوان", king: "متنوع", site: "حلوان", category: "محاجر", coords: [29.83290406, 31.33326263], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر ومقابر تاريخية بحلوان." },
+      { id: 50, dynasty: "الأسرة الرابعة", name: "محاجر حتنوب", king: "متنوع", site: "المنيا", category: "محاجر", coords: [27.52965013, 31.028916], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الألباستر (المرمر) الملكية في صحراء المنيا." },
+      { id: 51, dynasty: "الأسرة الرابعة", name: "محاجر أسوان", king: "متنوع", site: "أسوان", category: "محاجر", coords: [24.07768707, 32.892515], img: "https://upload.wikimedia.org/wikipedia/commons/3/33/Meidum_pyramid_DSC_0313.jpg", info: "محاجر الجرانيت الوردي الشهيرة بشلال أسوان الأول." },
+
+      // ==================== الأسرة الخامسة ====================
+      { id: 101, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك اوسركاف", king: "أوسركاف", site: "سقارة", category: "معبد", coords: [29.873330, 31.218610], img: "https://lh3.googleusercontent.com/d/1Jf0dNvvfVeFxVngutOJ5EGOe70Yzo7_J=s800", info: "المعبد الجنائزي الملحق بهرم أوسركاف بسقارة." },
+      { id: 102, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك اوناس", king: "أوناس", site: "سقارة", category: "معبد", coords: [29.868200, 31.215000], img: "https://lh3.googleusercontent.com/d/1kwMAhDcSuysYzltACiEVxIRfqEtHWG3f=s800", info: "المعبد الجنائزي الملاصق لهرم الملك أوناس." },
+      { id: 103, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك جد كارع", king: "جد كارع إيسيسي", site: "سقارة الجنوبية", category: "معبد", coords: [29.851153, 31.221500], img: "https://lh3.googleusercontent.com/d/1MqYQTP4PluX4GmHnBc_Ud0lc2OMtW4GJ=s800", info: "المعبد الجنائزي لجد كارع إيسيسي جنوب سقارة." },
+      { id: 104, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك ساحورع", king: "ساحورع", site: "أبو صير", category: "معبد", coords: [29.897592, 31.203994], img: "https://lh3.googleusercontent.com/d/1PuQ_ZpN4vOohb0y3m73cvs_5svLuDOD4=s800", info: "المعبد الجنائزي الرائع للملك ساحورع بأعمدته النخيلية والجرانيتية." },
+      { id: 105, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك نفر اف رع", king: "نفراف رع", site: "أبو صير", category: "معبد", coords: [29.893700, 31.201700], img: "https://lh3.googleusercontent.com/d/1uhslILbg7ylOxxilHuA1F1VATnbWLqxH=s800", info: "معبد الساطور والجنائزي الخاص بنفراف رع." },
+      { id: 106, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك نفراركا رع كاكاي", king: "نفر إر كارع", site: "أبو صير", category: "معبد", coords: [29.894992, 31.203356], img: "https://lh3.googleusercontent.com/d/1HYF8p613qDs0nrc32F27euS-W2WlqLzQ=s800", info: "المعبد الجنائزي الذي عُثر فيه على وثائق برديات أبو صير الشهيرة." },
+      { id: 107, dynasty: "الأسرة الخامسة", name: "المعبد الجنائزي للملك ني اوسر رع", king: "ني أوسر رع", site: "أبو صير", category: "معبد", coords: [29.895560, 31.203610], img: "https://lh3.googleusercontent.com/d/1mC0fea8Q9xK3L4c_hMOuL8vkiyrmJwnH=s800", info: "المعبد الجنائزي الشرقي الملاصق لهرم ني أوسر رع." },
+      { id: 108, dynasty: "الأسرة الخامسة", name: "المعبد الشمسي للملك اوسر كاف", king: "أوسركاف", site: "أبو غارب", category: "معبد", coords: [29.900000, 31.198890], img: "https://lh3.googleusercontent.com/d/1_m5qQlEXXjH9-Fr96gjDTCVdEFTK_dgi=s800", info: "أول معبد شمس شيد في الأسرة الخامسة بمنطقة أبو غارب." },
+      { id: 109, dynasty: "الأسرة الخامسة", name: "المعبد الشمسي للملك ني اوسر", king: "ني أوسر رع", site: "أبو غارب", category: "معبد", coords: [29.903900, 31.193600], img: "https://lh3.googleusercontent.com/d/1_PJhBti074ydRh4d7TkWqZTz4MSSiMXE=s800", info: "أفضل معابد الشمس حفظاً مع بقايا المسلة الضخمة ومذبح الحجر الجيري." },
+      { id: 110, dynasty: "الأسرة الخامسة", name: "مصطبه اخت حتب", king: "أكخحوت (موظف بالأسرة 5)", site: "سقارة", category: "مصاطب", coords: [29.871200, 31.217500], img: "https://lh3.googleusercontent.com/d/1ho3Qu_PqZUTSJV8WZtkGmwU7BoedEtyc=s800", info: "مصطبة أخت حوت في سقارة تتميز بنقوشها الفريدة للحياة اليومية." },
+      { id: 111, dynasty: "الأسرة الخامسة", name: "مصطبه بتاح حتب", king: "بتاح حتب (وزیر)", site: "سقارة", category: "مصاطب", coords: [29.868000, 31.218500], img: "https://lh3.googleusercontent.com/d/1j2kZ_Yfgd-yyBU8R7XkBN6pAEkReKiHc=s800", info: "مصطبة الوزير بتاح حتب الملحقة بمقبرة أختحوت في سقارة." },
+      { id: 112, dynasty: "الأسرة الخامسة", name: "مصطبه تي", king: "تي (مشرف القصور)", site: "سقارة", category: "مصاطب", coords: [29.871500, 31.215500], img: "https://lh3.googleusercontent.com/d/1B5ERMHICPXHAAC0fbkyjit9mJk7mZdMm=s800", info: "مقطبة ومصطبة تي المشرف على أهرامات وقصور الملوك في عهد الأسرة الخامسة." },
+      { id: 113, dynasty: "الأسرة الخامسة", name: "معبد الشمس للملك نفر اف رع", king: "نفراف رع", site: "أبو غارب", category: "معبد", coords: [29.901500, 31.196500], img: "https://lh3.googleusercontent.com/d/1HQ2yEEmhd8kduQtO1NOH8nDkxht7AZEh=s800", info: "موقع معبد الشمس الخاص بالملك نفراف رع." },
+      { id: 114, dynasty: "الأسرة الخامسة", name: "معبد الوادي للملك ني اوسر رع", king: "ني أوسر رع", site: "أبو صير", category: "معبد", coords: [29.892000, 31.205000], img: "https://lh3.googleusercontent.com/d/1SzAYmpVQUgDWktafyOC8B5riuihR5akj=s800", info: "معبد الوادي المرتبط بالطريق الصاعد لهرم ني أوسر رع." },
+      { id: 115, dynasty: "الأسرة الخامسة", name: "مقبره الملك نفر اف رع", king: "نفراف رع", site: "أبو صير", category: "مقابر", coords: [29.893710, 31.201700], img: "https://lh3.googleusercontent.com/d/1lAWo0GalEtKOjaQJAKeV2iyZ5zasK7M2=s800", info: "موقع دفن وحجرة دفن الملك نفراف رع بأبو صير." },
+      { id: 116, dynasty: "الأسرة الخامسة", name: "مقبره اوسر كاف", king: "أوسركاف", site: "سقارة", category: "مقابر", coords: [29.873420, 31.218880], img: "https://lh3.googleusercontent.com/d/1Mh0RwMNmbVYVutDcaTI9N_YDc1kVlqtG=s800", info: "مجمع الدفن الخاص بالملك أوسركاف مؤسس الأسرة الخامسة." },
+      { id: 117, dynasty: "الأسرة الخامسة", name: "مقبرة اوناس", king: "أوناس", site: "سقارة", category: "مقابر", coords: [29.868330, 31.214720], img: "https://lh3.googleusercontent.com/d/1z_Pyy0uC29PLz3Hthcmn6pNpFApr85qh=s800", info: "مقبرة وهرم الملك أوناس الحاوية لنصوص الأهرام." },
+      { id: 118, dynasty: "الأسرة الخامسة", name: "مقبرة جد كارع اسيسي", king: "جد كارع إيسيسي", site: "سقارة الجنوبية", category: "مقابر", coords: [29.850960, 31.220950], img: "https://lh3.googleusercontent.com/d/18ekZhWwtqROh2FKxCHxUOuv_FEOiKGY3=s800", info: "مجمع المقبرة الملكية لجدكارع إيسيسي." },
+      { id: 119, dynasty: "الأسرة الخامسة", name: "مقبره ساحورع", king: "ساحورع", site: "أبو صير", category: "مقابر", coords: [29.897540, 31.203390], img: "https://lh3.googleusercontent.com/d/1aRiUqPCZeo15p07MNR-agBDa6avNseuO=s800", info: "مجمع دفن الملك ساحورع بأبو صير." },
+      { id: 120, dynasty: "الأسرة الخامسة", name: "مقبره منكاو حور", king: "منكاو حور", site: "سقارة", category: "مقابر", coords: [29.875280, 31.223610], img: "https://lh3.googleusercontent.com/d/1MCbvtLdqbnxlzsrexKGdMGDoAIwYdlb1=s800", info: "موقع مقبرة وهرم منكاو حور بسقارة." },
+      { id: 121, dynasty: "الأسرة الخامسة", name: "مقبره نفري كارع كاكاي", king: "نفر إر كارع", site: "أبو صير", category: "مقابر", coords: [29.895030, 31.202440], img: "https://lh3.googleusercontent.com/d/1uYBpez3vzEhvhu7Ae5X9RtctuErqp5Kq=s800", info: "موقع دفن نفر إر كارع كاكاي." },
+      { id: 122, dynasty: "الأسرة الخامسة", name: "مقبره ني وسر رع", king: "ني أوسر رع", site: "أبو صير", category: "مقابر", coords: [29.895540, 31.203630], img: "https://lh3.googleusercontent.com/d/10OPHMjL-39HP2XK-H22rH4TyHf1oWvNE=s800", info: "مجمع الدفن الملكي لني أوسر رع." },
+      { id: 123, dynasty: "الأسرة الخامسة", name: "مقبره شيسس كارع", king: "شبسسكارع", site: "أبو صير", category: "مقابر", coords: [29.898610, 31.201670], img: "https://lh3.googleusercontent.com/d/1MIxaEJlWH-9Tv4EI2VhRTnSCgqcqkA5z=s800", info: "موقع دفن شبسسكارع بأبو صير." },
+      { id: 124, dynasty: "الأسرة الخامسة", name: "هرم الملك اوسركاف", king: "أوسركاف", site: "سقارة", category: "هرم مدرج", coords: [29.873356, 31.218858], img: "https://lh3.googleusercontent.com/d/17iQ-s6egSfTGIddxf5y32534iuMlpBPw=s800", info: "هرم مؤسس الأسرة الخامسة أوسركاف بالقرب من مجمع زوسر." },
+      { id: 125, dynasty: "الأسرة الخامسة", name: "هرم الملك جد كارع اسيسي", king: "جد كارع إيسيسي", site: "سقارة الجنوبية", category: "هرم مدرج", coords: [29.850972, 31.220853], img: "https://lh3.googleusercontent.com/d/1kmXBSrLBum4nxtDExScmB1JVMdv8nznK=s800", info: "هرم الملك جد كارع إيسيسي الواقع في جنوب سقارة." },
+      { id: 126, dynasty: "الأسرة الخامسة", name: "هرم الملك ساحورع", king: "ساحورع", site: "أبو صير", category: "هرم مدرج", coords: [29.897653, 31.203333], img: "https://lh3.googleusercontent.com/d/1zrJylzXszl2APXNWIcfBgUupDJcgCYBZ=s800", info: "أول هرم أقيم في منطقة أبو صير للملك ساحورع." },
+      { id: 127, dynasty: "الأسرة الخامسة", name: "هرم الملك نفر ار كارع", king: "نفر إر كارع", site: "أبو صير", category: "هرم مدرج", coords: [29.895131, 31.202325], img: "https://lh3.googleusercontent.com/d/1cQOEa5SjGWo8MHH5bGiRpd8W-1SzNybX=s800", info: "أكبر أهرامات حقل أبو صير المخصص للملك نفر إر كارع كاكاي." },
+      { id: 128, dynasty: "الأسرة الخامسة", name: "هرم الملك ني اوسر رع", king: "ني أوسر رع", site: "أبو صير", category: "هرم مدرج", coords: [29.895618, 31.203439], img: "https://lh3.googleusercontent.com/d/19pBalufxvxIaQiWQl9WK4-_MTC1D5xlp=s800", info: "هرم الملك ني أوسر رع في أبو صير بين أهرامات أسلافه." },
+      { id: 129, dynasty: "الأسرة الخامسة", name: "هرم الملكه نفرحتبس", king: "أوسركاف", site: "سقارة", category: "هرم مدرج", coords: [29.872750, 31.218600], img: "https://lh3.googleusercontent.com/d/1J8hkNMNHvqx9xYgObs41hqAyT8mVvtoD=s800", info: "هرم الملكة نفر حتبس المكتشف بجوار هرم زوجها أوسركاف." },
+
+      // ==================== الأسرة السادسة ====================
+      { id: 301, dynasty: "الأسرة السادسة", name: "محاجر حتنوب", king: "بيبي الأول / بيبي الثاني", site: "المنيا", category: "محاجر", coords: [27.55, 31.0], img: "https://lh3.googleusercontent.com/d/14AKfChlNB2AYSQQ6Tii5xNQd-sYym1E3=s800", info: "نشاط تعديني بارز لملوك الأسرة السادسة في محاجر المرمر بالمنيا." },
+      { id: 302, dynasty: "الأسرة السادسة", name: "مدينة و معبد نخن", king: "بيبي الأول", site: "إدفو", category: "معبد", coords: [25.0978, 32.7844], img: "https://lh3.googleusercontent.com/d/1h4sb-DmyOG9u_ddjs3fVz5DH97fQO1fo=s800", info: "مدينة ومعبد نخن التاريخي في إدفو، وشهد عناية في عهد بيبي الأول." },
+      { id: 303, dynasty: "الأسرة السادسة", name: "مصطبة عنخ ماحور", king: "تيتي", site: "شمال سقارة", category: "مصاطب", coords: [29.876258, 31.221969], img: "https://lh3.googleusercontent.com/d/1Sc9PsxDzh2s2B4LGlhXfCa486JINtzJ4=s800", info: "مصطبة عنخ ماحور (المعروفة بمقبرة الطبيب) شمال سقارة." },
+      { id: 304, dynasty: "الأسرة السادسة", name: "معبد ابيدوس", king: "بيبي الأول", site: "سوهاج", category: "معبد", coords: [26.184705, 31.918929], img: "https://lh3.googleusercontent.com/d/1k9w_8XfpixYzuFrdXMqzhTECx1XiO7KT=s800", info: "منشآت ونقوش ملكية لبيبي الأول في أبيدوس." },
+      { id: 305, dynasty: "الأسرة السادسة", name: "معبد تل بسطه", king: "بيبي الأول وبيبي الثاني", site: "الشرقية", category: "معبد", coords: [30.57335, 31.51292], img: "https://lh3.googleusercontent.com/d/1tJJ_9jFVbXoTTFqpMxvc5009kcji16mj=s800", info: "معبد تل بسطة التاريخي بالشرقية." },
+      { id: 306, dynasty: "الأسرة السادسة", name: "معبد دندرة", king: "بيبي الأول", site: "قنا", category: "معبد", coords: [26.142275, 32.670362], img: "https://lh3.googleusercontent.com/d/1Cl8raqLxQZksBVdtUp4wUNb4oIJlBDjy=s800", info: "معبد دندرة التاريخي الذي شهد إضافات في عصر الأسرة السادسة." },
+      { id: 307, dynasty: "الأسرة السادسة", name: "معبد قفط", king: "بيبي الأول / بيبي الثاني", site: "قنا", category: "معبد", coords: [25.9961, 32.8172], img: "https://lh3.googleusercontent.com/d/1hjOyKbR3879w8hOdL9CE68wEEAUpSI7G=s800", info: "معبد قفط مع آثار ونقوش تخص ملوك الأسرة السادسة." },
+      { id: 308, dynasty: "الأسرة السادسة", name: "مقابر الحواويش", king: "تتي / بيبي الأول", site: "سوهاج", category: "مقابر", coords: [26.588926, 31.813827], img: "https://lh3.googleusercontent.com/d/1U1IPIfP3qNKOipbQb6-6quH_6wEt1tXn=s800", info: "مقابر الحواويش لأمراء وحكام إقليم أخميم." },
+      { id: 309, dynasty: "الأسرة السادسة", name: "مقابر النبلاء", king: "مرن رع الأول / بيبي الثاني", site: "أسوان", category: "مقابر", coords: [24.10254, 32.890459], img: "https://lh3.googleusercontent.com/d/1iyiTnoKMOrAiU_CNxI7Wpbz_uOCzRbix=s800", info: "مقابر النبلاء في قبة الهوا بمواجهة أسوان." },
+      { id: 310, dynasty: "الأسرة السادسة", name: "مقابر قبه الهواء", king: "مرن رع الأول / بيبي الثاني", site: "أسوان", category: "مقابر", coords: [24.101861, 32.889129], img: "https://lh3.googleusercontent.com/d/1VEAKcSis-qsfr5sS-zrtdas-mRJCwnz_=s800", info: "مقابر قبة الهوا بكبار حكام النوبة وجنوب مصر." },
+      { id: 311, dynasty: "الأسرة السادسة", name: "مقبرة ايدو", king: "بيبي الأول", site: "الجيزة", category: "مقابر", coords: [29.979129, 31.136861], img: "https://lh3.googleusercontent.com/d/1Tm3yHIKx3yvCE6MOxBCQx4c0yRjG1nZs=s800", info: "مقبرة إيدو المشرف على القصور الملكية في عهد بيبي الأول." },
+      { id: 312, dynasty: "الأسرة السادسة", name: "مقبرة خر حوف", king: "مرن رع الأول / بيبي الثاني", site: "أسوان", category: "مقابر", coords: [24.10256, 32.89046], img: "https://lh3.googleusercontent.com/d/1vfWK6Z5VYJmxrB8v6ljk3IA_mQjfcedN=s800", info: "مقبرة حرخوف الشهيرة بقصص بعثاته التجارية إلى النوبة." },
+      { id: 313, dynasty: "الأسرة السادسة", name: "مقبرة خني", king: "بيبي الثاني", site: "سوهاج", category: "مقابر", coords: [26.588927, 31.813828], img: "https://lh3.googleusercontent.com/d/1XeM_cymkNhgG-Hrj8dHQqMgp-ZelDNkx=s800", info: "مقبرة الأمير خيني في مقابر الحواويش." },
+      { id: 314, dynasty: "الأسرة السادسة", name: "مقبرة قار", king: "مرن رع / بيبي الأول", site: "الجيزة", category: "مقابر", coords: [29.979043, 31.13665], img: "https://lh3.googleusercontent.com/d/1CXBh7KAhdF_TsGfZqTG_1KkSaKe7k3UD=s800", info: "مقبرة الموظف الكبير قار في الجبانة الشرقية بالهرم." },
+      { id: 315, dynasty: "الأسرة السادسة", name: "مقبرة كاجمني", king: "تيتي", site: "شمال سقارة", category: "مقابر", coords: [29.875872, 31.221534], img: "https://lh3.googleusercontent.com/d/1sVNHL8koyQLYQQmk0w-8CyFSpCL7Xibg=s800", info: "مقبرة كاجمني الوزير والقاضي في عهد الملك تيتي." },
+      { id: 316, dynasty: "الأسرة السادسة", name: "مقبرة مير", king: "بيبي الأول والثاني", site: "أسيوط", category: "مقابر", coords: [27.408878, 30.714483], img: "https://lh3.googleusercontent.com/d/1ilzfv-7-x3wTPTIEOx_YpRKvRoBRc8-Y=s800", info: "جبانة حكام الأقاليم في عهد الملك بيبي الأول والثاني." },
+      { id: 317, dynasty: "الأسرة السادسة", name: "مقبرة ويني الاكبر", king: "بيبي الأول / مرن رع الأول", site: "أبيدوس", category: "مقابر", coords: [27.44431, 30.68658], img: "https://lh3.googleusercontent.com/d/1vFDg7xSIlNu-VEbsWhGlySsyIm7Rhxqb=s800", info: "مقبرة القائد وني الأكبر الذي قاد جيوش مصر وحملاتها." },
+      { id: 318, dynasty: "الأسرة السادسة", name: "مقبرة كاحب تتي اقر", king: "تيتي", site: "سوهاج", category: "مقابر", coords: [26.588928, 31.813829], img: "https://lh3.googleusercontent.com/d/1yAuaDAQw1aoYw93KphYTSaZJOTaxGl7L=s800", info: "مقبرة كاحب / تي أقر في جبانة الحواويش بأخميم." },
+      { id: 319, dynasty: "الأسرة السادسة", name: "مقبرة مريروكا", king: "تيتي", site: "شمال سقارة", category: "مقابر", coords: [29.875847, 31.221342], img: "https://lh3.googleusercontent.com/d/1X0fRhpOBiAoo2jQI8078TNDCD0quO8Op=s800", info: "مقبرة وزير الملك تيتي مريروكا، من أكبر وأهم مقابر الأفراد في الدولة القديمة." },
+      { id: 320, dynasty: "الأسرة السادسة", name: "نقوش وادي الحمامات", king: "وسر كارع", site: "الصحراء الشرقية", category: "محاجر", coords: [25.9898, 33.5691], img: "https://lh3.googleusercontent.com/d/1KTrFD7l9oF5wC21oWDXiWwdbD4capugA=s800", info: "نقوش صخرية توثق البعثات الاستكشافية والتعدينية في عهد وسر كارع." },
+      { id: 321, dynasty: "الأسرة السادسة", name: "هرم الملك بيبي الاول", king: "بيبي الأول", site: "جنوب سقارة", category: "هرم مدرج", coords: [29.854413, 31.218978], img: "https://lh3.googleusercontent.com/d/1VzK4wiP6HB3LGoF7EC_fNzOvJMQA-IQN=s800", info: "هرم الملك بيبي الأول (منفر) في جنوب سقارة." },
+      { id: 322, dynasty: "الأسرة السادسة", name: "هرم الملك تيتي", king: "تيتي", site: "شمال سقارة", category: "هرم مدرج", coords: [29.875003, 31.221765], img: "https://lh3.googleusercontent.com/d/1EeilDYr50iF03P1B8n1JFgJSQ6VIAwDg=s800", info: "هرم الملك تيتي أول ملوك الأسرة السادسة في شمال سقارة." },
+      { id: 323, dynasty: "الأسرة السادسة", name: "هرم الملكه ايبوت الاولى", king: "تيتي", site: "سقارة", category: "مقابر", coords: [29.8767, 31.2222], img: "https://lh3.googleusercontent.com/d/1OL_l7j4k1vyf-4fWeMyZMuL_Mxe59bcp=s800", info: "هرم الملكة إيبوت الأولى زوجة الملك تيتي وأم الملك بيبي الأول." },
+      { id: 324, dynasty: "الأسرة السادسة", name: "هرم بيبي الثاني", king: "بيبي الثاني", site: "جنوب سقارة", category: "هرم مدرج", coords: [29.840228, 31.213498], img: "https://lh3.googleusercontent.com/d/1Ab5ndNtB65k2s26wcJGitSW3vldVBbFK=s800", info: "هرم الملك بيبي الثاني أخر ملوك الأسرة السادسة الكبار في جنوب سقارة." }
+    ];
+
+    // Map Setup
     const map = L.map('map', { zoomControl: false, maxZoom: 22 }).setView([27.5, 31.8], 7);
     L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
+    // Tile Layers Definition
     const googleSatelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
       maxZoom: 22,
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
@@ -695,7 +888,9 @@
       attribution: 'Esri'
     });
 
+    // Default Layer
     googleSatelliteLayer.addTo(map);
+    let currentLayer = 'google';
 
     function switchMapLayer(layerType) {
       if (layerType === 'google') {
@@ -703,11 +898,13 @@
         googleSatelliteLayer.addTo(map);
         document.getElementById('btnGoogleLayer').classList.add('active');
         document.getElementById('btnEsriLayer').classList.remove('active');
-      } else {
+        currentLayer = 'google';
+      } else if (layerType === 'esri') {
         map.removeLayer(googleSatelliteLayer);
         esriSatelliteLayer.addTo(map);
         document.getElementById('btnEsriLayer').classList.add('active');
         document.getElementById('btnGoogleLayer').classList.remove('active');
+        currentLayer = 'esri';
       }
     }
 
@@ -718,76 +915,53 @@
     const markerGroup = L.featureGroup().addTo(map);
     const markersMap = {};
 
-    // القائمة الشاملة لجميع معالم الأسرات (الثالثة، الرابعة، الخامسة، والسادسة مع إضافة بيانات صورتك كاملة)
-    const monumentsData = [
-      // الأسرة الثالثة
-      { id: 301, dynasty: "الأسرة الثالثة", name: "هرم زوسر المدرج", king: "زوسر", site: "سقارة", category: "هرم", coords: [29.871456, 31.216545], img: "https://lh3.googleusercontent.com/d/1fDjFAuyDvJv3dTHhw9xJ_mPWDZ595fx-=s800", info: "أول بناء حجري ضخم في التاريخ ومجمع جنائزي ملكي." },
-      { id: 302, dynasty: "الأسرة الثالثة", name: "المقبرة الجنوبية لزوسر", king: "زوسر", site: "سقارة", category: "مقابر", coords: [29.869231, 31.216131], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مقبرة رمزية تحتوي على آبار وسراديب مبطنة بالقيشاني." },
-      { id: 303, dynasty: "الأسرة الثالثة", name: "الهرم المدفون", king: "سخم خت", site: "سقارة", category: "هرم", coords: [29.866150, 31.213640], img: "https://lh3.googleusercontent.com/d/1NtKgyxgIoP0TNiSD-vFID4qZbbsrLRFd=s800", info: "هرم مدرج غير مكتمل تم اكتشافه بواسطة زكريا غنيم." },
-      { id: 304, dynasty: "الأسرة الثالثة", name: "هرم ميدوم", king: "حوني / سنفرو", site: "ميدوم", category: "هرم", coords: [29.388446, 31.157093], img: "https://lh3.googleusercontent.com/d/1JtrKkOjzVs80BjSnakTP6XqBW9qo9tPI=s800", info: "هرم بدأه حوني كـ هرم مدرج وأتمه سنفرو." },
-
-      // الأسرة الرابعة
-      { id: 401, dynasty: "الأسرة الرابعة", name: "هرم خوفو", king: "خوفو", site: "الجيزة", category: "هرم", coords: [29.97891574, 31.13501526], img: "https://lh3.googleusercontent.com/d/1mIF9PkDko5688IbRxlZKMFX_4LL7AUR0=s800", info: "الهرم الأكبر؛ عجيبة الدنيا الوحيدة الباقية." },
-      { id: 402, dynasty: "الأسرة الرابعة", name: "هرم خفرع", king: "خفرع", site: "الجيزة", category: "هرم", coords: [29.97571533, 31.13154808], img: "https://lh3.googleusercontent.com/d/1DWjv5BKwoiO85sZbnc9ttVvYl8eq0TNF=s800", info: "هرم الملك خفرع محتفظاً بجزء من كسوته." },
-      { id: 403, dynasty: "الأسرة الرابعة", name: "هرم منكاورع", king: "منكاورع", site: "الجيزة", category: "هرم", coords: [29.97237109, 31.12861298], img: "https://lh3.googleusercontent.com/d/1AXiPEbvXCQa9KIcekPfLjvaq1IduxqQF=s800", info: "أصغر الأهرامات الثلاثة الرئيسية في الجيزة." },
-      { id: 404, dynasty: "الأسرة الرابعة", name: "الهرم الأحمر", king: "سنفرو", site: "دهشور", category: "هرم", coords: [29.808056, 31.203333], img: "https://lh3.googleusercontent.com/d/1JtrKkOjzVs80BjSnakTP6XqBW9qo9tPI=s800", info: "أول هرم حقيقي ناجح بكسوة كاملة." },
-      { id: 405, dynasty: "الأسرة الرابعة", name: "الهرم المنحني", king: "سنفرو", site: "دهشور", category: "هرم", coords: [29.790556, 31.213611], img: "https://lh3.googleusercontent.com/d/1JtrKkOjzVs80BjSnakTP6XqBW9qo9tPI=s800", info: "هرم يتميز بتغير زاوية انحنائه أثناء البناء." },
-
-      // الأسرة الخامسة
-      { id: 501, dynasty: "الأسرة الخامسة", name: "هرم أوسركاف", king: "أوسركاف", site: "سقارة", category: "هرم", coords: [29.873356, 31.218858], img: "https://lh3.googleusercontent.com/d/17iQ-s6egSfTGIddxf5y32534iuMlpBPw=s800", info: "هرم مؤسس الأسرة الخامسة أوسركاف." },
-      { id: 502, dynasty: "الأسرة الخامسة", name: "هرم ساحورع", king: "ساحورع", site: "أبو صير", category: "هرم", coords: [29.897653, 31.203333], img: "https://lh3.googleusercontent.com/d/1zrJylzXszl2APXNWIcfBgUupDJcgCYBZ=s800", info: "أول هرم أقيم في منطقة أبو صير." },
-      { id: 503, dynasty: "الأسرة الخامسة", name: "هرم أفرير كا رع", king: "أفرير كا رع", site: "أبو صير", category: "هرم", coords: [29.892000, 31.202000], img: "https://lh3.googleusercontent.com/d/1zrJylzXszl2APXNWIcfBgUupDJcgCYBZ=s800", info: "هرم غير مكتمل في أبو صير." },
-      { id: 504, dynasty: "الأسرة الخامسة", name: "هرم نياوسر رع", king: "نياوسر رع", site: "أبو صير", category: "هرم", coords: [29.893500, 31.205500], img: "https://lh3.googleusercontent.com/d/1zrJylzXszl2APXNWIcfBgUupDJcgCYBZ=s800", info: "هرم الملك نياوسر رع ومجمعه الجنائزي." },
-      { id: 505, dynasty: "الأسرة الخامسة", name: "هرم أوناس", king: "أوناس", site: "سقارة", category: "هرم", coords: [29.868333, 31.215278], img: "https://lh3.googleusercontent.com/d/17iQ-s6egSfTGIddxf5y32534iuMlpBPw=s800", info: "أول هرم تظهر على جدرانه الداخلية نصوص الأهرامات الشهيرة." },
-
-      // الأسرة السادسة (معالم القائمة الكاملة من صورتك)
-      { id: 601, dynasty: "الأسرة السادسة", name: "هرم تيتي", king: "تيتي", site: "شمال سقارة", category: "هرم", coords: [29.875003, 31.221765], img: "https://lh3.googleusercontent.com/d/1EeilDYr50iF03P1B8n1JFgJSQ6VIAwDg=s800", info: "هرم الملك تيتي أول ملوك الأسرة السادسة." },
-      { id: 602, dynasty: "الأسرة السادسة", name: "هرم الملكة إيبوت الأولى", king: "تيتي", site: "شمال سقارة", category: "هرم", coords: [29.8767, 31.2222], img: "https://lh3.googleusercontent.com/d/1VzK4wiP6HB3LGoF7EC_fNzOvJMQA-IQN=s800", info: "هرم الملكة إيبوت الأولى زوجة الملك تيتي." },
-      { id: 603, dynasty: "الأسرة السادسة", name: "هرم الملكة خنوت الثانية", king: "تيتي", site: "شمال سقارة", category: "هرم", coords: [29.8767, 31.2223], img: "https://lh3.googleusercontent.com/d/1VzK4wiP6HB3LGoF7EC_fNzOvJMQA-IQN=s800", info: "هرم الملكة خنوت الثانية شمال سقارة." },
-      { id: 604, dynasty: "الأسرة السادسة", name: "مقبرة ميرروكا", king: "تيتي", site: "شمال سقارة", category: "مقابر", coords: [29.875847, 31.221342], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "من أكبر وأروع مصاطب ومقابر الأفراد في سقارة لوزير الملك تيتي." },
-      { id: 605, dynasty: "الأسرة السادسة", name: "مقبرة كاجمني", king: "تيتي", site: "شمال سقارة", category: "مقابر", coords: [29.875872, 31.21534], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مقبرة كاجمني الشهيرة بمناظرها الطبيعية وحياة المهن في الدولة القديمة." },
-      { id: 606, dynasty: "الأسرة السادسة", name: "محاجر حتنوب", king: "بيبي الأول / الثاني", site: "المنيا", category: "معابد ومحاجر", coords: [27.550000, 31.000000], img: "https://lh3.googleusercontent.com/d/1NtKgyxgIoP0TNiSD-vFID4qZbbsrLRFd=s800", info: "محاجر الألباستر الملكية الشهيرة بشرق النيل." },
-      { id: 607, dynasty: "الأسرة السادسة", name: "نقوش وادي الحمامات", king: "وسر كارع", site: "قصير - البحر الأحمر", category: "معابد ومحاجر", coords: [25.9898, 33.5691], img: "https://lh3.googleusercontent.com/d/1NtKgyxgIoP0TNiSD-vFID4qZbbsrLRFd=s800", info: "طريق القوافل القديم ومحاجر الأحجار." },
-      { id: 608, dynasty: "الأسرة السادسة", name: "هرم بيبي الأول", king: "بيبي الأول", site: "جنوب سقارة", category: "هرم", coords: [29.854413, 31.218978], img: "https://lh3.googleusercontent.com/d/1VzK4wiP6HB3LGoF7EC_fNzOvJMQA-IQN=s800", info: "هرم الملك بيبي الأول (منفر) في جنوب سقارة." },
-      { id: 609, dynasty: "الأسرة السادسة", name: "مدينة ومعبد نِخَن (الكوم الأحمر)", king: "بيبي الأول", site: "مركز إدفو", category: "معابد ومحاجر", coords: [25.0978, 32.7844], img: "https://lh3.googleusercontent.com/d/1oIPEBQ4xQ9iTF9Khnun1EFXQienjYzYh=s800", info: "موقع أثري رئيسي يعود لعصور التأسيس والدولة القديمة." },
-      { id: 610, dynasty: "الأسرة السادسة", name: "هرم مرن رع", king: "مرن رع", site: "جنوب سقارة", category: "هرم", coords: [29.850579, 31.215254], img: "https://lh3.googleusercontent.com/d/1VzK4wiP6HB3LGoF7EC_fNzOvJMQA-IQN=s800", info: "هرم الملك مرن رع الأول جنوب سقارة." },
-      { id: 611, dynasty: "الأسرة السادسة", name: "هرم بيبي الثاني", king: "بيبي الثاني", site: "جنوب سقارة", category: "هرم", coords: [29.840228, 31.213498], img: "https://lh3.googleusercontent.com/d/1VzK4wiP6HB3LGoF7EC_fNzOvJMQA-IQN=s800", info: "آخر أهرامات الدولة القديمة الكبرى للملك بيبي الثاني." },
-      { id: 612, dynasty: "الأسرة السادسة", name: "مقبرة قار G 7101", king: "بيبي الأول / مرن رع الأول", site: "الجيزة", category: "مقابر", coords: [29.979043, 31.13665], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مقبرة الموظف الكبير قار بشرق الهرم الأكبر بالجيزة." },
-      { id: 613, dynasty: "الأسرة السادسة", name: "مقبرة إيدو G 7102", king: "بيبي الأول", site: "الجيزة", category: "مقابر", coords: [29.979129, 31.136861], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مقبرة إيدو الملاصقة لمقبرة قار في الجبانة الشرقية." },
-      { id: 614, dynasty: "الأسرة السادسة", name: "مقبرة مير", king: "بيبي الأول والثاني", site: "القوصية - أسيوط", category: "مقابر", coords: [27.408878, 30.714483], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "جبانة حكام الأقاليم في عهد بيبي الأول والثاني." },
-      { id: 615, dynasty: "الأسرة السادسة", name: "معبد تل بسطة", king: "بيبي الأول / تيتي", site: "الزقازيق - الشرقية", category: "معابد ومحاجر", coords: [30.57335, 31.51292], img: "https://lh3.googleusercontent.com/d/1oIPEBQ4xQ9iTF9Khnun1EFXQienjYzYh=s800", info: "بقايا معبد من الدولة القديمة مرتبط بملوك الأسرة السادسة." },
-      { id: 616, dynasty: "الأسرة السادسة", name: "معبد دندرا", king: "بيبي الأول", site: "قنا", category: "معابد ومحاجر", coords: [26.142275, 32.670362], img: "https://lh3.googleusercontent.com/d/1oIPEBQ4xQ9iTF9Khnun1EFXQienjYzYh=s800", info: "آثار تعود للدولة القديمة ومقاطعات الأئمة." },
-      { id: 617, dynasty: "الأسرة السادسة", name: "معبد قفط", king: "بيبي الأول / بيبي الثاني", site: "قفط - قنا", category: "معابد ومحاجر", coords: [25.9961, 32.8172], img: "https://lh3.googleusercontent.com/d/1oIPEBQ4xQ9iTF9Khnun1EFXQienjYzYh=s800", info: "معابد ومحطات تجارية قديمة لملوك الأسرة السادسة." },
-      { id: 618, dynasty: "الأسرة السادسة", name: "معبد أبيدوس", king: "بيبي الأول", site: "البلينا - سوهاج", category: "معابد ومحاجر", coords: [26.184705, 31.918929], img: "https://lh3.googleusercontent.com/d/1oIPEBQ4xQ9iTF9Khnun1EFXQienjYzYh=s800", info: "آثار معبد مبكر في منطقة أبيدوس المقدسة." },
-      { id: 619, dynasty: "الأسرة السادسة", name: "مقابر الحواويش", king: "تيتي / بيبي الأول / الثاني", site: "اخميم - سوهاج", category: "مقابر", coords: [26.588926, 31.813827], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "المقابر الرئيسة منحوتة في الحافة الجبلية للصحراء الشرقية." },
-      { id: 620, dynasty: "الأسرة السادسة", name: "مصطبة عنخ ماحور", king: "تيتي", site: "شمال سقارة", category: "مقابر", coords: [29.876258, 31.221969], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مصطبة وزير الملك تيتي (تُعرف بمقبرة الطبيب)." },
-      { id: 621, dynasty: "الأسرة السادسة", name: "مقابر قبة الهوى", king: "مرن رع الأول / بيبي الثاني", site: "أسوان", category: "مقابر", coords: [24.101861, 32.889129], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مقابر حكام إقليم الجنوب وقادة البعثات في الدولة القديمة." },
-      { id: 622, dynasty: "الأسرة السادسة", name: "مقبرة ميخو وسابيني", king: "بيبي الثاني", site: "أسوان", category: "مقابر", coords: [24.100989, 32.889348], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "من أشهر مقابر نبلاء أسوان في قبة الهوى." },
-      { id: 623, dynasty: "الأسرة السادسة", name: "مقبرة حرخوف (QH 34)", king: "مرن رع الأول / بيبي الثاني", site: "أسوان", category: "مقابر", coords: [24.10254, 32.890459], img: "https://lh3.googleusercontent.com/d/1auVAJpdW1Jb0r6-1cjTegppWr0WR3iUV=s800", info: "مقبرة أمير وقائد البعثات المصرية لأفريقيا في الدولة القديمة." },
-      { id: 624, dynasty: "الأسرة السادسة", name: "هرم الملكة نيت", king: "بيبي الثاني", site: "جنوب سقارة", category: "هرم", coords: [29.840742, 31.215575], img: "https://lh3.googleusercontent.com/d/1VzK4wiP6HB3LGoF7EC_fNzOvJMQA-IQN=s800", info: "هرم الملكة نيت إحدى زوجات الملك بيبي الثاني." }
-    ];
-
     function getSiteBadge(item) {
-      if (item.dynasty === 'الأسرة السادسة') return { class: 'badge-dyn6', text: 'الأسرة السادسة' };
-      if (item.dynasty === 'الأسرة الخامسة') return { class: 'badge-dyn5', text: 'الأسرة الخامسة' };
-      if (item.dynasty === 'الأسرة الرابعة') return { class: 'badge-dyn4', text: 'الأسرة الرابعة' };
-      return { class: 'badge-dyn3', text: 'الأسرة الثالثة' };
+      const cat = item.category;
+      if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
+        if (item.dynasty === 'الأسرة السادسة') return { class: 'badge-pyramid-dyn6', color: '#9f1239', text: 'هرم (الأسرة 6)' };
+        if (item.dynasty === 'الأسرة الخامسة') return { class: 'badge-pyramid-dyn5', color: '#ca8a04', text: 'هرم (الأسرة 5)' };
+        if (item.dynasty === 'الأسرة الرابعة') return { class: 'badge-pyramid-dyn4', color: '#78350f', text: 'هرم (الأسرة 4)' };
+        return { class: 'badge-pyramid', color: '#d97706', text: 'هرم (الأسرة 3)' };
+      }
+      if (cat === 'محاجر') return { class: 'badge-quarry', color: '#dc2626', text: 'محجر ومصدر' };
+      if (cat === 'مصاطب') return { class: 'badge-mastaba', color: '#1e40af', text: 'مصاطب كبرى' };
+      if (cat === 'مقابر') return { class: 'badge-tomb', color: '#7c3aed', text: 'مقبرة أثرية' };
+      if (cat === 'تمثال') return { class: 'badge-statue', color: '#0369a1', text: 'تمثال أثري' };
+      if (cat === 'معبد') return { class: 'badge-temple', color: '#115e59', text: 'معبد أثري' };
+      return { class: 'badge-provincial', color: '#065f46', text: 'أثر تاريخي' };
     }
 
     function getMapSymbolIcon(item) {
-      let iconClass = 'icon-dyn3';
-      if (item.dynasty === 'الأسرة الرابعة') iconClass = 'icon-dyn4';
-      if (item.dynasty === 'الأسرة الخامسة') iconClass = 'icon-dyn5';
-      if (item.dynasty === 'الأسرة السادسة') iconClass = 'icon-dyn6';
-      return L.divIcon({ className: 'custom-div-icon', html: `<div class="custom-map-icon ${iconClass}"><i class="fa-solid fa-monument"></i></div>`, iconSize: [32, 32], iconAnchor: [16, 16] });
+      const cat = item.category;
+      if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
+        let iconClass = 'icon-pyramid';
+        if (item.dynasty === 'الأسرة الرابعة') iconClass = 'icon-pyramid-dyn4';
+        if (item.dynasty === 'الأسرة الخامسة') iconClass = 'icon-pyramid-dyn5';
+        if (item.dynasty === 'الأسرة السادسة') iconClass = 'icon-pyramid-dyn6';
+        return L.divIcon({ className: 'custom-div-icon', html: `<div class="custom-map-icon ${iconClass}"><i class="fa-solid fa-monument"></i></div>`, iconSize: [32, 32], iconAnchor: [16, 16] });
+      }
+      if (cat === 'محاجر') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-quarry"><i class="fa-solid fa-hammer"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
+      if (cat === 'مصاطب') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-mastaba"><i class="fa-solid fa-archway"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
+      if (cat === 'مقابر') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-tomb"><i class="fa-solid fa-dungeon"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
+      if (cat === 'تمثال') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-statue"><i class="fa-solid fa-chess-rook"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
+      if (cat === 'معبد') return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-temple"><i class="fa-solid fa-place-of-worship"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
+      return L.divIcon({ className: 'custom-div-icon', html: '<div class="custom-map-icon icon-provincial"><i class="fa-solid fa-cubes"></i></div>', iconSize: [32, 32], iconAnchor: [16, 16] });
     }
 
     function getThumbBox(item) {
-      let cls = 'thumb-dyn3';
-      if (item.dynasty === 'الأسرة الرابعة') cls = 'thumb-dyn4';
-      if (item.dynasty === 'الأسرة الخامسة') cls = 'thumb-dyn5';
-      if (item.dynasty === 'الأسرة السادسة') cls = 'thumb-dyn6';
-      return `<div class="card-thumb-box ${cls}"><i class="fa-solid fa-monument"></i><span>أثر</span></div>`;
+      const cat = item.category;
+      if (cat === 'هرم مدرج' || cat === 'أهرامات أقاليم') {
+        if (item.dynasty === 'الأسرة السادسة') return '<div class="card-thumb-box thumb-pyramid-dyn6"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        if (item.dynasty === 'الأسرة الخامسة') return '<div class="card-thumb-box thumb-pyramid-dyn5"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        if (item.dynasty === 'الأسرة الرابعة') return '<div class="card-thumb-box thumb-pyramid-dyn4"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+        return '<div class="card-thumb-box thumb-pyramid-dyn3"><i class="fa-solid fa-monument"></i><span>هرم</span></div>';
+      }
+      if (cat === 'محاجر') return '<div class="card-thumb-box thumb-quarry"><i class="fa-solid fa-hammer"></i><span>محجر</span></div>';
+      if (cat === 'مصاطب') return '<div class="card-thumb-box thumb-mastaba"><i class="fa-solid fa-archway"></i><span>مصطبة</span></div>';
+      if (cat === 'مقابر') return '<div class="card-thumb-box thumb-tomb"><i class="fa-solid fa-dungeon"></i><span>مقبرة</span></div>';
+      if (cat === 'تمثال') return '<div class="card-thumb-box thumb-statue"><i class="fa-solid fa-chess-rook"></i><span>تمثال</span></div>';
+      if (cat === 'معبد') return '<div class="card-thumb-box thumb-temple"><i class="fa-solid fa-place-of-worship"></i><span>معبد</span></div>';
+      return '<div class="card-thumb-box thumb-provincial"><i class="fa-solid fa-cubes"></i><span>أثر</span></div>';
     }
 
     function renderInterface(items) {
@@ -795,15 +969,10 @@
       cardsList.innerHTML = '';
       markerGroup.clearLayers();
 
-      let pyramidsCount = 0;
-      let tombsCount = 0;
-      let quarriesCount = 0;
+      const categoryOrder = { 'هرم مدرج': 1, 'أهرامات أقاليم': 1, 'تمثال': 2, 'معبد': 3, 'مقابر': 4, 'مصاطب': 5, 'محاجر': 6 };
+      const sortedItems = [...items].sort((a, b) => (categoryOrder[a.category] || 99) - (categoryOrder[b.category] || 99));
 
-      items.forEach(item => {
-        if (item.category === 'هرم') pyramidsCount++;
-        else if (item.category === 'مقابر') tombsCount++;
-        else quarriesCount++;
-
+      sortedItems.forEach(item => {
         const badgeInfo = getSiteBadge(item);
         const marker = L.marker(item.coords, { icon: getMapSymbolIcon(item) });
 
@@ -856,11 +1025,7 @@
         cardsList.appendChild(card);
       });
 
-      document.getElementById('valTotal').innerText = items.length;
-      document.getElementById('valPyramids').innerText = pyramidsCount;
-      document.getElementById('valTombs').innerText = tombsCount;
-      document.getElementById('valQuarries').innerText = quarriesCount;
-      document.getElementById('countBadge').innerText = `${items.length} موقع`;
+      document.getElementById('countBadge').innerText = `${sortedItems.length} موقع`;
     }
 
     function selectCard(id) {
@@ -881,15 +1046,23 @@
     function handleFilter() {
       const query = document.getElementById('siteSearch').value.toLowerCase().trim();
       const filtered = monumentsData.filter(item => {
+        let matchesCat = activeFilter === 'all' || 
+                         (activeFilter === 'هرم مدرج' ? (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم') : item.category === activeFilter);
         let matchesDynasty = activeDynasty === 'all' || item.dynasty === activeDynasty;
-        let matchesCategory = activeFilter === 'all' || item.category === activeFilter;
         let matchesQuery = item.name.toLowerCase().includes(query) ||
                            item.king.toLowerCase().includes(query) ||
                            item.site.toLowerCase().includes(query) ||
                            item.info.toLowerCase().includes(query);
-        return matchesDynasty && matchesCategory && matchesQuery;
+        return matchesCat && matchesDynasty && matchesQuery;
       });
       renderInterface(filtered);
+    }
+
+    function filterCategory(cat, element) {
+      activeFilter = cat;
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      handleFilter();
     }
 
     function filterDynasty(dynasty, element) {
@@ -897,25 +1070,32 @@
       document.querySelectorAll('.king-btn').forEach(b => b.classList.remove('active'));
       element.classList.add('active');
       handleFilter();
-    }
 
-    function filterCategory(category, element) {
-      activeFilter = category;
-      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-      element.classList.add('active');
-      handleFilter();
-    }
+      const filtered = monumentsData.filter(item => {
+        let matchesCat = activeFilter === 'all' || 
+                         (activeFilter === 'هرم مدرج' ? (item.category === 'هرم مدرج' || item.category === 'أهرامات أقاليم') : item.category === activeFilter);
+        let matchesDynasty = activeDynasty === 'all' || item.dynasty === activeDynasty;
+        return matchesCat && matchesDynasty;
+      });
 
-    function toggleDarkMode() {
-      const btn = document.getElementById('btnDarkMode');
-      let darkModeActive = document.body.classList.toggle('dark-mode');
-      btn.innerHTML = darkModeActive ? '<i class="fa-solid fa-sun"></i> الوضع النهاري' : '<i class="fa-solid fa-moon"></i> الوضع الليلي';
+      if (filtered.length > 0) {
+        const validMarkers = filtered.map(i => markersMap[i.id]).filter(m => m);
+        if (validMarkers.length > 0) {
+          const bounds = L.featureGroup(validMarkers).getBounds();
+          if (bounds.isValid()) {
+            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+          }
+        }
+      }
     }
 
     function toggleSidebar(open) {
       const sidebar = document.getElementById('sidebar');
       const backdrop = document.getElementById('drawerBackdrop');
-      if (open) {
+      if (open === undefined) {
+        sidebar.classList.toggle('open-drawer');
+        backdrop.classList.toggle('active');
+      } else if (open) {
         sidebar.classList.add('open-drawer');
         backdrop.classList.add('active');
       } else {
@@ -924,6 +1104,13 @@
       }
     }
 
+    function toggleDarkMode() {
+      const btn = document.getElementById('btnDarkMode');
+      let darkModeActive = document.body.classList.toggle('dark-mode');
+      btn.innerHTML = darkModeActive ? '<i class="fa-solid fa-sun"></i> الوضع النهاري' : '<i class="fa-solid fa-moon"></i> الوضع الليلي';
+    }
+
+    // Initial render
     renderInterface(monumentsData);
   </script>
 </body>
