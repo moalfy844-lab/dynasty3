@@ -765,10 +765,10 @@
       .then(data => {
         nileLayer = L.geoJSON(data, {
           style: {
-            color: '#0284c7',       // لون إطار المجرى
+            color: '#0284c7',       
             weight: 3,
-            fillColor: '#38bdf8',   // لون التعبئة السماوي النيلي
-            fillOpacity: 0.5        // شفافية لتظهر تفاصيل الأقمار الصناعية تحته
+            fillColor: '#38bdf8',   
+            fillOpacity: 0.5        
           }
         }).bindPopup("<b>مجرى نهر النيل القديم (فرع الأهرامات التاريخي)</b>");
       })
@@ -926,7 +926,7 @@
     function handleFilter() {
       const query = document.getElementById('siteSearch').value.toLowerCase();
       const filtered = monumentsData.filter(item => {
-        The matchQuery = item.name.toLowerCase().includes(query) ||
+        const matchQuery = item.name.toLowerCase().includes(query) ||
                            item.king.toLowerCase().includes(query) ||
                            item.site.toLowerCase().includes(query) ||
                            item.info.toLowerCase().includes(query);
