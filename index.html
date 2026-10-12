@@ -712,36 +712,12 @@
     </main>
   </div>
 
-  <!-- Leaflet Library & Proj4js -->
+  <!-- Leaflet Library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.2/proj4.js"></script>
 
   <script>
     let activeFilter = 'all';
     let activeDynasty = 'all';
-
-    // تعريف إسقاط UTM Zone 36N
-    proj4.defs("EPSG:32636", "+proj=utm +zone=36 +datum=WGS84 +units=m +no_defs");
-
-    function transformCoords(rings) {
-      let latLngs = [];
-      // نأخذ الحلبة الأولى ونحولها إلى خط متصل (Polyline) لمنع تشابك المضلعات
-      if (rings && rings.length > 0) {
-        rings[0].forEach(coord => {
-          let latLon = proj4("EPSG:32636", "EPSG:4326", [coord[0], coord[1]]);
-          latLngs.push([latLon[1], latLon[0]]);
-        });
-      }
-      return latLngs;
-    }
-
-    const ancientNilePolygonData = {
-      "rings": [
-        [
-          [331963.3861999996,3417076.3479999993],[332209.62889999989,3414449.7598999999],[333239.90259999968,3414549.8041999992],[333474.08380000014,3414783.9855000004],[333989.28249999974,3415252.3478999995],[334504.4813000001,3415627.0379000008],[335113.35250000004,3416610.5990999993],[335956.40490000043,3417875.1777999997],[336705.78490000032,3418718.2302999999],[337408.32859999966,3419420.7740000002],[338298.21729999967,3420544.8439000007],[338813.4160000002,3421153.7150999997],[339750.14099999983,3421996.7675999999],[340359.01219999976,3422699.3113000002],[340921.04719999991,3423355.0187999997],[341576.7547000004,3424057.5625],[342045.11710000038,3424479.0887000002],[343028.6782999998,3425368.9773999993],[344433.76580000017,3426961.4099000003],[345838.85319999978,3428647.5147999991],[346775.57820000034,3429912.0934999995],[347946.48440000042,3431270.3446999993],[349445.24430000037,3432862.7771000005],[350709.82299999986,3434408.3731999993],[351638.26169999968,3435310.6710999999],[352316.37270000018,3436365.5106000006],[352953.22200000007,3436825.6235000007],[353663.13740000036,3437535.5388999991],[355124.72790000029,3438245.4542999994],[356210.48080000002,3439331.2072000001],[356753.35730000027,3439957.6030999999],[357254.47400000039,3440667.5185000002],[357630.31149999984,3441669.7520000003],[358549.02560000028,3443423.6605999991],[359446.99670000002,3444611.1478000004],[360160.89340000041,3446038.9412999991],[360696.31589999981,3447169.2776999995],[361053.26429999992,3448121.1400000006],[361648.17819999997,3449310.9679000005],[362064.61799999978,3449965.3731999993],[362659.53189999983,3450857.7441000007],[363254.44579999987,3451631.1322000008],[363849.35979999974,3452820.9601000007],[364384.78230000008,3453951.2965999991],[365098.67899999954,3454248.7534999996],[365515.11880000029,3455260.1072000004],[365812.57569999993,3456033.4953000005],[366347.99830000009,3456747.3920000009],[366942.91220000014,3457877.7284999993],[367537.82610000018,3459127.0477000009],[368192.23149999976,3460257.3841999993],[368846.63680000044,3461566.1949000005],[369025.11099999957,3462637.0398999993],[369322.56790000014,3463231.9539000001],[369620.02489999961,3464302.7989000008],[369857.99050000031,3465492.6268000007],[370393.41299999971,3466087.5406999998],[370869.34420000017,3466682.4547000006],[371404.76669999957,3467336.8599999994],[372178.15479999967,3468110.2480999995],[372654.0859000003,3468645.6706000008],[373605.94820000045,3470132.9554999992],[375509.67279999983,3469538.0415000003]
-        ]
-      ]
-    };
 
     // Map Setup
     const map = L.map('map', { zoomControl: false, maxZoom: 22 }).setView([27.5, 31.8], 7);
@@ -777,23 +753,37 @@
       }
     }
 
-    // تجهيز طبقة النيل كخط متصل (Polyline) ونظيف
-    let nileLatLngs = transformCoords(ancientNilePolygonData.rings);
-    let nileLayer = L.polyline(nileLatLngs, {
-      color: '#38bdf8',       // لون أزرق ناصع وواضح
-      weight: 5,              // سمك الخط ليكون واضحاً على خريطة الأقمار الصناعية
-      opacity: 0.85
-    }).bindPopup("<b>مجرى نهر النيل القديم (فرع الأهرامات التاريخي)</b>");
-
+    // جلب طبقة النيل القديم بصيغة GeoJSON المحفوظة في المشروع بشكل صحيح ونظيف
+    let nileLayer = null;
     let nileVisible = false;
+
+    fetch('nile_branch.geojson')
+      .then(res => res.json())
+      .then(data => {
+        nileLayer = L.geoJSON(data, {
+          style: {
+            color: '#0284c7',       // لون إطار مجرى النيل
+            weight: 3,
+            fillColor: '#38bdf8',   // لون التعبئة السماوي
+            fillOpacity: 0.45
+          }
+        }).bindPopup("<b>مجرى نهر النيل القديم (فرع الأهرامات التاريخي)</b>");
+      })
+      .catch(err => console.log("خطأ في تحميل طبقة النيل:", err));
+
     function toggleNileLayer() {
       const btn = document.getElementById('btnNileLayer');
+      if (!nileLayer) {
+        alert("جاري تحميل ملف النيل، يرجى المحاولة بعد ثانية...");
+        return;
+      }
       if (nileVisible) {
         map.removeLayer(nileLayer);
         btn.classList.remove('nile-active');
         nileVisible = false;
       } else {
         nileLayer.addTo(map);
+        map.fitBounds(nileLayer.getBounds(), { padding: [30, 30] });
         btn.classList.add('nile-active');
         nileVisible = true;
       }
@@ -831,79 +821,95 @@
       if (item.dynasty === 'الأسرة الرابعة') iconClass = 'icon-pyramid-dyn4';
       if (item.dynasty === 'الأسرة الخامسة') iconClass = 'icon-pyramid-dyn5';
       if (item.dynasty === 'الأسرة السادسة') iconClass = 'icon-pyramid-dyn6';
-      return L.divIcon({ className: 'custom-div-icon', html: `<div class="custom-map-icon ${iconClass}"><i class="fa-solid fa-monument"></i></div>`, iconSize: [32, 32], iconAnchor: [16, 16] });
+      return L.divIcon({
+        className: 'custom-map-icon ' + iconClass,
+        html: '<i class="fa-solid fa-monument"></i>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      });
     }
 
-    function getThumbBox(item) {
-      let cls = 'thumb-pyramid-dyn3';
-      if (item.dynasty === 'الأسرة الرابعة') cls = 'thumb-pyramid-dyn4';
-      if (item.dynasty === 'الأسرة الخامسة') cls = 'thumb-pyramid-dyn5';
-      if (item.dynasty === 'الأسرة السادسة') cls = 'thumb-pyramid-dyn6';
-      return `<div class="card-thumb-box ${cls}"><i class="fa-solid fa-monument"></i><span>هرم</span></div>`;
+    function getThumbBoxClass(item) {
+      if (item.dynasty === 'الأسرة السادسة') return 'thumb-pyramid-dyn6';
+      if (item.dynasty === 'الأسرة الخامسة') return 'thumb-pyramid-dyn5';
+      if (item.dynasty === 'الأسرة الرابعة') return 'thumb-pyramid-dyn4';
+      return 'thumb-pyramid-dyn3';
     }
 
-    function renderInterface(items) {
-      const cardsList = document.getElementById('cards-list');
-      cardsList.innerHTML = '';
+    function renderMonuments(data) {
       markerGroup.clearLayers();
+      const listContainer = document.getElementById('cards-list');
+      listContainer.innerHTML = '';
 
-      items.forEach(item => {
-        const badgeInfo = getSiteBadge(item);
+      data.forEach(item => {
         const marker = L.marker(item.coords, { icon: getMapSymbolIcon(item) });
-
+        
         const popupContent = `
           <div class="pop-img-container">
-            <img src="${item.img}" class="pop-img" alt="${item.name}" loading="lazy">
-            <div class="pop-badge"><i class="fa-solid fa-landmark"></i> ${badgeInfo.text}</div>
+            <img src="${item.img}" class="pop-img" alt="${item.name}">
+            <div class="pop-badge">${item.dynasty}</div>
           </div>
           <div class="pop-content-body">
             <div class="pop-title">${item.name}</div>
             <div class="pop-body">${item.info}</div>
             <div class="pop-meta">
-              <span><b>الملك:</b> ${item.king}</span> | <span><b>الموقع:</b> ${item.site}</span>
+              <div><b>الملك/الأسرة:</b> ${item.king}</div>
+              <div><b>الموقع:</b> ${item.site}</div>
             </div>
             <a href="https://www.google.com/maps/search/?api=1&query=${item.coords[0]},${item.coords[1]}" target="_blank" class="pop-gmaps-btn">
-              <i class="fa-solid fa-earth-africa"></i> فتح في Google Maps
+              <i class="fa-solid fa-location-dot"></i> فتح في خرائط جوجل
             </a>
           </div>
         `;
+
         marker.bindPopup(popupContent);
-        marker.on('click', () => selectCard(item.id));
         markerGroup.addLayer(marker);
         markersMap[item.id] = marker;
 
+        marker.on('click', () => {
+          highlightCard(item.id);
+        });
+
+        const badgeInfo = getSiteBadge(item);
+        const thumbClass = getThumbBoxClass(item);
+        
         const card = document.createElement('div');
         card.className = 'site-card';
         card.id = `card-${item.id}`;
         card.innerHTML = `
-          ${getThumbBox(item)}
+          <div class="card-thumb-box ${thumbClass}">
+            <i class="fa-solid fa-monument"></i>
+            <span>${item.dynasty.replace('الأسرة ال', '').replace('الأسرة الثالثة', 'الثالثة')}</span>
+          </div>
           <div class="card-body-content">
-            <div class="site-card-header">
-              <span class="site-card-title">${item.name}</span>
-              <span class="site-card-badge ${badgeInfo.class}">${badgeInfo.text}</span>
+            <div>
+              <div class="site-card-header">
+                <div class="site-card-title">${item.name}</div>
+                <span class="site-card-badge ${badgeInfo.class}">${badgeInfo.text}</span>
+              </div>
+              <div class="site-card-details">
+                <span><i class="fa-solid fa-crown"></i> ${item.king}</span>
+                <span><i class="fa-solid fa-map-pin"></i> ${item.site}</span>
+              </div>
             </div>
-            <div class="site-card-details">
-              <span><i class="fa-solid fa-crown"></i> ${item.king}</span>
-              <span><i class="fa-solid fa-location-dot"></i> ${item.site}</span>
-            </div>
-            <div class="site-card-coords">${item.coords[0].toFixed(4)}° N, ${item.coords[1].toFixed(4)}° E</div>
+            <div class="site-card-coords">${item.coords[0].toFixed(4)}, ${item.coords[1].toFixed(4)}</div>
           </div>
         `;
 
         card.onclick = () => {
-          if (window.innerWidth <= 900) toggleSidebar(false);
-          map.flyTo(item.coords, 17, { duration: 1.2 });
+          map.setView(item.coords, 16, { animate: true });
           marker.openPopup();
-          selectCard(item.id);
+          highlightCard(item.id);
+          if (window.innerWidth <= 900) toggleSidebar(false);
         };
 
-        cardsList.appendChild(card);
+        listContainer.appendChild(card);
       });
 
-      document.getElementById('countBadge').innerText = `${items.length} موقع`;
+      document.getElementById('countBadge').innerText = `${data.length} موقع`;
     }
 
-    function selectCard(id) {
+    function highlightCard(id) {
       document.querySelectorAll('.site-card').forEach(c => c.classList.remove('active-card'));
       const activeCard = document.getElementById(`card-${id}`);
       if (activeCard) {
@@ -912,39 +918,66 @@
       }
     }
 
-    function fitAllPoints() {
-      if (markerGroup.getLayers().length > 0) {
-        map.fitBounds(markerGroup.getBounds(), { padding: [50, 50] });
-      }
-    }
-
     function handleFilter() {
-      const query = document.getElementById('siteSearch').value.toLowerCase().trim();
+      const query = document.getElementById('siteSearch').value.toLowerCase();
       const filtered = monumentsData.filter(item => {
-        let matchesDynasty = activeDynasty === 'all' || item.dynasty === activeDynasty;
-        let matchesQuery = item.name.toLowerCase().includes(query) ||
+        const matchQuery = item.name.toLowerCase().includes(query) ||
                            item.king.toLowerCase().includes(query) ||
                            item.site.toLowerCase().includes(query) ||
                            item.info.toLowerCase().includes(query);
-        return matchesDynasty && matchesQuery;
+        const matchDynasty = (activeDynasty === 'all' || item.dynasty === activeDynasty);
+        const matchCategory = (activeFilter === 'all' || item.category === activeFilter);
+        return matchQuery && matchDynasty && matchCategory;
       });
-      renderInterface(filtered);
+      renderMonuments(filtered);
     }
 
-    function filterDynasty(dynasty, element) {
+    function filterDynasty(dynasty, btn) {
       activeDynasty = dynasty;
-      document.querySelectorAll('.king-btn').forEach(b => b.classList.remove('active'));
-      element.classList.add('active');
+      document.querySelectorAll('.kings-track .king-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
       handleFilter();
     }
 
-    function toggleDarkMode() {
-      const btn = document.getElementById('btnDarkMode');
-      let darkModeActive = document.body.classList.toggle('dark-mode');
-      btn.innerHTML = darkModeActive ? '<i class="fa-solid fa-sun"></i> الوضع النهاري' : '<i class="fa-solid fa-moon"></i> الوضع الليلي';
+    function filterCategory(category, tab) {
+      activeFilter = category;
+      document.querySelectorAll('.category-tabs .cat-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      handleFilter();
     }
 
-    renderInterface(monumentsData);
+    function fitAllPoints() {
+      if (markerGroup.getLayers().length > 0) {
+        map.fitBounds(markerGroup.getBounds(), { padding: [50, 50] });
+      } else {
+        map.setView([27.5, 31.8], 7);
+      }
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const btn = document.getElementById('btnDarkMode');
+      if (document.body.classList.contains('dark-mode')) {
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i> الوضع الفاتح';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i> الوضع الليلي';
+      }
+    }
+
+    function toggleSidebar(open) {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('drawerBackdrop');
+      if (open) {
+        sidebar.classList.add('open-drawer');
+        backdrop.classList.add('active');
+      } else {
+        sidebar.classList.remove('open-drawer');
+        backdrop.classList.remove('active');
+      }
+    }
+
+    // التشغيل الأولي لعرض البيانات
+    renderMonuments(monumentsData);
   </script>
 </body>
 </html>
